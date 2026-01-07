@@ -11,9 +11,9 @@ const Home = () => {
   const SkillsArray = Object.values(Skills);
 
   return (
-    <div className='ml-52  flex flex-col justify-between h-screen'>
+    <div className='  flex flex-col gap-7 h-screen'>
       {/* User Detail */}
-      <div className="userDetail flex self-center items-center pt-16">
+      <div className="userDetail flex self-center items-center ">
         <div className="image max-w-[458px]">
           <img src={img} alt="myPhoto" />
         </div>
@@ -26,7 +26,7 @@ const Home = () => {
       </div>
 
       {/* Skills Section */}
-      <div className="user-skills w-full flex items-start gap-3 self-center px-36 p-5">
+      <div className="user-skills w-full flex items-start gap-2 self-center px-32 p-5">
         {SkillsArray.map((mySkills) => (
           <div key={mySkills[0]} className=" flex-1 h-32 flex flex-col">
             <span className='text-gray-400 text-base'>{mySkills[0]}</span>

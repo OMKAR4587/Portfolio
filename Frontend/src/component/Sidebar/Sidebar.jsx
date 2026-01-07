@@ -3,7 +3,13 @@ import '../../Stylesheet/sidebar.css';
 import Navlinks from "./Navlinks";
 import { FaGithub, FaLinkedin, FaTwitter, FaInstagram } from 'react-icons/fa';
 const Sidebar = () => {
-  const navLinks = ["Home", "About", "Skills", "Projects", "Contact"];
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
+    { name: "Skills", path: "/skills" },
+    { name: "Projects", path: "/projects" },
+    { name: "Contact", path: "/contact" }
+  ];
   const socialLinks = [
     { icon: <FaGithub />, url: "https://github.com/omee" },
     { icon: <FaLinkedin />, url: "https://linkedin.com/in/omee" },
@@ -19,7 +25,7 @@ const Sidebar = () => {
 
       <div className="flex flex-col items-start justify-center mt-10 nav-links">
         {navLinks.map((link, index) => (
-          <Navlinks key={index} linkName={link} />
+          <Navlinks key={index} path={link.path} linkName={link.name} />
         ))}
       </div>
 

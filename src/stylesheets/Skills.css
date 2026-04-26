@@ -1,0 +1,40 @@
+/* skills section */
+
+.stack-container {
+    width: 100%;
+    padding-top: 6vw;
+}
+
+.skill-heading {
+    text-align: center;
+}
+
+.tech-stack {
+    display: grid;
+    padding: 2vw 2vw;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+}
+
+.tech {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+    filter: brightness(26%);
+    border: 1px solid rgb(61, 61, 61);
+    padding: 20px;
+}
+
+.tech:hover {
+    filter: brightness(100%);
+}
+
+.icon {
+    font-size: 40px;
+    color: red;
+    margin-bottom: 10px;
+
+}
+

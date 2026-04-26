@@ -1,0 +1,97 @@
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  color: black;
+  position: relative;
+  overflow: hidden;
+}
+
+.content {
+  text-align: center;
+}
+
+
+.tagline {
+  padding-top: 22%;
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: #aaa;
+  margin-bottom: 20px;
+}
+
+
+.name {
+  position: absolute;
+  left: 18.5%;
+  bottom: 12%;
+  font-size: 15vw;
+  font-weight: 900;
+  scale: 1.1 1.6;
+  line-height: 0.8;
+  letter-spacing: -16px;
+  padding: 2vw;
+}
+
+.rolling-svg {
+  position: absolute;
+  right: 0%;
+  bottom: -3%;
+}
+
+.text {
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: 4px;
+  transform-origin: 50% 50%;
+  animation: rotate 5s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotateZ(0deg);
+  }
+
+  to {
+    transform: rotateZ(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .tagline {
+    padding-top: 40%;
+    font-size: 12px;
+    letter-spacing: 4px;
+    color: #aaa;
+    margin-bottom: 20px;
+  }
+
+  .name {
+    position: absolute;
+    left: 21%;
+    top: 52%;
+    font-size: 15vw;
+    font-weight: 900;
+    transform: scale(1.3, 1.6);
+    /* FIXED */
+    line-height: 1;
+    letter-spacing: 1px;
+  }
+
+  svg {
+    position: absolute;
+    right: -6%;
+    bottom: 1%;
+  }
+
+  svg {
+    width: 150px;
+  }
+
+  .text {
+    font-size: 18px;
+  }
+}
+

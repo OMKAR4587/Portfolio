@@ -1,0 +1,161 @@
+
+.timeline {
+  /* padding-top: 5%; */
+  position: relative;
+  font-size: clamp(1.5rem, 80vw, 250px);
+  font-weight: 600;
+  cursor: default;
+  scale: 1 1.6;
+}
+
+.project-heading-wraper {
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  padding-top: 5vw;
+  align-items: baseline;
+  justify-content: center;
+  background-color: black;
+  /* border-bottom: #ccc 1px solid; */
+}
+
+.line-box {
+  position: absolute;
+  bottom: 5%;
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+}
+
+.uppertext-project-heading {
+  position: absolute;
+  object-fit: contain;
+  width: clamp(200px, 40vw, 400px);
+  height: auto;
+  top: 16%;
+  left: 10%;
+  z-index: 1;
+}
+
+.timeline span {
+  display: inline-block;
+  transition: transform 0.2s ease;
+  transform-origin: top center;
+}
+/* container */
+.projects {
+  padding: 3vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2vw;
+
+}
+
+
+/* image */
+.project-card .img-container {
+  /* width: 900px; */
+  position: relative;
+  height: 80vh;
+  overflow: hidden;
+  object-fit: cover;
+  display: block;
+  border-radius: 25px;
+  transition: filter 0.4s ease, transform 0.4s ease;
+}
+
+.project-card .img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 25px;
+}
+
+/* view text */
+.view {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.8);
+  /* combine transforms */
+  transition: 0.3s ease;
+}
+
+/* hover effects */
+.project-card:hover img {
+  filter: brightness(60%);
+}
+
+.project-card:hover .view {
+  opacity: 1;
+transform: translate(-50%, -50%) scale(1);
+}
+
+/* bottom info */
+.info {
+  margin-top: 15px;
+  margin-left: 0.5vw;
+}
+
+/* title */
+.title {
+  color: white;
+  font-size: 24px;
+  margin: 0;
+  transition: 0.3s;
+}
+
+.project-card:hover .title.yellow {
+  color: rgb(250, 30, 30);
+}
+
+/* description */
+.desc {
+  font-size: 16px;
+  color: #aaa;
+  margin: 5px 0;
+}
+.section-title{
+  display: none;
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  padding: 10px 0;
+  font-weight: 700;
+}
+/* responsive */
+@media (max-width: 768px) {
+ .project-card:focus-within .view {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+  .section-title{
+    display: block;
+
+  }
+  .three{
+    display: none;
+  }
+  .projects {
+   display: grid;
+   grid-template-columns: 1fr;
+  }
+   .project-card {
+    padding: 4vw 0;
+   }
+  .project-card .img-container{
+    height: 30vh;
+  
+  }
+}
+

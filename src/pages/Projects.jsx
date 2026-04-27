@@ -14,28 +14,28 @@ export default function Projects() {
     "title": "CareLink",
     "description": "Unified Healthcare Platform",
     "image": "https://images.unsplash.com/photo-1774575285735-f58aacba9a99?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwyNHx8fGVufDB8fHx8fA%3D%3D",
-    "color": "yellow"
+    "link": "https://github.com/OMKAR4587/CareLink"
   },
   {
     "id": 2,
     "title": "EduTrack",
     "description": "Student Performance Dashboard",
     "image": "https://images.unsplash.com/photo-1761839257469-96c78a7c2dd3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxMDZ8fHxlbnwwfHx8fHw%3D",
-    "color": "blue"
+    "link": "https://github.com/OMKAR4587/EduTrack"
   },
   {
     "id": 3,
     "title": "ShopEase",
     "description": "E-commerce Analytics System",
     "image": "https://images.unsplash.com/photo-1773332585749-5146862ba746?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxMTN8fHxlbnwwfHx8fHw%3D",
-    "color": "green"
+    "link": "https://github.com/OMKAR4587/ShopEase"
   },
   {
     "id": 4,
     "title": "WorkForce",
     "description": "Employee Management System",
     "image": "https://images.unsplash.com/photo-1761850648640-2ee5870ee883?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxMzR8fHxlbnwwfHx8fHw%3D",
-    "color": "pink"
+    "link": "https://github.com/OMKAR4587/WorkForce"
   }
 ]
 
@@ -91,7 +91,7 @@ useEffect(() => {
           <img src={data.image}
           ref={(el)=>imageRef.current[index]=el}
            alt="CareLink" />
-           <p className="view">View Project</p>
+           <a href={data.link} className="view">View Project</a>
         </div>
  
           

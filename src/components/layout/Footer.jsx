@@ -33,7 +33,10 @@ export default function Footer() {
 
       </div>
 
+      <h1 className="Footer-header">Yevale</h1>
+
       <div className="footer-bottom">
+        <p>Designed & Developed by Omkar</p>
         <p>© 2026 Omkar. All rights reserved.</p>
       </div>
     </footer>

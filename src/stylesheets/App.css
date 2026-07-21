@@ -29,8 +29,10 @@
 html,
 body {
   /* overflow-x: hidden; */
+  /* background-color: whitesmoke; */
   font-family: sans-serif;
-  width: 100%;
+  width: 100vw;
+  overflow: hidden;
 }
 
 section {
@@ -42,37 +44,24 @@ section {
 }
 
 section .five {
-  position: relative;
-  z-index: 1;
+  /* position: relative; */
+  /* z-index: 1; */
 }
 
 .container {
   /* position: relative; */
   width: 100%;
-  height: 100%;
   /* padding: 2rem; */
 
   /* Start rotated */
   /* transform: rotate(30deg); */
   /* transform-origin: bottom left; */
-  font-size: clamp(10px, 3vw, 50px);
+  /* font-size: clamp(10px, 3vw, 50px); */
   /* will-change: transform; */
 }
 
 /* Colors */
-.one .container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #FFFFFF;
-}
-
 .three .container {
-  /* width: 100vw; */
-  position: relative;
-  height: 200svh;
-  width: 100%;
-  color: rgb(255, 9, 9);
 }
 
 .four .container {
@@ -83,5 +72,31 @@ section .five {
   background: black;
   color: white;
 }
+.marimba-grid-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1; /* Pushes lines safely behind all clickable elements */
+  
+  display: grid;
+  /* Adjust the count (5) to match the amount of lines you want */
+  grid-template-columns: repeat(5, 1fr); 
+  
+  /* Optional padding to pull outer lines slightly away from browser edges */
+  padding: 0 40px; 
+  box-sizing: border-box;
+}
 
+/* Style the individual lines */
+.grid-line {
+  height: 100%;
+  /* Creates a subtle divider line on the left side of every column block */
+  border-left: 1px solid rgba(0, 0, 0, 0.07); 
+}
 
+/* Adds a closing outer right-hand border to the final column tracking */
+.grid-line:last-child {
+  border-right: 1px solid rgba(0, 0, 0, 0.07);
+}

@@ -60,7 +60,7 @@ useEffect(() => {
           const split = SplitText.create(el, {
             type: "lines",
             mask: "lines",
-            linesClass: "line"
+            linesclassName: "line"
           });
 
           containerSplits.push(split);

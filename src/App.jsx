@@ -48,19 +48,25 @@ const App = () => {
   return (
     <>
       <ReactLenis root />
-       <Toaster
-  position="bottom-center"
-  toastOptions={{
-    duration: 3000,
-    style: {
-      background: "#111",
-      color: "#fff",
-      borderRadius: "10px",
-      padding: "12px 16px",
-    },
-  }}
-/>
-
+      <Toaster
+        position="bottom-center"
+        toastOptions={{
+          duration: 3000,
+          style: {
+            background: "#111",
+            color: "#fff",
+            borderRadius: "10px",
+            padding: "12px 16px",
+          },
+        }}
+      />
+      <div className="marimba-grid-bg">
+        <div className="grid-line"></div>
+        <div className="grid-line"></div>
+        <div className="grid-line"></div>
+        <div className="grid-line"></div>
+        <div className="grid-line"></div>
+      </div>
       <main ref={containerRef}>
 
         <Menu />
@@ -71,39 +77,32 @@ const App = () => {
           </div>
         </section>
 
-        <section id="about" className="two">
-          <div className="container">
-            <About />
-          </div>
-        </section>
-
-        <section id="projects" className="three" ref={parentRef}>
-          <div className="container">
-            <ProjectHeading boxRef={boxRef} />
-          </div>
-        </section>
-
-        <section className="four">
+        <section id="projects" className="two">
           <div className="container">
             <Projects />
           </div>
         </section>
+         {/* <section className="four">
+          <div className="container">
+            <About />
+          </div>
+        </section> */}
 
-        <section id="skills" className="five">
+        {/* <section id="skills" className="five">
           <div className="container">
             <Skills />
           </div>
-        </section>
+        </section> */}
 
-        <section id="contact" className="six">
+        {/* <section id="contact" className="six">
           <div className="container">
             <Contact />
           </div>
-        </section>
+        </section> */}
 
-        <Footer />
-
+       {/* <Footer /> */}
       </main>
+        
     </>
   );
 

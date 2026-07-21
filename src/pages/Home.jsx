@@ -1,89 +1,225 @@
-import { useEffect } from "react";
-import gsap from "gsap";
-import '../stylesheets/Home.css'
+import React, { useEffect, useRef } from "react";
+import "../stylesheets/Home.css";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+gsap.registerPlugin(ScrollTrigger);
 
-export default function Home() {
+function Home() {
+  const heroRef = useRef(null);
 
 
   useEffect(() => {
-gsap.fromTo(".name",
-  {
-    clipPath: "inset(100% 0% 0% 0%)"
-  },
-  {
-    clipPath: "inset(0% 0% 0% 0%)", 
-    duration: 2,
-    ease: "power4.out"
-  }
-);
-gsap.fromTo(".tagline",
-  {
-    y:-50,
-    opacity:0,
-  }
-  ,{
-  y:0,
-  opacity:1,
-  duration:1
-})
-gsap.fromTo(".rolling-svg",
-  {x:200,
-    opacity:0
-  },
-  {
-    x:0,
-    opacity:1,
-    duration:1
-  })
-}, []);
 
-  const buttonsProperty = [
-    { text: "VIEW PROJECT", w: "160px", h: "45px" },
-    { text: "CONTACT ME", w: "160px", h: "45px" }
-  ]
+    gsap.to(".circles", {
+      // gap: 20,
+      rotation: 1080,
+      scrollTrigger: {
+        trigger: ".home-container",
+        start: "top bottom",
+        end: "bottom bottom",
+        scrub: true,
+        // markers:true
+      },
+    });
+    gsap.fromTo(
+      ".mid-content",
+      {
+        opacity: 1,
+        y: 0,
+      },
+      {
+        opacity: 0,
+        y: -20,
+        scrollTrigger: {
+          trigger: ".home-container",
+          start: "top top",
+          end: "8% 0%",
+          scrub: true,
+        },
+      }
+    );
+    gsap.fromTo(
+      ".blob",
+      {
+        filter: "blur(100px)"
+      },
+      {
+        filter: "blur(3px)",
+        scrollTrigger: {
+          trigger: ".hero-bg",
+          start: "top bottom",
+          end: "80% 80%",
+          scrub: true
+        }
+      }
+    );
+    let spinTween;
+
+    ScrollTrigger.create({
+      trigger: ".home-container",
+      start: "65% center",
+      end: "+=300",
+      onEnter: () => {
+        spinTween = gsap.to(".circles", {
+          rotation: "+=360",
+          marker: true,
+          duration: 30,
+          ease: "none",
+          repeat: -1,
+          onUpdate: function () {
+            // 1. Get the exact live rotation value of the parent container (.circles)
+            const parentRotation = gsap.getProperty(".circles", "rotation");
+
+            // 2. Force the text elements to rotate in the exact opposite direction.
+            // If the parent is at 45deg, the text shifts to -45deg. 
+            // This keeps the text completely upright relative to the screen.
+            gsap.set(".inside-buble-text", {
+              rotation: -parentRotation
+            });
+          }
+        });
+      },
+      onLeaveBack: () => {
+        if (spinTween) {
+          spinTween.kill();
+          // Reset text rotation back to normal when the animation clears
+          gsap.set(".inside-buble-text", { rotation: 0 });
+        }
+      }
+    });
+    gsap.to(".middle-name", {
+      opacity: 1,
+      color: "#3e3d3d",
+      scrollTrigger: {
+        trigger: ".home-container",
+        start: "85% 85%",
+        end: "bottom bottom",
+        scrub: true,
+
+      },
+    });
+    gsap.to(".inside-buble-text", {
+      opacity: 1,
+      scrollTrigger: {
+        trigger: ".home-container",
+        start: "90% 90%",
+        end: "bottom bottom",
+        scrub: true,
+        // markers:true
+      },
+    });
+    gsap.to(".circles", {
+      borderWidth: "2px",
+      borderColor: "#ccc",
+      duration: 0.5,
+      scrollTrigger: {
+        trigger: ".home-container",
+        start: "80% 70%",
+        end: "bottom bottom",
+        scrub: true,
+        // markers:true
+      },
+    });
+    gsap.fromTo(
+      ".hero-bg",
+      {
+        scale: 10,
+      },
+      {
+        scale: 1,
+        scrollTrigger: {
+          trigger: ".home-container",
+          start: "top bottom",
+          end: "80% 80%",
+          scrub: true,
+        },
+      }
+    );
+    gsap.to(".circles", {
+      borderWidth: "2px",
+      borderColor: "#ccc",
+      duration: 0.5,
+      scrollTrigger: {
+        trigger: ".home-container",
+        start: "90% 90%",
+        end: "bottom bottom",
+        scrub: true,
+        // markers:true
+      },
+    });
+    gsap.to(".hero-bg", {
+      opacity: 0,
+      duration: 0.5,
+      scrollTrigger: {
+        trigger: ".home-container",
+        start: "bottom bottom",
+        end: "+=300",
+        scrub: true,
+      }
+    });
+
+  }, []);
+  const sectionRef = useRef(null);
 
   return (
-    <div className="hero">
-      <div className="content">
-        <p className="tagline">CRAFTING BEAUTIFUL DIGITAL EXPERIENCES</p>
-        <h1 className="name">
-          OMKAR<br />
-          YEVLE
-        </h1>
+    <div ref={heroRef}>
+      {/* Background */}
+      <div className="home-container">
+        <div className="top-bar">
+          <span>Digital Developer</span>
+          <span>Based in Mumbai, Maharashtra</span>
+        </div>
+
+        <div className="mid-content">
+          <p className="dev-tag">Welcome — I'm Omkar Yevale.</p>
+
+          <h1 className="hero-heading">
+            I{" "}
+            <span className="quick-link">
+              <span className="inner-text">About</span>
+            </span>{" "}
+            build digital experiences that users love.
+            <br />
+            <span className="sub-heading">
+              Full Stack Developer specializing in React, Next.js, Node.js &
+              modern web technologies.
+            </span>
+          </h1>
+        </div>
       </div>
-      <svg className='rolling-svg' width="250" height="250" viewBox="0 0 250 250">
 
-        {/* circle visible */}
-        <circle
-          cx="125"
-          cy="125"
-          r="50"
-          fill="transparent"
-        />
+      <div className="section-wrapper" ref={sectionRef}>
+        <div className="hero-bg">
+          <h3 className="middle-name">My craft</h3>
+          <div className="circles">
 
-        {/* IMPORTANT: path instead of circle in defs */}
-        <defs>
-          <path
-            id="curve"
-            d="M 125,125 m -50,0 a 50,50 0 1,1 100,0 a 50,50 0 1,1 -100,0"
-          />
-        </defs>
+            <div className="blob blob1"></div>
+            <div className="blob blob2"></div>
+            <div className="blob blob3"></div>
+            <p className="inside-buble-text-1 inside-buble-text">Frontend</p>
+            <p className="inside-buble-text-2 inside-buble-text">Backend</p>
+            <p className="inside-buble-text-3 inside-buble-text">Cloud</p>
+          </div>
 
-        <text
-          className='text'
-          fill="black"
-          fontSize="16"
-          textAnchor="middle"
-        >
-          <textPath href="#curve" startOffset="50%">
-            AVAILABLE • FOR • WORK •
-          </textPath>
-        </text>
+        </div>
 
-      </svg>
+
+      </div>
+
+      {/* Floating Cards */}
+
+      {/* <div className="floating-card card1">⚛ React</div>
+
+      <div className="floating-card card2">🚀 GSAP</div>
+
+      <div className="floating-card card3">💻 Node.js</div> */}
+
+      {/* Hero */}
+
+
     </div>
-  )
+  );
 }
 
-
+export default Home;

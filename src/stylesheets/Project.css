@@ -1,163 +1,192 @@
-
-.timeline {
-  /* padding-top: 5%; */
-  position: relative;
-  font-size: clamp(1.5rem, 80vw, 250px);
-  font-weight: 600;
-  cursor: default;
-  scale: 1 1.6;
+.project-wraper {
+    height: 600vh;
 }
 
-.project-heading-wraper {
-  position: sticky;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  padding-top: 5vw;
-  align-items: baseline;
-  justify-content: center;
-  background-color: black;
-  /* border-bottom: #ccc 1px solid; */
-}
-
-.line-box {
-  position: absolute;
-  bottom: 5%;
-  width: 100%;
-  height: 1px;
-  background-color: #ccc;
-}
-
-.uppertext-project-heading {
-  position: absolute;
-  object-fit: contain;
-  width: clamp(200px, 40vw, 400px);
-  height: auto;
-  top: 16%;
-  left: 10%;
-  z-index: 1;
-}
-
-.timeline span {
-  display: inline-block;
-  transition: transform 0.2s ease;
-  transform-origin: top center;
-}
-/* container */
-.projects {
-  padding: 3vw;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2vw;
+.Project-section {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    height: 400vh;
+    /* background-color: azure; */
 
 }
 
+.Project-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 750px;
+    height: 500px;
+    overflow: hidden;
 
-/* image */
-.project-card .img-container {
-  /* width: 900px; */
-  position: relative;
-  height: 80vh;
-  overflow: hidden;
-  object-fit: cover;
-  display: block;
-  border-radius: 25px;
-  transition: filter 0.4s ease, transform 0.4s ease;
+    border-radius: 30px;
+
+    /* z-index: 20 !important; */
 }
 
-.project-card .img-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  border-radius: 25px;
+.project-container-overlay {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* border-radius: 10px; */
+    clip-path: inset(28% 15% 28% 15% round 30px);
 }
 
-/* view text */
-.view {
-  text-decoration: none;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  font-size: 20px;
-  font-weight: 600;
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(0.8);
-  /* combine transforms */
-  transition: 0.3s ease;
-  cursor: pointer;
+.zero-color {
+    /* background-color: rgb(135, 181, 222); */
+    border-radius: 20px;
 }
 
-/* hover effects */
-.project-card:hover img {
-  filter: brightness(60%);
+
+.project-holder-2 {
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/images/project-three-bg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    clip-path: inset(100% 0 0 0);
 }
 
-.project-card:hover .view {
-  opacity: 1;
-transform: translate(-50%, -50%) scale(1);
+.project-holder-3 {
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/images/I1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    clip-path: inset(100% 0 0 0);
 }
 
-/* bottom info */
-.info {
-  margin-top: 15px;
-  margin-left: 0.5vw;
+
+.two-color {
+    background-color: transparent;
 }
 
-/* title */
-.title {
-  color: white;
-  font-size: 24px;
-  margin: 0;
-  transition: 0.3s;
+.three-color {
+
+    background-color: transparent;
 }
 
-.project-card:hover .title.yellow {
-  color: rgb(250, 30, 30);
+.my-project-1,
+.my-project-2,
+.my-project-3 {
+    /* background-color: bisque; */
+    position: absolute;
+    /* top: 30%; */
+    left: 0%;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
 }
 
-/* description */
-.desc {
-  font-size: 16px;
-  color: #aaa;
-  margin: 5px 0;
-}
-.section-title{
-  display: none;
-  color: white;
-  text-align: center;
-  font-size: 30px;
-  padding: 10px 0;
-  font-weight: 700;
-}
-/* responsive */
-@media (max-width: 768px) {
- .project-card:focus-within .view {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
+.zero-color,
+.one-color,
+.two-color,
+.three-color {
+    width: 750px;
+    height: 500px;
+    /* background-color: bisque; */
 }
 
-  .section-title{
-    display: block;
-
-  }
-  .three{
-    display: none;
-  }
-  .projects {
-   display: grid;
-   grid-template-columns: 1fr;
-  }
-   .project-card {
-    padding: 4vw 0;
-   }
-  .project-card .img-container{
-    height: 30vh;
-  
-  }
+/* content */
+.project-detail-container-1 {
+    position: absolute;
+    right: 0%;
+    top: 22.5%;
+    width: 40%; 
+    height: 500px;
+    padding: 1vw;
+    color: #3A4A16;
+    z-index: 7;
 }
 
+.project-detail-container-2 {
+    position: absolute;
+    right: 0;
+    /* top: 22.5%; */
+    width: 40%;
+    height: 500px;
+    padding: 1vw;
+    color: #3A4A16;
+    z-index: 8;
+}
+
+.project-detail-container-3 {
+     position: absolute;
+     right: 0;
+    top: 22.5%;
+    width: 40%; 
+    height: 500px;
+    padding: 1vw;
+    color: #3A4A16;
+    z-index: 9;
+}
+
+.project-left {
+    display: flex;
+    align-items: start;
+    gap: 4vw;
+    flex-direction: column;
+
+}
+
+.project-count {
+    display: flex;
+    align-items: start;
+    gap: 10px;
+}
+
+.project-count-index {
+    font-weight: 500;
+    font-size: 40px;
+}
+
+.total-project-count {
+    color: #b5c296;
+}
+
+.project-content {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 20px;
+}
+
+.project-title {
+    font-size: 40px;
+    font-weight: 500;
+}
+
+.case-study-btn {
+    font-size: 16px;
+    border: 1px solid #3A4A16;
+    padding: 10px 22px;
+    border-radius: 20px;
+    color: inherit;
+    cursor: pointer;
+}
+
+.project-description {
+    align-self: flex-end;
+    padding-left: 20px;
+    font-size: 15px;
+    line-height: 1.3;
+    width: 300px;
+}
+@media (max-width: 768px){
+    .Project-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* width: 750px;
+    height: 500px; */
+    width:80vw;
+    height: 40vh;
+    overflow: hidden;
+    border-radius: 30px;
+    /* z-index: 20 !important; */
+}
+}

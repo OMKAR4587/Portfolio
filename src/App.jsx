@@ -88,19 +88,19 @@ const App = () => {
           </div>
         </section> */}
 
-        {/* <section id="skills" className="five">
+        <section id="skills" className="five">
           <div className="container">
             <Skills />
           </div>
-        </section> */}
+        </section>
 
-        {/* <section id="contact" className="six">
+        <section id="contact" className="six">
           <div className="container">
             <Contact />
           </div>
-        </section> */}
+        </section>
 
-       {/* <Footer /> */}
+       <Footer />
       </main>
         
     </>

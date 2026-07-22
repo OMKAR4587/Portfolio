@@ -7,9 +7,10 @@ import { CustomEase } from "gsap/CustomEase";
 import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/all";
+import { MdMenuOpen } from "react-icons/md";
 // import Lenis from "lenis";
 
-gsap.registerPlugin(CustomEase, SplitText , ScrollTrigger);
+gsap.registerPlugin(CustomEase, SplitText, ScrollTrigger);
 
 const Menu = () => {
   const [active, setActive] = useState("home");
@@ -19,22 +20,23 @@ const Menu = () => {
   const isMenuOpenRef = useRef(false);
   const isAnimatingRef = useRef(false);
   const handleClickRef = useRef(null);
+  const [menuOpen, setmenuOpen] = useState(false)
 
-useEffect(() => {
-  const sections = ["home", "about", "projects", "skills", "contact"];
+  useEffect(() => {
+    const sections = ["home", "about", "projects", "skills", "contact"];
 
-  sections.forEach((id) => {
-    ScrollTrigger.create({
-      trigger: `#${id}`,
-      start: "top center",
-      end: "bottom center",
-      onEnter: () => setActive(id),
-      onEnterBack: () => setActive(id),
+    sections.forEach((id) => {
+      ScrollTrigger.create({
+        trigger: `#${id}`,
+        start: "top center",
+        end: "bottom center",
+        onEnter: () => setActive(id),
+        onEnterBack: () => setActive(id),
+      });
     });
-  });
 
-  return () => ScrollTrigger.getAll().forEach(t => t.kill());
-}, []);
+    return () => ScrollTrigger.getAll().forEach(t => t.kill());
+  }, []);
 
   useGSAP(() => {
 
@@ -86,7 +88,7 @@ useEffect(() => {
 
     if (!menuToggleBtn) return;
 
- 
+
 
     const handleClick = () => {
 
@@ -95,9 +97,8 @@ useEffect(() => {
       isAnimatingRef.current = true;
 
       if (!isMenuOpenRef.current) {
-
         lenis?.stop();
-
+        setmenuOpen(true)
         const tl = gsap.timeline({
           onComplete: () => {
             isAnimatingRef.current = false;
@@ -152,7 +153,7 @@ useEffect(() => {
         menuToggleLabel.classList.add("active")
 
       } else {
-
+        setmenuOpen(false)
         const tl = gsap.timeline({
           onComplete: () => {
 
@@ -220,39 +221,39 @@ useEffect(() => {
 
   }, { scope: container });
 
- useEffect(() => {
-  if (!lenis) return;
+  useEffect(() => {
+    if (!lenis) return;
 
-  const onScroll = ({ scroll }) => {
-    setscrolled(scroll > 600);
+    const onScroll = ({ scroll }) => {
+      setscrolled(scroll > 600);
+    };
+
+    lenis.on("scroll", onScroll);
+
+    return () => {
+      lenis.off("scroll", onScroll);
+    };
+  }, [lenis]);
+
+
+  const handleNavClick = (target) => {
+    if (!lenis) return;
+
+    const el = document.querySelector(target);
+    if (!el) return;
+
+    // CLOSE MENU FIRST
+    if (isMenuOpenRef.current && !isAnimatingRef.current) {
+      handleClickRef.current(); // ✅ trigger close animation
+    }
+
+    // THEN SCROLL
+    setTimeout(() => {
+      lenis.scrollTo(el, {
+        duration: 1.2,
+      });
+    }, 800); // slightly longer for smoothness
   };
-
-  lenis.on("scroll", onScroll);
-
-  return () => {
-    lenis.off("scroll", onScroll);
-  };
-}, [lenis]);
-
-
-const handleNavClick = (target) => {
-  if (!lenis) return;
-
-  const el = document.querySelector(target);
-  if (!el) return;
-
-  // CLOSE MENU FIRST
-  if (isMenuOpenRef.current && !isAnimatingRef.current) {
-    handleClickRef.current(); // ✅ trigger close animation
-  }
-
-  // THEN SCROLL
-  setTimeout(() => {
-    lenis.scrollTo(el, {
-      duration: 1.2,
-    });
-  }, 800); // slightly longer for smoothness
-};
 
   return (
     <>
@@ -264,13 +265,15 @@ const handleNavClick = (target) => {
 
           <div className="menu-toggle-button">
 
-            <div className="menu-toggle-label">
-            </div>
+            <div className="menu-toggle-label"></div>
 
-            <div className={`menu-hamberger-icon ${scrolled ? "scrolled-menu-hamberger-icon" : ""}`}  >
+            <button
+              type="button"
+              className={`menu-hamberger-icon ${menuOpen ? "active" : ""}`}
+            >
               <span></span>
               <span></span>
-            </div>
+            </button>
 
           </div>
 
@@ -283,21 +286,22 @@ const handleNavClick = (target) => {
 
             <div className="menu-content-main">
 
-              <div className="menu-col">
-                <div onClick={() => handleNavClick("#home")} className={`menu-link ${active === "home" ? "active" : ""}`}>Home</div>
-                <div onClick={() => handleNavClick("#about")}  className={`menu-link ${active === "about" ? "active" : ""}`}>About</div>
-                <div onClick={() => handleNavClick("#projects")}  className={`menu-link ${active === "projects" ? "active" : ""}`}>Projects</div>
-                <div onClick={() => handleNavClick("#skills")}  className={`menu-link ${active === "skills" ? "active" : ""}`}>Skills</div>
-                <div onClick={() => handleNavClick("#contact")}  className={`menu-link ${active === "contact" ? "active" : ""}`}>Contact</div>
+              <div className="menu-col links">
+                <h2 onClick={() => handleNavClick("#home")} className={`menu-link ${active === "home" ? "active" : ""}`}>Home</h2>
+                <h2 onClick={() => handleNavClick("#about")} className={`menu-link ${active === "about" ? "active" : ""}`}>About</h2>
+                <h2 onClick={() => handleNavClick("#projects")} className={`menu-link ${active === "projects" ? "active" : ""}`}>Projects</h2>
+                <h2 onClick={() => handleNavClick("#skills")} className={`menu-link ${active === "skills" ? "active" : ""}`}>Skills</h2>
+                <h2 onClick={() => handleNavClick("#contact")} className={`menu-link ${active === "contact" ? "active" : ""}`}>Contact</h2>
               </div>
 
-              <div className="menu-col">
+              <div className="menu-bottom-content">
+                <div className="menu-col left-side-menu-content">
                 <div className="menu-tag">Web Animation</div>
                 <div className="menu-tag">Responsive Website</div>
                 <div className="menu-tag">Modern UI</div>
               </div>
 
-              <div className="menu-footer">
+              <div className="menu-footer right-side-menu-content">
 
                 <div className="menu-col">
                   <p className="menu-p">Mumbai, Maharashtra</p>
@@ -305,9 +309,10 @@ const handleNavClick = (target) => {
 
                 <div className="menu-col">
                   <a href="https://wa.me/7021357156" className="menu-p">+91 7021357156</a>
-                  <a  href="mailto:omee5663@gmail.com?subject=Hello&body=I want to contact you" className="menu-p">omee5663@gmail.com</a>
+                  <a href="mailto:omee5663@gmail.com?subject=Hello&body=I want to contact you" className="menu-p">omee5663@gmail.com</a>
                 </div>
 
+              </div>
               </div>
 
             </div>

@@ -1,28 +1,32 @@
+import overlayImg from "../assets/images/project-one-bg.png";
+import project2 from "../assets/images/project-three-bg.png";
+import project3 from "../assets/images/I1.png";
+
 const projectData = [
   {
-    projectNumber: "01",
-    projectName: "Modern Portfolio",
-    Date:"March 2026",
-    imgProject: [
-      "https://images.unsplash.com/photo-1492724441997-5dc865305da7"
-    ]
+    id: 1,
+    count: "01",
+    title: "Mercer Mass Timber",
+    description:
+      "A three-year collaboration evolving a complex, technical website into a scalable digital platform.",
+    image: overlayImg,
   },
   {
-    projectNumber: "02",
-    projectName: "E-Commerce Platform",
-    Date:"March 2026",
-    imgProject: [
-      "https://images.unsplash.com/photo-1557821552-17105176677c"
-    ]
+    id: 2,
+    count: "02",
+    title: "Mercer Mass Timber",
+    description:
+      "A three-year collaboration evolving a complex, technical website into a scalable digital platform.",
+    image: project2,
   },
   {
-    projectNumber: "03",
-    projectName: "Admin Dashboard",
-    Date:"March 2026",
-    imgProject: [
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f"
-    ]
-  }
+    id: 3,
+    count: "03",
+    title: "Mercer Mass Timber",
+    description:
+      "A three-year collaboration evolving a complex, technical website into a scalable digital platform.",
+    image: project3,
+  },
 ];
 
 export default projectData;

@@ -1,299 +1,623 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import "../stylesheets/Contact.css";
+
 import emailjs from "@emailjs/browser";
 import toast from "react-hot-toast";
-import { MdEmail } from "react-icons/md";
+
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FaWhatsapp, FaGithub } from "react-icons/fa";
+
+import { FaArrowRight } from "react-icons/fa";
+
 const EMAIL_SERVICE = import.meta.env.VITE_EMAIL_SERVICE;
 const EMAIL_TEMPLATE = import.meta.env.VITE_EMAIL_TEMPLATE;
 const EMAIL_PUBLIC_KEY = import.meta.env.VITE_EMAIL_PUBLIC_KEY;
 
+
+gsap.registerPlugin(ScrollTrigger);
+
+
 const Contact = () => {
 
-    
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger)
-
- gsap.fromTo(".contact-left",
-  { x: -100, opacity: 0 },
-  {
-    x: 0,
-    opacity: 1,
-    duration: 1,
-    scrollTrigger: {
-      trigger: ".contact-section",
-      start: "top 80%",
-      toggleActions: "play none none reverse"
-    }
-  }
-);
-  gsap.fromTo(".contact-right", 
-    {
-      x:100,
-      opacity:0
-    },
-    {
-    x: 0,
-    opacity: 1,
-    duration: 1,
-    scrollTrigger: {
-      trigger: ".contact-section",
-      start: "top 80%",
-      toggleActions: "play none none reverse"
-    },
-  })
-  }, [])
 
     const [form, setForm] = useState({
+
         name: "",
         email: "",
         whatsapp: "",
+        project: "",
         message: "",
-        answer: "",
+        answer: ""
+
     });
 
+
+    const [captcha, setCaptcha] = useState({
+
+        num1: 0,
+        num2: 0
+
+    });
+
+
     const [errors, setErrors] = useState({});
-    const [captcha, setCaptcha] = useState({ num1: 0, num2: 0 });
+
     const [loading, setLoading] = useState(false);
 
-    // Generate random numbers
-    const generateCaptcha = () => {
-        const n1 = Math.floor(Math.random() * 10);
-        const n2 = Math.floor(Math.random() * 10);
-        setCaptcha({ num1: n1, num2: n2 });
-    };
+
 
     useEffect(() => {
+
         generateCaptcha();
+
+
+        gsap.fromTo(
+            ".contact-reveal",
+
+            {
+                y: 40,
+                opacity: 0
+            },
+
+            {
+                y: 0,
+                opacity: 1,
+                duration: .8,
+                stagger: .15,
+
+                scrollTrigger: {
+                    trigger: ".contact-section",
+                    start: "top 75%"
+                }
+
+            }
+
+        );
+
+
     }, []);
 
-    const handleChange = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
-        console.log(form)
+
+
+    const generateCaptcha = () => {
+
+
+        setCaptcha({
+
+            num1: Math.floor(Math.random() * 10),
+
+            num2: Math.floor(Math.random() * 10)
+
+        });
+
+
     };
+
+
+
+    const handleChange = (e) => {
+
+
+        setForm({
+
+            ...form,
+
+            [e.target.name]: e.target.value
+
+        });
+
+
+    };
+
+
 
     const validate = () => {
-        let newErrors = {};
 
-        if (!form.name.trim()) {
-            newErrors.name = "Name required";
-        }
 
-        if (!form.email.trim()) {
-            newErrors.email = "Email required";
-        } else if (!/^\S+@\S+\.\S+$/.test(form.email)) {
-            newErrors.email = "Invalid email";
-        }
+        let error = {};
 
-        if (!form.message.trim()) {
-            newErrors.message = "Message required";
-        }
 
-        // CAPTCHA validation
-        const correctAnswer = captcha.num1 + captcha.num2;
 
-        if (!form.answer) {
-            newErrors.answer = "Answer required";
-        } else if (isNaN(form.answer)) {
-            newErrors.answer = "Must be a number";
-        } else if (parseInt(form.answer) !== correctAnswer) {
-            newErrors.answer = "Wrong answer. Try again.";
-        }
+        if (!form.name.trim())
+            error.name = "Name is required";
 
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
+
+        if (!form.email.trim())
+            error.email = "Email is required";
+
+
+        else if (!/^\S+@\S+\.\S+$/.test(form.email))
+
+            error.email = "Invalid email";
+
+
+
+        if (!form.project)
+
+            error.project = "Select project type";
+
+
+
+        if (!form.message.trim())
+
+            error.message = "Message required";
+
+
+
+        if (
+            Number(form.answer)
+            !== captcha.num1 + captcha.num2
+        )
+
+            error.answer = "Wrong answer";
+
+
+
+        setErrors(error);
+
+
+        return Object.keys(error).length === 0;
+
+
     };
 
-    // Submit
-    const handleSubmit = (e) => {
+
+
+
+    const submitHandler = async (e) => {
+
+
         e.preventDefault();
+
+
 
         if (!validate()) return;
 
-        setLoading(true);
 
-        const templateParams = {
-            name: form.name,
-            email: form.email,
-            whatsapp: form.whatsapp,
-            message: form.message
-        };
-        console.log(templateParams)
 
-        emailjs
-            .send(
+        try {
+
+
+            setLoading(true);
+
+
+
+            await emailjs.send(
+
                 EMAIL_SERVICE,
+
                 EMAIL_TEMPLATE,
-                templateParams,
-                EMAIL_PUBLIC_KEY
-            )
-            .then(
-                (response) => {
-                    console.log("SUCCESS!", response.status, response.text);
-                    toast.success("Message sent successfully!");
 
-                    // Reset form
-                    setForm({
-                        name: "",
-                        email: "",
-                        whatsapp: "",
-                        message: "",
-                        answer: ""
-                    });
+                {
 
-                    setErrors({});
-                    generateCaptcha();
+                    name: form.name,
+
+                    email: form.email,
+
+                    whatsapp: form.whatsapp,
+
+                    message: `
+                    Project Type:${form.project}
+                    Message:${form.message} `,
+
+                    time: new Date().toLocaleString(),
+
+
                 },
-                (error) => {
-                    console.log("FAILED...", error);
 
-                    if (!navigator.onLine) {
-                        toast.error("No internet connection 🚫");
-                    } else if (error?.text) {
-                        toast.error(error.text);
-                    } else if (error?.message) {
-                        toast.error(error.message);
-                    } else {
-                        toast.error("Something went wrong. Try again.");
-                    }
-                }
-            )
-            .finally(() => {
-                setLoading(false);
+                EMAIL_PUBLIC_KEY
+
+            );
+
+
+
+            toast.success("Message sent successfully");
+
+
+            setForm({
+
+                name: "",
+                email: "",
+                project: "",
+                whatsapp:"",
+                message: "",
+                answer: ""
+
             });
+
+
+            generateCaptcha();
+
+
+
+        }
+
+        catch (err) {
+
+            toast.error("Something went wrong");
+
+        }
+
+        finally {
+
+            setLoading(false);
+
+        }
+
+
+
     };
 
+
+
+
     return (
-        <div className="contact-section">
 
-            <div className="contact-left">
-                <p className="tag">GET IN TOUCH</p>
-                <h1>Let's Work  <span>Together</span></h1>
-                <div className="desc">
-                    <p className="text-line"></p>
-                    Have a project in mind? I'd love to hear about it.
+        <section className="contact-section">
+
+
+            <div className="contact-container">
+
+
+
+                <div className="contact-intro contact-reveal">
+
+
+                    <p className="contact-label">
+
+                        CONTACT
+
+                    </p>
+
+
+                    <h1>
+
+                        Let's build
+
+                        <br />
+
+                        <span>
+
+                            something meaningful.
+
+                        </span>
+
+                    </h1>
+
+
+                    <p className="contact-description">
+
+                        Have an idea, opportunity or project?
+
+                        I would love to hear about it and create something valuable together.
+
+                    </p>
+
+
                 </div>
 
-                <a href="mailto:omee5663@gmail.com?subject=Hello&body=I want to contact you" className="info-box">
-                    <MdEmail />
-                    <div>
-                        <p>
-                            Email
-                        </p>
-                        <span>omee5663@gmail.com</span>
-                        <svg className="arr" width="16" height="16" viewBox="0 0 24 24">
-                            <path d="M5 12h14M13 5l7 7-7 7"
-                                stroke="red"
-                                fill="none"
-                                strokeWidth={2} />
-                        </svg>
-                    </div>
-                </a>
-
-                <a href="https://wa.me/7021357156" className="info-box">
-                    <FaWhatsapp />
-                    <div>
-                        <p target="_blank">
-                            WhatsApp
-                        </p>
-                        <span>+91 7021357156</span>
-                        <svg className="arr" width="16" height="16" viewBox="0 0 24 24">
-                            <path d="M5 12h14M13 5l7 7-7 7"
-                                stroke="red"
-                                fill="none"
-                                strokeWidth={2} />
-                        </svg>
-                    </div>
-                </a>
-
-                <a href="https://github.com/OMKAR4587" className="info-box">
-                    <FaGithub />
-                    <div>
-                        <p target="_blank">
-                            GitHub
-                        </p>
-                        <span>github.com/omee</span>
-                        <svg className="arr" width="16" height="16" viewBox="0 0 24 24">
-                            <path d="M5 12h14M13 5l7 7-7 7"
-                                stroke="red"
-                                fill="none"
-                                strokeWidth={2} />
-                        </svg>
-                    </div>
-                </a>
-
-                <div className="status">
-                    <p id="dot"></p>Available for freelance projects
-                </div>
-            </div>
-
-            <div className="contact-right">
-                <form onSubmit={handleSubmit}>
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="Your Name"
-                        value={form.name}
-                        onChange={handleChange}
-                    />
-                    {errors.name && <p className="error-text">{errors.name}</p>}
-
-                    <div className="row">
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder="Email"
-                            value={form.email}
-                            onChange={handleChange}
-                        />
 
 
-                        <input
-                            type="text"
-                            name="whatsapp"
-                            placeholder="WhatsApp (Optional)"
-                            value={form.whatsapp}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    {errors.email && <p className="error-text">{errors.email}</p>}
 
-                    <textarea
-                        name="message"
-                        placeholder="Tell me about your project..."
-                        value={form.message}
-                        onChange={handleChange}
-                    />
-                    {errors.message && <p className="error-text checkbox-text">{errors.message}</p>}
 
-                    {/* 🔢 Math CAPTCHA */}
-                    <div className="captcha">
-                        <div className="captcha-formula">
-                            <p className="captcha-text">
-                                A tiny test of humanity: <span> {captcha.num1} + {captcha.num2} = ?</span>
-                            </p>
-                            <input
-                                type="number"
-                                name="answer"
-                                placeholder="Your Answer"
-                                value={form.answer}
-                                onChange={handleChange}
-                            />
+                <div className="contact-links contact-reveal">
+
+
+                    <a href="mailto:omee5663@gmail.com">
+
+                        <div>
+
+                            <p>Email</p>
+
+                            <span>
+                                omee5663@gmail.com
+                            </span>
+
                         </div>
-                        {errors.answer && <p className="error-text">{errors.answer}</p>}
+
+
+                        <FaArrowRight />
+
+                    </a>
+
+
+
+                    <a
+                        href="https://github.com/OMKAR4587"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+
+
+                        <div>
+
+                            <p>Github</p>
+
+                            <span>
+                                github.com/OMKAR4587
+                            </span>
+
+                        </div>
+
+
+                        <FaArrowRight />
+
+
+                    </a>
+
+
+
+
+                    <a
+                        href="https://wa.me/917021357156"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+
+
+                        <div>
+
+                            <p>WhatsApp</p>
+
+                            <span>
+                                Available for conversations
+                            </span>
+
+                        </div>
+
+
+                        <FaArrowRight />
+
+
+                    </a>
+
+
+
+                </div>
+
+
+
+
+
+                <form
+                    className="contact-form contact-reveal"
+                    onSubmit={submitHandler}
+                >
+
+
+
+                    <div className="field">
+
+                        <input
+
+                            name="name"
+
+                            value={form.name}
+
+                            onChange={handleChange}
+
+                            placeholder=" "
+
+                        />
+
+                        <label>Name</label>
+
                     </div>
 
-                    <button type="submit" disabled={loading}>
-                        {loading ? "Sending..." : "Send Message →"}
+                    {errors.name &&
+                        <p className="error">
+                            {errors.name}
+                        </p>
+                    }
+
+
+
+
+                    <div className="field">
+
+                        <input
+
+                            name="email"
+
+                            value={form.email}
+
+                            onChange={handleChange}
+
+                            placeholder=" "
+
+                        />
+
+                        <label>Email</label>
+
+                    </div>
+
+
+                    {errors.email &&
+                        <p className="error">
+                            {errors.email}
+                        </p>
+                    }
+
+                    <div className="field">
+
+                        <input
+
+                            name="whatsapp"
+
+                            value={form.whatsapp}
+
+                            onChange={handleChange}
+
+                            placeholder=" "
+
+                        />
+
+                        <label>
+                            WhatsApp (Optional)
+                        </label>
+
+                    </div>
+
+                    <div className="field">
+
+
+                        <select
+
+                            name="project"
+
+                            value={form.project}
+
+                            onChange={handleChange}
+
+                        >
+
+                            <option value="">
+                                Project Type
+                            </option>
+
+
+                            <option>
+                                Freelance Project
+                            </option>
+
+
+                            <option>
+                                Full Time Opportunity
+                            </option>
+
+
+                            <option>
+                                Collaboration
+                            </option>
+
+
+                        </select>
+
+
+                    </div>
+
+
+                    {errors.project &&
+                        <p className="error">
+                            {errors.project}
+                        </p>
+                    }
+
+
+
+
+
+                    <div className="field">
+
+
+                        <textarea
+
+                            name="message"
+
+                            value={form.message}
+
+                            onChange={handleChange}
+
+                            placeholder=" "
+
+                            rows="5"
+
+                        />
+
+
+                        <label>
+                            Message
+                        </label>
+
+
+                    </div>
+
+
+                    {errors.message &&
+                        <p className="error">
+                            {errors.message}
+                        </p>
+                    }
+
+
+
+
+                    <div className="captcha">
+
+
+                        <p>
+
+                            Human verification:
+
+                            <b>
+                                {captcha.num1} + {captcha.num2}
+                            </b>
+
+                        </p>
+
+
+                        <input
+
+                            type="number"
+
+                            name="answer"
+
+                            value={form.answer}
+
+                            onChange={handleChange}
+
+                            placeholder="Answer"
+
+                        />
+
+
+                    </div>
+
+
+                    {errors.answer &&
+                        <p className="error">
+                            {errors.answer}
+                        </p>
+                    }
+
+
+
+
+
+                    <button disabled={loading}>
+
+
+                        {loading
+                            ?
+                            "Sending..."
+                            :
+                            <>
+                                Send Message
+                                <FaArrowRight />
+                            </>
+
+                        }
+
+
                     </button>
+
+
+
+
                 </form>
+
+
+
+
             </div>
 
 
-        </div>
+        </section>
+
     );
+
+
 };
+
 
 export default Contact;

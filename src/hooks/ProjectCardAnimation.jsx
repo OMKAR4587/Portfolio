@@ -190,6 +190,9 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
                     duration: 2,
                     ease: "none",
                 }, "<")
+                  .to(".projects-detail-section", {
+                    display:"none",
+                },)
 
 
         });

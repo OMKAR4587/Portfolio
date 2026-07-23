@@ -43,7 +43,7 @@ export default function Projects() {
     <>
       <div className="project-wraper" ref={sectionRef}>
 
-        <section className='project-detail-container-1'>
+        <section className='projects-detail-section project-detail-container-1'>
           <div className="project-left">
             <div className="project-count">
               <h1 className='project-count-index'>01</h1>
@@ -68,7 +68,7 @@ export default function Projects() {
             </div>
           </div>
         </section>
-        <section className='project-detail-container-2'>
+        <section className='projects-detail-section project-detail-container-2'>
           <div className="project-left">
             <div className="project-count">
               <h1 className='project-count-index'>02</h1>
@@ -93,7 +93,7 @@ export default function Projects() {
             </div>
           </div>
         </section>
-        <section className='project-detail-container-3'>
+        <section className='projects-detail-section project-detail-container-3'>
           <div className="project-left">
             <div className="project-count">
               <h1 className='project-count-index'>03</h1>

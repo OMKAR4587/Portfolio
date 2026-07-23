@@ -65,12 +65,12 @@ section .five {
 }
 
 .four .container {
-  background: black;
+  /* background: black; */
 }
 
 .five .container {
-  background: black;
-  color: white;
+  /* background: black; */
+  /* color: white; */
 }
 .marimba-grid-bg {
   position: fixed;

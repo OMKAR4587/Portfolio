@@ -43,10 +43,6 @@ section {
   /* overflow: hidden; */
 }
 
-section .five {
-  /* position: relative; */
-  /* z-index: 1; */
-}
 
 .container {
   /* position: relative; */
@@ -60,18 +56,6 @@ section .five {
   /* will-change: transform; */
 }
 
-/* Colors */
-.three .container {
-}
-
-.four .container {
-  /* background: black; */
-}
-
-.five .container {
-  /* background: black; */
-  /* color: white; */
-}
 .marimba-grid-bg {
   position: fixed;
   top: 0;

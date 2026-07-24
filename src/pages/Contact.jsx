@@ -70,7 +70,7 @@ const Contact = () => {
                     start: "top 75%",
                     end:"top 10%",
                     scrub:true,
-                    markers:true
+                    // markers:true
                 }
 
             }

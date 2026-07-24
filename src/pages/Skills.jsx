@@ -1,3 +1,8 @@
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 import "../stylesheets/Skills.css";
 import {
   SiReact,
@@ -58,6 +63,47 @@ const data = [
 ];
 
 export default function Skills() {
+
+  const skillCardRef = useRef([])
+
+  useEffect(() => {
+    const t1 = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".skills-section",
+        start: "top 40%",
+        end: "bottom bottom",
+        scrub: true,
+      }
+    });
+    t1.fromTo(".skills-header", { opacity: 0, }, {
+      opacity: 1,
+      duration: 2
+    }, "<")
+
+    t1.fromTo(skillCardRef.current.slice(0,2),{opacity:0,y:30},{
+      opacity: 1,
+      y: 0,
+      duration: 2,
+      stagger:0.2
+    },"<");
+
+    t1.to(".skills-header", {
+      opacity: 0,
+      duration: 0.3
+    })
+     t1.fromTo(skillCardRef.current.slice(2,4),{opacity:0,y:30},{
+      opacity: 1,
+      y: 0,
+      duration: 2,
+      stagger:0.2
+    },);
+
+    // return () => ctx.revert();
+
+    console.log(skillCardRef)
+
+  }, []);
+
   return (
     <section className="skills-section">
 
@@ -76,8 +122,8 @@ export default function Skills() {
 
       <div className="skills-grid">
 
-        {data.map((group) => (
-          <div className="skill-box" key={group.title}>
+        {data.map((group,index) => (
+          <div ref={(el)=>(skillCardRef.current[index]=el)} className="skill-box" key={group.title}>
 
             <h3>{group.title}</h3>
 

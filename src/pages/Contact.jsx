@@ -67,7 +67,10 @@ const Contact = () => {
 
                 scrollTrigger: {
                     trigger: ".contact-section",
-                    start: "top 75%"
+                    start: "top 75%",
+                    end:"top 10%",
+                    scrub:true,
+                    markers:true
                 }
 
             }
@@ -219,7 +222,7 @@ const Contact = () => {
                 name: "",
                 email: "",
                 project: "",
-                whatsapp:"",
+                whatsapp: "",
                 message: "",
                 answer: ""
 
@@ -249,7 +252,7 @@ const Contact = () => {
     };
 
 
-
+    
 
     return (
 
@@ -296,11 +299,8 @@ const Contact = () => {
 
                 </div>
 
-
-
-
-
-                <div className="contact-links contact-reveal">
+               <div className="bottom-form-link">
+                 <div className="contact-links contact-reveal">
 
 
                     <a href="mailto:omee5663@gmail.com">
@@ -374,10 +374,6 @@ const Contact = () => {
 
 
                 </div>
-
-
-
-
 
                 <form
                     className="contact-form contact-reveal"
@@ -605,6 +601,7 @@ const Contact = () => {
 
 
                 </form>
+               </div>
 
 
 

@@ -418,7 +418,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             });
 
            tl.to(".Project-container", {
-                y: -20,
+                y: -60,
                 duration: 1,
             })
 
@@ -429,7 +429,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
                 })
 
                 .to(".Project-container", {
-                    y: -240,
+                    y: -220,
                     duration: 2,
                     ease: "none",
                 })

@@ -32,7 +32,7 @@ body {
   /* background-color: whitesmoke; */
   font-family: sans-serif;
   width: 100vw;
-  overflow: hidden;
+  /* overflow-y: hidden; */
 }
 
 section {
@@ -63,7 +63,6 @@ section {
   width: 100vw;
   height: 100vh;
   z-index: -1; /* Pushes lines safely behind all clickable elements */
-  
   display: grid;
   /* Adjust the count (5) to match the amount of lines you want */
   grid-template-columns: repeat(5, 1fr); 

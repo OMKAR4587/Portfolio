@@ -20,12 +20,11 @@
         SECTION
 ========================= */
 
-
 .contact-section{
 
-    background:var(--background);
+    /* background:var(--background); */
 
-    padding:140px 30px;
+    padding:0px 30px 40px;
 
     font-family:"Inter",sans-serif;
 
@@ -110,9 +109,14 @@
         LINKS
 ========================= */
 
+.bottom-form-link{
+    display: flex;
+    width: 100%;
+    gap: 100px;
+}
 
 .contact-links{
-
+    flex: 1;
     margin-top:100px;
 
     border-top:1px solid var(--line);
@@ -228,10 +232,20 @@
 
 
 .contact-form{
+    flex: 2;
 
-    margin-top:100px;
+    margin-top:90px;
 
-    max-width:750px;
+    padding:50px;
+
+    background:#FCFCF9;
+
+    border:1px solid #E7E8E2;
+
+    border-radius:28px;
+
+    box-shadow:
+        0 15px 50px rgba(0,0,0,.05);
 
 }
 
@@ -638,14 +652,18 @@ select{
 
 @media(max-width:768px){
 
+.bottom-form-link{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 0px;
+}
 
 .contact-section{
 
-    padding:90px 20px;
+    padding:0px 20px 20px;
 
 }
-
-
 
 .contact-intro h1{
 

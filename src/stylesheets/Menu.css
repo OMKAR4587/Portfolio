@@ -279,6 +279,21 @@ nav {
     width: 42px;
     height: 42px;
   }
+   .menu-hamberger-icon span:first-child {
+    width: 24px;
+  }
+
+  .menu-hamberger-icon span:last-child {
+     width: 24px;
+  }
+  .menu-hamberger-icon.active span:first-child {
+  transform: translateY(4.5px) rotate(45deg);
+}
+
+.menu-hamberger-icon.active span:last-child {
+  width: 24px;
+  transform: translateY(-4.5px) rotate(-45deg);
+}
 
 }
 
@@ -334,7 +349,14 @@ nav {
   }
 
   .menu-hamberger-icon span:last-child {
-    width: 16px;
+     width: 18px;
   }
+  .menu-hamberger-icon.active span:first-child {
+  transform: translateY(4.5px) rotate(45deg);
+}
+  .menu-hamberger-icon.active span:last-child {
+  width: 24px;
+  transform: translateY(-4.5px) rotate(-45deg);
+}
 
 }

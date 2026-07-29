@@ -2,7 +2,21 @@
   "homepage": "https://OMKAR4587.github.io/Portfolio",
   "name": "portfolio",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Full-stack MERN Developer Portfolio - Showcasing projects, skills, and experience",
+  "keywords": [
+    "portfolio",
+    "react",
+    "mern",
+    "gsap",
+    "lenis",
+    "smooth-scroll",
+    "web-development",
+    "javascript",
+    "frontend",
+    "developer"
+  ],
+  "author": "Omkar",
   "type": "module",
   "scripts": {
     "dev": "vite",

@@ -6,7 +6,6 @@ import { Toaster } from "react-hot-toast";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { ReactLenis } from "lenis/react";
-import ProjectHeading from "./components/common/ProjectHeading";
 import Hero from "./pages/Home";
 import Menu from "./components/layout/Menu";
 import About from "./pages/About";
@@ -82,12 +81,7 @@ const App = () => {
             <Projects />
           </div>
         </section>
-         {/* <section className="four">
-          <div className="container">
-            <About />
-          </div>
-        </section> */}
-
+        
         <section id="skills" className="five">
           <div className="container">
             <Skills />

@@ -12,7 +12,7 @@ import { MdMenuOpen } from "react-icons/md";
 
 gsap.registerPlugin(CustomEase, SplitText, ScrollTrigger);
 
-const Menu = () => {
+export const Menu = () => {
   const [active, setActive] = useState("home");
   const [scrolled, setscrolled] = useState(false)
   const container = useRef(null);

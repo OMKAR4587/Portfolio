@@ -1,4 +1,7 @@
 import React, { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+import Profile from '../assets/images/My-Profile.jpeg'
+import ProjectImg from "../assets/images/Project-Thumbnail.jpg"
 import "../stylesheets/Home.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,7 +13,17 @@ function Home() {
 
 
   useEffect(() => {
-
+    gsap.fromTo(".quick-link", {
+      width: "0px",
+      duration: 1,
+      ease: "power4.out"
+    },
+      {
+        delay: 1,
+        width: "85px",
+        duration: 1.5,
+        ease: "power4.out"
+      })
     gsap.to(".circles", {
       // gap: 20,
       rotation: 1080,
@@ -163,6 +176,7 @@ function Home() {
   const sectionRef = useRef(null);
 
   return (
+
     <div ref={heroRef}>
       {/* Background */}
       <div className="home-container">
@@ -175,15 +189,16 @@ function Home() {
           <p className="dev-tag">Welcome — I'm Omkar Yevale.</p>
 
           <h1 className="hero-heading">
-            I{" "}
-            <span className="quick-link">
-              <span className="inner-text">About</span>
-            </span>{" "}
-            build digital experiences that users love.
-            <br />
-            <span className="sub-heading">
-              Full Stack Developer specializing in React, Next.js, Node.js &
-              modern web technologies.
+            <span className="line">
+              I <Link to="/Portfolio/about" className="quick-link quick-link-1"> <img className="about-profile-img" src={Profile} alt="profile-img" /> </Link> create thoughtful web experiences 
+            </span>
+
+            <span className="line">
+              for people <a href="#projects" className="quick-link quick-link-2"><img className="about-profile-img" src={ProjectImg} alt="work-image" /></a> who value impact,
+            </span>
+
+            <span className="line">
+             not just appearance.
             </span>
           </h1>
         </div>
@@ -206,17 +221,6 @@ function Home() {
 
 
       </div>
-
-      {/* Floating Cards */}
-
-      {/* <div className="floating-card card1">⚛ React</div>
-
-      <div className="floating-card card2">🚀 GSAP</div>
-
-      <div className="floating-card card3">💻 Node.js</div> */}
-
-      {/* Hero */}
-
 
     </div>
   );

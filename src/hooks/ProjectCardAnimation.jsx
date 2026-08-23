@@ -24,6 +24,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
                 ".project-detail-container-3",
             ], {
                 opacity: 0,
+                display:"none"
             });
 
             // ---------------- MASTER TIMELINE ----------------
@@ -60,6 +61,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
                     ".project-detail-container-1",
                     {
                         opacity: 1,
+                        display:"flex",
                         duration: 0.2,
                     },
                 )
@@ -111,6 +113,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
                     ".project-detail-container-1",
                     {
                         opacity: 0,
+                        display:"none",
                         duration: 0.5,
                     },
                     "<"
@@ -120,6 +123,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
                     ".project-detail-container-2",
                     {
                         opacity: 1,
+                        display:"flex",
                         duration: 0.5,
                     },
                     "<"
@@ -158,6 +162,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
                 ".project-detail-container-2",
                 {
                     opacity: 0,
+                    display:"none",
                     duration: 0.5,
                 },
                 "<"
@@ -167,6 +172,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
                     ".project-detail-container-3",
                     {
                         opacity: 1,
+                        display:"flex",
                         duration: 0.5,
                     },
                     "<"
@@ -181,12 +187,14 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
                     ".project-detail-container-3",
                     {
                         opacity: 0,
+                        display:"none",
                         duration: 2
                     },
                     "<"
                 )
                 .to(".Project-container", {
                     opacity: 0,
+                    display:"none",
                     duration: 2,
                     ease: "none",
                 }, "<")
@@ -401,6 +409,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
                 ".project-detail-container-3",
             ], {
                 opacity: 0,
+                display:"none"
             });
 
             // ---------------- MASTER TIMELINE ----------------
@@ -426,6 +435,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
                     clipPath: "inset(0% 0% round 30px)",
                     duration: 2,
                     ease: "none",
+                    // display:"none"
                 })
 
                 .to(".Project-container", {
@@ -438,6 +448,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
                     ".project-detail-container-1",
                     {
                         opacity: 1,
+                        display:"flex",
                         duration: 0.2,
                     },
                 )
@@ -489,6 +500,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
                     ".project-detail-container-1",
                     {
                         opacity: 0,
+                        display:"flex",
                         duration: 0.5,
                     },
                     "<"
@@ -498,6 +510,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
                     ".project-detail-container-2",
                     {
                         opacity: 1,
+                        display:"flex",
                         duration: 0.5,
                     },
                     "<"
@@ -536,6 +549,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
                 ".project-detail-container-2",
                 {
                     opacity: 0,
+                    display:"none",
                     duration: 0.5,
                 },
                 "<"
@@ -545,6 +559,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
                     ".project-detail-container-3",
                     {
                         opacity: 1,
+                        display:"flex",
                         duration: 0.5,
                     },
                     "<"
@@ -559,12 +574,14 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
                     ".project-detail-container-3",
                     {
                         opacity: 0,
+                        display:"none",
                         duration: 2
                     },
                     "<"
                 )
                 .to(".Project-container", {
                     opacity: 0,
+                    display:"none",
                     duration: 2,
                     ease: "none",
                 }, "<")

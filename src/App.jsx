@@ -5,21 +5,21 @@ import "./stylesheets/App.css";
 import { Toaster } from "react-hot-toast";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import { ReactLenis } from "lenis/react";
+import { ReactLenis, useLenis} from "lenis/react";
 import Hero from "./pages/Home";
 import Menu from "./components/layout/Menu";
-import About from "./pages/About";
 import Projects from "./pages/Projects";
 import Skills from "./pages/Skills";
 import Contact from "./pages/Contact";
-import Footer from "./components/layout/Footer"
+import Footer from "./components/layout/Footer";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const App = () => {
-  const parentRef = useRef()
+  const parentRef = useRef();
   const containerRef = useRef();
   const boxRef = useRef();
+  const lenis = useLenis();
 
   // 🔥 GSAP Scroll Animation
 
@@ -37,12 +37,29 @@ const App = () => {
             scrub: 2,
             // markers: true,
           },
-        }
+        },
       );
     }, parentRef);
-    return () => ctx.revert()
-  }, [])
+    return () => ctx.revert();
+  }, []);
 
+  useEffect(() => {
+    if (!lenis) return;
+
+    const hash = window.location.hash;
+
+    if (!hash) return;
+
+    const el = document.querySelector(hash);
+
+    if (!el) return;
+
+    setTimeout(() => {
+      lenis.scrollTo(el, {
+        duration: 1.2,
+      });
+    }, 100);
+  }, [lenis]);
 
   return (
     <>
@@ -67,7 +84,6 @@ const App = () => {
         <div className="grid-line"></div>
       </div>
       <main ref={containerRef}>
-
         <Menu />
 
         <section id="home" className="one">
@@ -81,7 +97,7 @@ const App = () => {
             <Projects />
           </div>
         </section>
-        
+
         <section id="skills" className="five">
           <div className="container">
             <Skills />
@@ -94,12 +110,10 @@ const App = () => {
           </div>
         </section>
 
-       <Footer />
+        <Footer />
       </main>
-        
     </>
   );
-
 };
 
 export default App;

@@ -153,6 +153,8 @@ nav {
   font-size: clamp(2.2rem, 4vw, 4rem);
   line-height: 1.05;
   font-weight: 500;
+  color: black;
+  text-decoration: none;
   letter-spacing: -0.05em;
   margin-bottom: .35rem;
   cursor: pointer;
@@ -167,7 +169,7 @@ nav {
 }
 
 .menu-link.active {
-  color: #3A4A16;
+  color: #5f8505;
 }
 
 .menu-footer {

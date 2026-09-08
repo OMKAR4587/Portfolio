@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import Profile from '../assets/images/My-Profile.jpeg'
-import ProjectImg from "../assets/images/Project-Thumbnail.jpg"
+import Profile from "../assets/images/My-Profile.jpeg";
+import ProjectImg from "../assets/images/Project-Thumbnail.jpg";
 import "../stylesheets/Home.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,19 +10,21 @@ gsap.registerPlugin(ScrollTrigger);
 function Home() {
   const heroRef = useRef(null);
 
-
   useEffect(() => {
-    gsap.fromTo(".quick-link", {
-      width: "0px",
-      duration: 1,
-      ease: "power4.out"
-    },
+    gsap.fromTo(
+      ".quick-link",
+      {
+        width: "0px",
+        duration: 1,
+        ease: "power4.out",
+      },
       {
         delay: 1,
         width: "85px",
         duration: 1.5,
-        ease: "power4.out"
-      })
+        ease: "power4.out",
+      },
+    );
     gsap.to(".circles", {
       // gap: 20,
       rotation: 1080,
@@ -50,12 +51,12 @@ function Home() {
           end: "8% 0%",
           scrub: true,
         },
-      }
+      },
     );
     gsap.fromTo(
       ".blob",
       {
-        filter: "blur(100px)"
+        filter: "blur(100px)",
       },
       {
         filter: "blur(3px)",
@@ -63,9 +64,9 @@ function Home() {
           trigger: ".hero-bg",
           start: "top bottom",
           end: "80% 80%",
-          scrub: true
-        }
-      }
+          scrub: true,
+        },
+      },
     );
     let spinTween;
 
@@ -85,12 +86,12 @@ function Home() {
             const parentRotation = gsap.getProperty(".circles", "rotation");
 
             // 2. Force the text elements to rotate in the exact opposite direction.
-            // If the parent is at 45deg, the text shifts to -45deg. 
+            // If the parent is at 45deg, the text shifts to -45deg.
             // This keeps the text completely upright relative to the screen.
             gsap.set(".inside-buble-text", {
-              rotation: -parentRotation
+              rotation: -parentRotation,
             });
-          }
+          },
         });
       },
       onLeaveBack: () => {
@@ -99,7 +100,7 @@ function Home() {
           // Reset text rotation back to normal when the animation clears
           gsap.set(".inside-buble-text", { rotation: 0 });
         }
-      }
+      },
     });
     gsap.to(".middle-name", {
       opacity: 1,
@@ -109,7 +110,6 @@ function Home() {
         start: "85% 85%",
         end: "bottom bottom",
         scrub: true,
-
       },
     });
     gsap.to(".inside-buble-text", {
@@ -147,7 +147,7 @@ function Home() {
           end: "80% 80%",
           scrub: true,
         },
-      }
+      },
     );
     gsap.to(".circles", {
       borderWidth: "2px",
@@ -161,6 +161,9 @@ function Home() {
         // markers:true
       },
     });
+    gsap.to(".hero-bg", {duration:2});
+    gsap.to(".hero-bg", {duration:2});
+    gsap.to(".hero-bg", {duration:2})
     gsap.to(".hero-bg", {
       opacity: 0,
       duration: 0.5,
@@ -169,14 +172,12 @@ function Home() {
         start: "bottom bottom",
         end: "+=300",
         scrub: true,
-      }
+      },
     });
-
   }, []);
   const sectionRef = useRef(null);
 
   return (
-
     <div ref={heroRef}>
       {/* Background */}
       <div className="home-container">
@@ -190,16 +191,31 @@ function Home() {
 
           <h1 className="hero-heading">
             <span className="line">
-              I <Link to="/Portfolio/about" className="quick-link quick-link-1"> <img className="about-profile-img" src={Profile} alt="profile-img" /> </Link> create thoughtful web experiences 
+              I{" "}
+              <a href="/Portfolio/about" className="quick-link quick-link-1">
+                {" "}
+                <img
+                  className="about-profile-img"
+                  src={Profile}
+                  alt="profile-img"
+                />{" "}
+              </a>{" "}
+              create thoughtful web experiences
             </span>
 
             <span className="line">
-              for people <a href="#projects" className="quick-link quick-link-2"><img className="about-profile-img" src={ProjectImg} alt="work-image" /></a> who value impact,
+              for people{" "}
+              <a href="#projects" className="quick-link quick-link-2">
+                <img
+                  className="about-profile-img"
+                  src={ProjectImg}
+                  alt="work-image"
+                />
+              </a>{" "}
+              who value impact,
             </span>
 
-            <span className="line">
-             not just appearance.
-            </span>
+            <span className="line">not just appearance.</span>
           </h1>
         </div>
       </div>
@@ -208,7 +224,6 @@ function Home() {
         <div className="hero-bg">
           <h3 className="middle-name">My craft</h3>
           <div className="circles">
-
             <div className="blob blob1"></div>
             <div className="blob blob2"></div>
             <div className="blob blob3"></div>
@@ -216,12 +231,8 @@ function Home() {
             <p className="inside-buble-text-2 inside-buble-text">Backend</p>
             <p className="inside-buble-text-3 inside-buble-text">Cloud</p>
           </div>
-
         </div>
-
-
       </div>
-
     </div>
   );
 }

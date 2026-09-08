@@ -35,7 +35,7 @@ function About() {
     return (
         <>
             <Menu />
-            <main className="about">
+            <main id="about" className="about">
 
 
                 {/* INTRO SECTION */}

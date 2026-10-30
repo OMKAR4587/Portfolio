@@ -14,19 +14,19 @@ function Home() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Quick image links
       gsap.fromTo(
         ".quick-link",
+        { width: "0px" },
         {
-          width: "0px",
-        },
-        {
-          delay: 1,
           width: "85px",
+          delay: 1,
           duration: 1.5,
           ease: "power4.out",
         },
       );
 
+      // Circle rotation on scroll
       gsap.to(".circles", {
         rotation: 1080,
         scrollTrigger: {
@@ -37,89 +37,71 @@ function Home() {
         },
       });
 
-      gsap.fromTo(
-        ".mid-content",
-        {
-          opacity: 1,
-          y: 0,
+      // Hero content fade-out
+      gsap.to([".mid-content", ".bottom-tag"], {
+        opacity: 0,
+        y: -20,
+        scrollTrigger: {
+          trigger: ".wrapper-hero",
+          start: "top top",
+          end: "8% 0%",
+          scrub: true,
         },
-        {
-          opacity: 0,
-          y: -20,
-          scrollTrigger: {
-            trigger: ".wrapper-hero",
-            start: "top top",
-            end: "8% 0%",
-            scrub: true,
-          },
-        },
-      );
+      });
 
-       gsap.fromTo(
-        ".bottom-tag",
-        {
-          opacity: 1,
-          y: 0,
-        },
-        {
-          opacity: 0,
-          y: -20,
-          scrollTrigger: {
-            trigger: ".wrapper-hero",
-            start: "top top",
-            end: "8% 0%",
-            scrub: true,
-          },
-        },
-      );
-
+      // Blob blur animation
       gsap.fromTo(
         ".blob",
+        { filter: "blur(30px)" },
         {
-          filter: "blur(100px)",
-        },
-        {
-          filter: "blur(3px)",
+          filter: "blur(1px)",
           scrollTrigger: {
             trigger: ".hero-bg",
-            start: "top bottom",
-            end: "80% 80%",
+            start: "30% bottom", // Start later
+            end: "90% 80%", // Finish later
             scrub: true,
           },
         },
       );
 
+      // Continuous circle rotation
       let spinTween;
 
-      const spinTrigger = ScrollTrigger.create({
+      ScrollTrigger.create({
         trigger: ".wrapper-hero",
         start: "65% center",
         end: "+=300",
+
         onEnter: () => {
+          spinTween?.kill();
+
           spinTween = gsap.to(".circles", {
             rotation: "+=360",
             duration: 30,
             ease: "none",
             repeat: -1,
-            onUpdate: function () {
-              const parentRotation = gsap.getProperty(".circles", "rotation");
+
+            onUpdate: () => {
+              const rotation = gsap.getProperty(".circles", "rotation");
 
               gsap.set(".inside-buble-text", {
-                rotation: -parentRotation,
+                rotation: -rotation,
               });
             },
           });
         },
+
         onLeaveBack: () => {
-          if (spinTween) {
-            spinTween.kill();
-            gsap.set(".inside-buble-text", {
-              rotation: 0,
-            });
-          }
+          spinTween?.kill();
+          spinTween = null;
+
+          gsap.set(".inside-buble-text", {
+            rotation: 0,
+          });
         },
       });
 
+      // Middle heading
       gsap.to(".middle-name", {
         opacity: 1,
         color: "#3e3d3d",
@@ -131,6 +113,7 @@ function Home() {
         },
       });
 
+      // Inner circle labels
       gsap.to(".inside-buble-text", {
         opacity: 1,
         scrollTrigger: {
@@ -141,6 +124,7 @@ function Home() {
         },
       });
 
+      // Circle border
       gsap.to(".circles", {
         borderWidth: "2px",
         borderColor: "#ccc",
@@ -153,11 +137,10 @@ function Home() {
         },
       });
 
+      // Background scale
       gsap.fromTo(
         ".hero-bg",
-        {
-          scale: 10,
-        },
+        { scale: 10 },
         {
           scale: 1,
           scrollTrigger: {
@@ -169,33 +152,16 @@ function Home() {
         },
       );
 
-      gsap.to(".circles", {
-        borderWidth: "2px",
-        borderColor: "#ccc",
-        duration: 0.5,
-        scrollTrigger: {
-          trigger: ".wrapper-hero",
-          start: "90% 90%",
-          end: "bottom bottom",
-          scrub: true,
-        },
-      });
-    
+      // Background fade-out
       gsap.to(".hero-bg", {
         opacity: 0,
-        duration: 0.5,
         scrollTrigger: {
           trigger: ".wrapper-hero",
-          start: "bottom bottom",
-          end: "+=300",
+          start: "bottom+=300 bottom", // Delay disappearance
+          end: "bottom+=700 bottom", // Fade out more gradually
           scrub: true,
         },
       });
-
-      return () => {
-        spinTrigger.kill();
-        spinTween?.kill();
-      };
     }, heroRef);
 
     return () => ctx.revert();
@@ -254,33 +220,28 @@ function Home() {
           </div>
 
           <div className="bottom-tag">
-              <div className="bottom-specialty">
-                <span className="bottom-label">WHAT I DO</span>
-                <p>
-                  WEB <i>✳</i> DESIGN <i>✳</i> MOTION
-                </p>
-              </div>
-
-              <a
-                href="#craft"
-                className="mouse-scroll"
-                aria-label="Scroll down"
-              >
-                <span className="mouse-icon">
-                  <span className="mouse-wheel" />
-                </span>
-                <span>SCROLL</span>
-                <span>↓</span>
-              </a>
-
-              <div className="bottom-message">
-                <span className="bottom-label">LET'S CREATE</span>
-                <p>
-                  Something <em>meaningful.</em> ↗
-                </p>
-              </div>
+            <div className="bottom-specialty">
+              <span className="bottom-label">WHAT I DO</span>
+              <p>
+                WEB <i>✳</i> DESIGN <i>✳</i> MOTION
+              </p>
             </div>
 
+            <a href="#craft" className="mouse-scroll" aria-label="Scroll down">
+              <span className="mouse-icon">
+                <span className="mouse-wheel" />
+              </span>
+              <span>SCROLL</span>
+              <span>↓</span>
+            </a>
+
+            <div className="bottom-message">
+              <span className="bottom-label">LET'S CREATE</span>
+              <p>
+                Something <em>meaningful.</em> ↗
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 

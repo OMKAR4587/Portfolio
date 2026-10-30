@@ -12,8 +12,8 @@
 }
 
 .home-container {
-  position: absolute;
-  z-index: 100;
+  position: relative;
+  z-index: 1;
   top: 0;
   left: 0;
   display: flex;
@@ -38,8 +38,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  width: 80%;
-  padding: clamp(30px, 6vw, 120px) clamp(8px, 3vw, 40px);
+  width: 90%;
+  padding: clamp(30px, 4vw, 120px) clamp(8px, 3vw, 40px);
   color: #38451d;
   font-size: clamp(12px, 1.05vw, 14px);
   line-height: 1.5;
@@ -58,7 +58,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(24px, 8vh, 100px);
   width: 100%;
   /* margin-block: auto; */
   opacity: 1;
@@ -70,7 +69,7 @@
 .home-container .dev-tag {
   align-self: center;
   margin: 0;
-  padding: 8px 16px;
+  padding: 6px 16px 0px 16px;
   border: 1px solid var(--olive, #38451d);
   background-color: #3a4a16;
   border-radius: 20px;
@@ -89,12 +88,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  max-width: 1450px;
+  /* width: 100%; */
+  max-width: 1300px;
   margin: 0 auto;
   color: var(--olive, #38451d);
   font-family: "Bodoni MT", "Didot", "Times New Roman", serif;
-  font-size: clamp(46px, 6.1vw, 92px);
+  font-size: clamp(46px, 7vw, 100px);
   font-weight: 400;
   line-height: 1.12;
   letter-spacing: -0.045em;
@@ -111,13 +110,17 @@
 /* ==========================
    Inline image links
 ========================== */
-
+.quick-link {
+  display: inline-flex;
+  vertical-align: middle;
+  transform: translateY(-5px);
+}
 .quick-link-1,
 .quick-link-2 {
   position: relative;
   display: inline-block;
   width: 0;
-  height: 0.48em;
+  height: 0.62em;
   min-height: 34px;
   overflow: hidden;
   border-radius: 999px;
@@ -187,21 +190,21 @@
 ========================== */
 
 .bottom-tag {
-  bottom: 24px;
-  left: 0;
-  width: 100%;
-  /* padding: 0 clamp(16px, 4vw, 50px); */
+  position: absolute;
+  /* padding: clamp(10px 3vw 30px); */
+  bottom: 10px;
+  width: 96%;
+  padding: 0 40px;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
-  align-items: end;
   gap: 12px;
 }
 
 .bottom-label {
   display: block;
   font-size: 9px;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.2px;
   opacity: 0.6;
   margin-bottom: 8px;
 }
@@ -209,7 +212,7 @@
 .bottom-specialty p,
 .bottom-message p {
   margin: 0;
-  font-size: clamp(11px, 1.2vw, 15px);
+  font-size: 13px;
   line-height: 1.5;
 }
 
@@ -240,8 +243,8 @@
 }
 
 .mouse-icon {
-  width: 17px;
-  height: 27px;
+  width: 19px;
+  height: 30px;
   border: 1px solid currentColor;
   border-radius: 12px;
   display: flex;
@@ -273,7 +276,7 @@
 @media (max-width: 600px) {
   .bottom-tag {
     bottom: 18px;
-    padding: 0 16px;
+    padding: 0 14px;
     gap: 8px;
   }
 
@@ -480,15 +483,18 @@
   }
 
   .top-bar {
+    font-size: 16px;
     padding-inline: clamp(24px, 3vw, 44px);
   }
-
+  .home-container .dev-tag {
+    font-size: 18px;
+  }
   .mid-content {
-    gap: clamp(26px, 3.5vh, 42px);
+    gap: clamp(10px, 2vh, 42px);
   }
 
   .home-container .hero-heading {
-    font-size: clamp(60px, 6.1vw, 92px);
+    font-size: clamp(48px, 12vh, 140px);
     line-height: 1.1;
   }
 }
@@ -504,9 +510,9 @@
   }
 
   .top-bar {
-    padding: 48px 12px;
+    padding: 78px 12px;
     justify-content: space-between;
-    font-size: 14px;
+    font-size: 24px;
   }
 
   .mid-content {
@@ -516,14 +522,14 @@
 
   .home-container .hero-heading {
     width: 100%;
-    font-size: clamp(48px, 6.2vw, 64px);
+    font-size: clamp(48px, 8vh, 133px);
     line-height: 1.2;
     letter-spacing: -0.025em;
     transform: none;
   }
 
   .home-container .dev-tag {
-    font-size: 16px;
+    font-size: 20px;
   }
 
   .quick-link-1,
@@ -555,7 +561,7 @@
 ========================== */
 
 @media (max-width: 768px) {
- .wrapper-hero {
+  .wrapper-hero {
     min-height: 150vh;
   }
 
@@ -582,12 +588,13 @@
 
   .home-container .dev-tag {
     padding: 7px 13px;
-    font-size: 12px;
+    font-size: 18px;
   }
+
 
   .home-container .hero-heading {
     width: 100%;
-    font-size: clamp(32px, 7vh, 62px);
+    font-size: clamp(32px, 9vh, 100px);
     line-height: 1.12;
     letter-spacing: -0.02em;
   }
@@ -659,7 +666,6 @@
     left: 82%;
   }
 }
-
 
 /* ==========================
    Small mobile: up to 480px

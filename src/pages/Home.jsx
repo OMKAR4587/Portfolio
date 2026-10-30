@@ -227,7 +227,7 @@ function Home() {
               </p>
             </div>
 
-            <a href="#craft" className="mouse-scroll" aria-label="Scroll down">
+            <a href="#craft" id="craft" className="mouse-scroll" aria-label="Scroll down">
               <span className="mouse-icon">
                 <span className="mouse-wheel" />
               </span>

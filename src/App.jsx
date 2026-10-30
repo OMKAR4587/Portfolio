@@ -1,28 +1,31 @@
+
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import "./stylesheets/App.css";
+
 import { Toaster } from "react-hot-toast";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import { ReactLenis, useLenis} from "lenis/react";
+import { ReactLenis, useLenis } from "lenis/react";
+
 import Hero from "./pages/Home";
-import Menu from "./components/layout/Menu";
 import Projects from "./pages/Projects";
 import Skills from "./pages/Skills";
 import Contact from "./pages/Contact";
+
+import Menu from "./components/layout/Menu";
 import Footer from "./components/layout/Footer";
+import SectionIndicator from "./components/common/SectionIndicator";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const App = () => {
-  const parentRef = useRef();
-  const containerRef = useRef();
-  const boxRef = useRef();
+  const parentRef = useRef(null);
+  const boxRef = useRef(null);
   const lenis = useLenis();
 
-  // 🔥 GSAP Scroll Animation
-
+  // GSAP scroll animation
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
@@ -30,6 +33,7 @@ const App = () => {
         { scale: 0.1 },
         {
           scale: 1,
+          ease: "none",
           scrollTrigger: {
             trigger: parentRef.current,
             start: "-=10 top",
@@ -37,33 +41,38 @@ const App = () => {
             scrub: 2,
             // markers: true,
           },
-        },
+        }
       );
     }, parentRef);
+
     return () => ctx.revert();
   }, []);
 
+  // Handle navigation to hash links with Lenis
   useEffect(() => {
     if (!lenis) return;
 
     const hash = window.location.hash;
-
     if (!hash) return;
 
-    const el = document.querySelector(hash);
+    const element = document.querySelector(hash);
+    if (!element) return;
 
-    if (!el) return;
-
-    setTimeout(() => {
-      lenis.scrollTo(el, {
+    const timeout = setTimeout(() => {
+      lenis.scrollTo(element, {
         duration: 1.2,
       });
     }, 100);
+
+    return () => clearTimeout(timeout);
   }, [lenis]);
 
   return (
     <>
       <ReactLenis root />
+
+      <SectionIndicator />
+
       <Toaster
         position="bottom-center"
         toastOptions={{
@@ -76,17 +85,17 @@ const App = () => {
           },
         }}
       />
-      <div className="marimba-grid-bg">
-        <div className="grid-line"></div>
-        <div className="grid-line"></div>
-        <div className="grid-line"></div>
-        <div className="grid-line"></div>
-        <div className="grid-line"></div>
+
+      <div className="marimba-grid-bg" aria-hidden="true">
+        {Array.from({ length: 5 }).map((_, index) => (
+          <div className="grid-line" key={index} />
+        ))}
       </div>
-      <main ref={containerRef}>
+
+      <main ref={parentRef}>
         <Menu />
 
-        <section id="home" className="one">
+        <section className="one">
           <div className="container">
             <Hero />
           </div>

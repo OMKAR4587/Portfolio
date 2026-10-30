@@ -1,0 +1,84 @@
+
+.section-indicator {
+  position: fixed;
+  right: 38px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 9999;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+
+  color: #77785b;
+  pointer-events: none;
+}
+
+.indicator-label {
+  display: none;
+}
+
+.indicator-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.indicator-number {
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: -3px;
+  line-height: 1;
+  writing-mode: vertical-rl;
+  font-variant-numeric: tabular-nums;
+}
+
+.indicator-divider {
+  width: 1px;
+  height: 32px;
+  background: currentColor;
+  opacity: 0.45;
+}
+
+.indicator-name {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  line-height: 1;
+}
+
+.indicator-line {
+  width: 1px;
+  height: 55px;
+  background: currentColor;
+  opacity: 0.4;
+}
+
+@media (max-width: 768px) {
+  .section-indicator {
+    right: 14px;
+    gap: 12px;
+  }
+
+  .indicator-number {
+    font-size: 30px;
+  }
+
+  .indicator-name {
+    font-size: 9px;
+    letter-spacing: 2px;
+  }
+
+  .indicator-divider {
+    height: 24px;
+  }
+
+  .indicator-line {
+    height: 35px;
+  }
+}

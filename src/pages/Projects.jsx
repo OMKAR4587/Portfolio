@@ -1,8 +1,41 @@
-import React, { useRef, useEffect } from "react";
+
+import React, { useEffect, useRef } from "react";
+
 import "../stylesheets/Project.css";
 import ProjectCardAnimation from "../hooks/ProjectCardAnimation";
+
 import overlayImg from "../assets/images/project-one-bg.png";
 import dashforgeProject from "../assets/videos/Dashforge-Overview.mp4";
+
+const projects = [
+  {
+    id: 1,
+    title: "Mercer Mass Timber",
+    description:
+      "A three-year collaboration evolving a complex, technical website into a scalable digital platform.",
+    action: () => console.log("Clicked project 1"),
+  },
+  {
+    id: 2,
+    title: "Dashforge",
+    description:
+      "A modern dashboard experience designed to make complex information easier to manage.",
+    action: () =>
+      window.open(
+        "https://dashforge-frontend-hrht.onrender.com/",
+        "_blank",
+        "noopener,noreferrer"
+      ),
+  },
+  {
+    id: 3,
+    title: "Mercer Mass Timber",
+    description:
+      "A three-year collaboration evolving a complex, technical website into a scalable digital platform.",
+    action: () => console.log("Clicked project 3"),
+  },
+];
+
 export default function Projects() {
   const sectionRef = useRef(null);
   const projectRef = useRef(null);
@@ -12,121 +45,98 @@ export default function Projects() {
   }, []);
 
   return (
-    <>
-      <div className="project-wraper" ref={sectionRef}>
-        <section className="projects-detail-section project-detail-container-1">
+    <div
+      className="project-wraper"
+      ref={sectionRef}
+    >
+      {projects.map((project) => (
+        <section
+          key={project.id}
+          className={`projects-detail-section project-detail-container-${project.id}`}
+          aria-labelledby={`project-title-${project.id}`}
+        >
           <div className="project-left">
-            <div className="project-count">
-              <h1 className="project-count-index">01</h1>
-              <span className="total-project-count">/ 03</span>
+
+            <div className="project-count" aria-label={`Project ${project.id} of 3`}>
+              <span className="project-count-index">
+                {String(project.id).padStart(2, "0")}
+              </span>
+
+              <span className="total-project-count">
+                / {String(projects.length).padStart(2, "0")}
+              </span>
             </div>
 
-            <div className="project-content">
-              <h1 className="project-title">Mercer Mass Timber</h1>
+            <header className="project-content">
+              <h2
+                id={`project-title-${project.id}`}
+                className="project-title"
+              >
+                {project.title}
+              </h2>
+
               <button
-                onClick={() => console.log("clicked 1")}
+                type="button"
                 className="case-study-btn"
+                onClick={project.action}
               >
                 View case study
               </button>
-            </div>
+            </header>
+
             <div className="project-description">
               <p className="project-description-text">
-                A three-year collaboration evolving a complex, technical website
-                into a scalable digital platform.
+                {project.description}
               </p>
             </div>
+
           </div>
         </section>
-        <section className="projects-detail-section project-detail-container-2">
-          <div className="project-left">
-            <div className="project-count">
-              <h1 className="project-count-index">02</h1>
-              <span className="total-project-count">/ 03</span>
-            </div>
+      ))}
 
-            <div className="project-content">
-              <h1 className="project-title">Dashforge</h1>
-              <button
-                className="case-study-btn"
-                onClick={() =>
-                  window.open(
-                    "https://dashforge-frontend-hrht.onrender.com/",
-                    "_blank",
-                    "noopener,noreferrer",
-                  )
-                }
-              >
-                View case study
-              </button>
-            </div>
-            <div className="project-description">
-              <p className="project-description-text">
-                A three-year collaboration evolving a complex, technical website
-                into a scalable digital platform.
-              </p>
-            </div>
-          </div>
-        </section>
-        <section className="projects-detail-section project-detail-container-3">
-          <div className="project-left">
-            <div className="project-count">
-              <h1 className="project-count-index">03</h1>
-              <span className="total-project-count">/ 03</span>
-            </div>
+      <section
+        className="Project-section"
+        aria-label="Project previews"
+      >
+        <div className="Project-container" ref={projectRef}>
 
-            <div className="project-content">
-              <h1 className="project-title">Mercer Mass Timber</h1>
-              <button
-                onClick={() => console.log("clicked 3")}
-                className="case-study-btn"
-              >
-                View case study
-              </button>
-            </div>
-            <div className="project-description">
-              <p className="project-description-text">
-                A three-year collaboration evolving a complex, technical website
-                into a scalable digital platform.
-              </p>
-            </div>
-          </div>
-        </section>
+          <img
+            className="project-container-overlay"
+            src={overlayImg}
+            alt=""
+            aria-hidden="true"
+          />
 
-        <div className="Project-section">
-          <div className="Project-container" ref={projectRef}>
-            <img
-              className="project-container-overlay"
-              src={overlayImg}
-              alt=""
-            />
-
-            <div className="my-project-2">
-              <div className="one-color">
-                <div className="project-holder-2">
-                  <video
-                    className="project-video"
-                    autoPlay
-                    muted
-                    playsInline
-                    loop
-                    preload="metadata"
-                  >
-                    <source src={dashforgeProject} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
-              </div>
+          <article className="my-project-2">
+            <div className="one-color">
+              <figure className="project-holder-2">
+                <video
+                  className="project-video"
+                  autoPlay
+                  muted
+                  playsInline
+                  loop
+                  preload="metadata"
+                  aria-label="Dashforge project preview"
+                >
+                  <source
+                    src={dashforgeProject}
+                    type="video/mp4"
+                  />
+                  Your browser does not support the video tag.
+                </video>
+              </figure>
             </div>
+          </article>
 
-            <div className="my-project-3">
-              <div className="two-color">
-                <div className="project-holder-3"></div>
-              </div>
+          <article className="my-project-3">
+            <div className="two-color">
+              <figure className="project-holder-3" />
             </div>
-          </div>
+          </article>
+
         </div>
-      </div>
-    </>
+      </section>
+    </div>
   );
 }

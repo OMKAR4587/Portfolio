@@ -1,6 +1,7 @@
+
 import { useEffect, useRef, useState } from "react";
-import "../../stylesheets/Indicator.css";
 import gsap from "gsap";
+import "../../stylesheets/Indicator.css";
 
 const sections = [
   { id: "home", number: "01", name: "Home" },
@@ -12,16 +13,23 @@ const sections = [
 
 export default function SectionIndicator() {
   const [active, setActive] = useState(sections[0]);
+
   const numberRef = useRef(null);
   const nameRef = useRef(null);
   const previousRef = useRef("01");
 
+  const activeIndex = sections.findIndex(
+    (section) => section.id === active.id
+  );
+
+  const progress = ((activeIndex + 1) / sections.length) * 100;
+
+  // Detect active section
   useEffect(() => {
     let ticking = false;
 
     const updateActiveSection = () => {
-      const viewportCenter = window.innerHeight / 2;
-
+      const center = window.innerHeight * 0.5;
       let current = sections[0];
 
       sections.forEach((section) => {
@@ -30,13 +38,13 @@ export default function SectionIndicator() {
 
         const rect = element.getBoundingClientRect();
 
-        if (rect.top <= viewportCenter) {
+        if (rect.top <= center) {
           current = section;
         }
       });
 
-      setActive((previous) =>
-        previous.id === current.id ? previous : current,
+      setActive((prev) =>
+        prev.id === current.id ? prev : current
       );
 
       ticking = false;
@@ -51,7 +59,10 @@ export default function SectionIndicator() {
 
     updateActiveSection();
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
+
     window.addEventListener("resize", handleScroll);
 
     return () => {
@@ -60,6 +71,7 @@ export default function SectionIndicator() {
     };
   }, []);
 
+  // Animate section changes
   useEffect(() => {
     if (!numberRef.current || !nameRef.current) return;
     if (previousRef.current === active.number) return;
@@ -67,43 +79,95 @@ export default function SectionIndicator() {
     const direction =
       Number(active.number) > Number(previousRef.current) ? 1 : -1;
 
-    gsap.killTweensOf([numberRef.current, nameRef.current]);
+    const elements = [
+      numberRef.current,
+      nameRef.current,
+    ];
+
+    gsap.killTweensOf(elements);
 
     gsap.fromTo(
-      [numberRef.current, nameRef.current],
+      elements,
       {
-        y: direction * 25,
+        y: direction * 18,
         opacity: 0,
-        filter: "blur(5px)",
+        filter: "blur(6px)",
       },
       {
         y: 0,
         opacity: 1,
         filter: "blur(0px)",
-        duration: 0.65,
-        stagger: 0.08,
+        duration: 0.7,
+        stagger: 0.09,
         ease: "power4.out",
-      },
+        clearProps: "transform",
+      }
     );
 
     previousRef.current = active.number;
+
+    return () => {
+      gsap.killTweensOf(elements);
+    };
   }, [active]);
 
   return (
-    <aside className="section-indicator" aria-label="Current section">
-      <div className="indicator-content" aria-live="polite">
-        <span ref={numberRef} className="indicator-number">
-          {active.number}
+    <aside
+      className="section-indicator"
+      aria-label="Current section"
+    >
+      <div className="indicator-card">
+
+        <span className="indicator-eyebrow">
+          INDEX
         </span>
 
-        <span className="indicator-divider" />
+        <div className="indicator-content">
+          <span
+            ref={numberRef}
+            className="indicator-number"
+            aria-live="polite"
+          >
+            {active.number}
+          </span>
 
-        <span ref={nameRef} className="indicator-name">
-          {active.name}
+          <span className="indicator-divider" />
+
+          <span
+            ref={nameRef}
+            className="indicator-name"
+          >
+            {active.name}
+          </span>
+        </div>
+
+        <span className="indicator-counter">
+          0{sections.length}
         </span>
+
       </div>
 
-      <span className="indicator-line" />
+      <div className="indicator-progress">
+
+        <div className="progress-track">
+          <div
+            className="progress-fill"
+            style={{ height: `${progress}%` }}
+          />
+        </div>
+
+        <div className="progress-dots">
+          {sections.map((section, index) => (
+            <span
+              key={section.id}
+              className={`progress-dot ${
+                index <= activeIndex ? "is-active" : ""
+              } ${index === activeIndex ? "is-current" : ""}`}
+            />
+          ))}
+        </div>
+
+      </div>
     </aside>
   );
 }

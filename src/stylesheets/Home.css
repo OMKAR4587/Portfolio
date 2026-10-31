@@ -360,6 +360,16 @@
   position: absolute;
   margin: 0;
   opacity: 0;
+
+  font-family: "Instrument Serif", serif;
+  font-size: clamp(42px, 2.5vw, 64px);
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: -1.5px;
+
+  color: #38451d;
+  text-align: center;
 }
 
 .blob {
@@ -532,9 +542,9 @@
     font-size: 20px;
   }
 
-  .quick-link-1,
-  .quick-link-2 {
-    min-height: 30px;
+  .quick-link {
+    height: 100px !important;
+    width: 150px !important;
   }
 
   .bottom-tag {
@@ -542,18 +552,50 @@
   }
 
   .circles {
-    width: 390px;
-    height: 390px;
+    width: 700px;
+    height: 700px;
   }
 
   .blob {
-    width: 220px;
-    height: 220px;
+    width: 400px;
+    height: 400px;
   }
 
+
   .inside-buble-text {
-    font-size: 18px;
-  }
+  position: fixed;
+  padding: 100px 100px 100px 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  margin: 0;
+  color: white;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.2;
+  opacity: 0;
+}
+
+/* Existing label positions preserved */
+
+.inside-buble-text-1 {
+  top: 3%;
+  left: 30%;
+  transform: translate(-50%, 0);
+}
+
+.inside-buble-text-2 {
+  top: 85%;
+  left: 20%;
+}
+
+.inside-buble-text-3 {
+  bottom: 30%;
+  left: 82%;
+}
+
 }
 
 /* ==========================
@@ -624,15 +666,15 @@
   }
 
   .circles {
-    width: 250px;
-    height: 250px;
+    width: 400px;
+    height: 400px;
   }
 
   /* Original mobile blob sizing and positions preserved */
 
   .blob {
-    width: 180px;
-    height: 180px;
+    width: 300px;
+    height: 300px;
   }
 
   .blob1 {
@@ -648,22 +690,22 @@
   .inside-buble-text {
     width: 75px;
     height: 75px;
-    font-size: 15px;
+    font-size: 25px;
   }
 
   .inside-buble-text-1 {
     left: 28%;
-    top: -22%;
+    top: -12%;
   }
 
   .inside-buble-text-2 {
-    top: 75%;
-    left: -10%;
+    top: 90%;
+    left: 5%;
   }
 
   .inside-buble-text-3 {
-    bottom: 15%;
-    left: 82%;
+    bottom: 20%;
+    left: 97%;
   }
 }
 
@@ -704,7 +746,7 @@
 
   .home-container .hero-heading {
     width: 100%;
-    font-size: clamp(32px, 7vh, 72px);
+    font-size: clamp(32px, 6.8vh, 72px);
     line-height: 1.12;
     letter-spacing: -0.02em;
   }
@@ -763,17 +805,17 @@
 
   .inside-buble-text-1 {
     left: 28%;
-    top: -22%;
+    top: -20%;
   }
 
   .inside-buble-text-2 {
-    top: 75%;
-    left: -10%;
+    top: 80%;
+    left: -5%;
   }
 
   .inside-buble-text-3 {
-    bottom: 15%;
-    left: 82%;
+    bottom: 25%;
+    left: 92%;
   }
 }
 
@@ -877,12 +919,12 @@
   }
 
   .inside-buble-text-2 {
-    top: 75%;
-    left: -10%;
+    top: 80%;
+    left: 0%;
   }
 
   .inside-buble-text-3 {
-    bottom: 15%;
-    left: 82%;
+    bottom: 20%;
+    left: 92%;
   }
 }

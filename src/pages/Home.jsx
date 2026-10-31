@@ -52,7 +52,7 @@ function Home() {
       // Blob blur animation
       gsap.fromTo(
         ".blob",
-        { filter: "blur(30px)" },
+        { filter: "blur(40px)" },
         {
           filter: "blur(1px)",
           scrollTrigger: {
@@ -227,7 +227,7 @@ function Home() {
               </p>
             </div>
 
-            <a href="#craft" id="craft" className="mouse-scroll" aria-label="Scroll down">
+            <a href="#craft" className="mouse-scroll" aria-label="Scroll down">
               <span className="mouse-icon">
                 <span className="mouse-wheel" />
               </span>
@@ -237,7 +237,7 @@ function Home() {
 
             <div className="bottom-message">
               <span className="bottom-label">LET'S CREATE</span>
-              <p>
+              <p         id="craft">
                 Something <em>meaningful.</em> ↗
               </p>
             </div>
@@ -248,7 +248,6 @@ function Home() {
       <section
         className="section-wrapper"
         ref={sectionRef}
-        id="craft"
         aria-label="My skills and craft"
       >
         <div className="hero-bg">
@@ -260,15 +259,15 @@ function Home() {
             <div className="blob blob3" aria-hidden="true" />
 
             <figcaption className="inside-buble-text-1 inside-buble-text">
-              Frontend
+              <div>Frontend</div>
             </figcaption>
 
             <figcaption className="inside-buble-text-2 inside-buble-text">
-              Backend
+              <div>Backend</div>
             </figcaption>
 
             <figcaption className="inside-buble-text-3 inside-buble-text">
-              Cloud
+              <div>Cloud</div>
             </figcaption>
           </figure>
         </div>

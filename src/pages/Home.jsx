@@ -52,7 +52,7 @@ function Home() {
       // Blob blur animation
       gsap.fromTo(
         ".blob",
-        { filter: "blur(40px)" },
+        { filter: "blur(30px)" },
         {
           filter: "blur(1px)",
           scrollTrigger: {

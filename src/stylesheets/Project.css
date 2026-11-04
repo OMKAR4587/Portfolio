@@ -194,11 +194,6 @@
 
   /* LARGE DESKTOP */
   @media (min-width: 1440px) {
-    .Project-container {
-      /* width: min(750px, 48vw);
-      height: min(500px, 55vh); */
-    }
-
     .zero-color,
     .one-color,
     .two-color,
@@ -230,11 +225,6 @@
 
   /* LAPTOP */
   @media (min-width: 1025px) and (max-width: 1439px) {
-    .Project-container {
-      /* width: min(700px, 52vw);
-      height: min(470px, 55vh); */
-    }
-
     .zero-color,
     .one-color,
     .two-color,

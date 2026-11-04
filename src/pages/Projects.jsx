@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-
+import { useEffect, useRef } from "react"
+import { useNavigate } from "react-router-dom";
 import "../stylesheets/Project.css";
 import ProjectCardAnimation from "../hooks/ProjectCardAnimation";
 
@@ -39,6 +39,8 @@ const projects = [
 export default function Projects() {
   const sectionRef = useRef(null);
   const projectRef = useRef(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const cleanup = ProjectCardAnimation(sectionRef, projectRef);

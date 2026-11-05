@@ -136,6 +136,7 @@
   .project-detail-container-2,
   .project-detail-container-3 {
     pointer-events: none;
+    opacity: 0;
   }
 
   .project-left {

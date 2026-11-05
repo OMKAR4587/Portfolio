@@ -1,100 +1,257 @@
-import { useParams, Link } from "react-router-dom";
 import { useLayoutEffect, useRef } from "react";
+import { Link, useParams } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import "../stylesheets/ProjectDetail.css"
+import "../stylesheets/ProjectDetail.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const projectDetails = {
   dashforge: {
-    title: "DASHFORGE",
     number: "01",
-    subtitle: "Real-Time Market Monitoring Platform",
-    category: "FINTECH / WEB DEVELOPMENT",
+    title: "DASHFORGE",
+    subtitle: "Real-time market monitoring platform",
+    category: "FINANCE / WEB APPLICATION",
+    year: "2026",
+    accent: "#a4c957",
     overview:
-      "A powerful, fast, and intuitive market monitoring website that provides real-time stock prices, financial data, and market insights at your fingertips.",
+      "Dashforge is a market-monitoring platform designed to bring stock prices, financial information, and market insights into one accessible interface. It combines a lightweight Vanilla JavaScript frontend with a Node.js and Express backend.",
+    challenge:
+      "Presenting financial information in a clear and accessible way while connecting the frontend to multiple financial data sources.",
+    solution:
+      "A responsive web experience backed by REST APIs, with financial data integrations and MongoDB support for user data and favorites.",
     features: [
       "Real-time stock tracking",
-      "Multiple data sources using Twelve Data and Yahoo Finance APIs",
-      "Fast and lightweight Vanilla JavaScript frontend",
-      "Responsive desktop and mobile experience",
+      "Financial data from multiple sources",
+      "Yahoo Finance and Twelve Data integrations",
       "Market insights and financial trends",
-      "RESTful API backend with CORS support",
+      "RESTful backend API",
       "MongoDB support for user data and favorites",
+      "Responsive desktop and mobile interface",
+      "CORS-enabled API communication",
     ],
-    frontend: ["Vanilla JavaScript", "HTML5", "CSS3", "Fetch API"],
-    backend: ["Node.js", "Express.js", "REST API", "MongoDB", "CORS"],
-    apis: ["Yahoo Finance API", "Twelve Data API"],
+    stack: [
+      {
+        title: "Frontend",
+        description: "The client-side interface and browser functionality.",
+        items: [
+          ["HTML5", "Page structure and semantic markup"],
+          ["CSS3", "Visual styling and responsive layouts"],
+          ["Vanilla JavaScript", "Frontend interactions and application logic"],
+          ["Fetch API", "Making HTTP requests to backend and data services"],
+        ],
+      },
+      {
+        title: "Backend",
+        description: "Server-side application and data management.",
+        items: [
+          ["Node.js", "JavaScript runtime for the server"],
+          ["Express.js", "Backend application and REST endpoints"],
+          ["REST API", "Communication between client and server"],
+          ["MongoDB", "Database support for user data and favorites"],
+          ["CORS", "Cross-origin request support"],
+        ],
+      },
+      {
+        title: "External integrations",
+        description:
+          "External financial data providers used by the application.",
+        items: [
+          ["Yahoo Finance API", "Financial and market data source"],
+          ["Twelve Data API", "Market data integration"],
+        ],
+      },
+    ],
+    workflow: [
+      [
+        "01",
+        "User interaction",
+        "The user explores the market-monitoring interface.",
+      ],
+      [
+        "02",
+        "Data requests",
+        "The frontend uses Fetch API to communicate with services.",
+      ],
+      [
+        "03",
+        "Backend",
+        "The Node.js and Express backend exposes REST endpoints.",
+      ],
+      [
+        "04",
+        "Data integrations",
+        "Financial information is sourced through the configured providers.",
+      ],
+    ],
     liveUrl: "https://dashforge-frontend-hrht.onrender.com/",
     githubUrl: "https://github.com/OMKAR4587/DASHFORGE",
     heroImage:
-      "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=2000&q=85",
-    imageOne:
+      "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=2200&q=85",
+    images: [
       "https://images.unsplash.com/photo-1642790106117-e829e14a795f?auto=format&fit=crop&w=1800&q=85",
-    imageTwo:
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1800&q=85",
-    accent: "#b6f36a",
+    ],
+    next: "novachat",
   },
 
   novachat: {
-    title: "NOVACHAT",
     number: "02",
-    subtitle: "Your Intelligent AI Workspace",
-    category: "ARTIFICIAL INTELLIGENCE / WEB APP",
+    title: "NOVACHAT",
+    subtitle: "Your intelligent AI workspace",
+    category: "AI / PRODUCTIVITY",
+    year: "2026",
+    accent: "#9b8af7",
     overview:
-      "A modern AI-powered chat application built to make conversations, coding assistance, and everyday problem-solving simpler.",
+      "NovaChat is an AI-powered chat workspace designed to make conversations, coding assistance, and everyday problem-solving simpler. It brings AI interactions and conversation management into a responsive interface.",
+    challenge:
+      "Creating a chat experience that makes AI responses easy to read, conversations easy to manage, and interaction states clear.",
+    solution:
+      "A React-based frontend connected to a Node.js and Express backend using the Google GenAI SDK, with Supabase authentication integration.",
     features: [
       "AI-powered conversations",
       "Markdown-formatted AI responses",
-      "Create and manage conversations",
+      "Conversation creation and management",
       "Local chat history persistence",
       "Responsive sidebar for mobile and desktop",
-      "Loading, error, and retry feedback",
+      "Loading and error feedback",
+      "Retry functionality",
       "Supabase authentication integration",
     ],
-    frontend: ["React", "Vite", "Tailwind CSS", "Lucide React"],
-    backend: ["Node.js", "Express", "Google GenAI SDK"],
-    apis: ["Google Gemini API", "Supabase Auth"],
+    stack: [
+      {
+        title: "Frontend",
+        description: "The chat interface and user experience.",
+        items: [
+          ["React", "Component-based user interface"],
+          ["Vite", "Frontend development and build tooling"],
+          ["Tailwind CSS", "Utility-based interface styling"],
+          ["Lucide React", "Interface icon library"],
+        ],
+      },
+      {
+        title: "Backend",
+        description: "Server-side application and AI integration.",
+        items: [
+          ["Node.js", "JavaScript server runtime"],
+          ["Express", "Backend application framework"],
+          [
+            "Google GenAI SDK",
+            "Integration with Google's generative AI services",
+          ],
+        ],
+      },
+      {
+        title: "External integrations",
+        description: "AI and authentication services.",
+        items: [
+          ["Google Gemini API", "AI conversation integration"],
+          ["Supabase Auth", "Authentication integration"],
+        ],
+      },
+    ],
+    workflow: [
+      ["01", "User input", "The user starts or continues a conversation."],
+      [
+        "02",
+        "Backend request",
+        "The application communicates with its Express backend.",
+      ],
+      [
+        "03",
+        "AI integration",
+        "The Google GenAI SDK connects the application to Gemini.",
+      ],
+      [
+        "04",
+        "Response",
+        "The interface displays formatted AI responses and interaction states.",
+      ],
+    ],
     liveUrl: "",
     githubUrl: "",
     heroImage:
-      "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=2000&q=85",
-    imageOne:
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=2200&q=85",
+    images: [
       "https://images.unsplash.com/photo-1675557009875-436f2e3f7e4b?auto=format&fit=crop&w=1800&q=85",
-    imageTwo:
       "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1800&q=85",
-    accent: "#a78bfa",
+    ],
+    next: "kickshub",
   },
 
   kickshub: {
-    title: "KICKSHUB",
     number: "03",
-    subtitle: "Modern Sneaker E-Commerce Platform",
-    category: "E-COMMERCE / FULL-STACK DEVELOPMENT",
+    title: "KICKSHUB",
+    subtitle: "Modern sneaker e-commerce platform",
+    category: "E-COMMERCE / FULL STACK",
+    year: "2026",
+    accent: "#ee9b70",
     overview:
-      "A full-stack sneaker shopping platform built for sneaker enthusiasts to discover products, explore collections, manage their cart and wishlist, and experience checkout.",
+      "KicksHub is a full-stack sneaker shopping platform built for sneaker enthusiasts. It brings product discovery, collections, cart management, wishlists, and checkout into one shopping experience.",
+    challenge:
+      "Bringing the key parts of an online sneaker-shopping experience together, from product discovery to cart management and checkout.",
+    solution:
+      "A React and TypeScript frontend supported by a Node.js and Express backend, with Prisma ORM, PostgreSQL, Stripe, and JWT authentication.",
     features: [
       "Sneaker product discovery",
       "User authentication",
-      "Shopping cart and quantity management",
+      "Shopping cart management",
+      "Product quantity management",
       "Wishlist functionality",
       "Order management",
       "Stripe checkout integration",
       "Responsive shopping experience",
     ],
-    frontend: ["React", "TypeScript", "Vite", "Tailwind CSS", "GSAP"],
-    backend: ["Node.js", "Express", "Prisma ORM", "PostgreSQL"],
-    apis: ["Stripe", "JWT Authentication"],
+    stack: [
+      {
+        title: "Frontend",
+        description: "The shopping interface and interactions.",
+        items: [
+          ["React", "Component-based shopping interface"],
+          ["TypeScript", "Typed JavaScript development"],
+          ["Vite", "Frontend development and build tooling"],
+          ["Tailwind CSS", "Utility-based interface styling"],
+          ["GSAP", "Frontend animation library"],
+        ],
+      },
+      {
+        title: "Backend",
+        description: "Server-side application and database layer.",
+        items: [
+          ["Node.js", "JavaScript server runtime"],
+          ["Express", "Backend application framework"],
+          ["Prisma ORM", "Database access and ORM layer"],
+          ["PostgreSQL", "Relational database"],
+        ],
+      },
+      {
+        title: "Payments and authentication",
+        description: "External services and application security.",
+        items: [
+          ["Stripe", "Checkout and payment integration"],
+          ["JWT Authentication", "Token-based authentication"],
+        ],
+      },
+    ],
+    workflow: [
+      ["01", "Discover", "Users browse and discover sneaker products."],
+      ["02", "Manage", "Users manage cart items, quantities, and wishlists."],
+      [
+        "03",
+        "Authenticate",
+        "JWT authentication supports the authentication flow.",
+      ],
+      ["04", "Checkout", "Stripe provides the payment integration."],
+    ],
     liveUrl: "",
     githubUrl: "",
     heroImage:
-      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=2000&q=85",
-    imageOne:
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=2200&q=85",
+    images: [
       "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=1800&q=85",
-    imageTwo:
       "https://images.unsplash.com/photo-1495555961986-6d4c1ecb7be3?auto=format&fit=crop&w=1800&q=85",
-    accent: "#ff9d6c",
+    ],
+    next: "dashforge",
   },
 };
 
@@ -107,338 +264,502 @@ function ProjectDetail() {
     if (!project || !pageRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Initial hero entrance
+      const mm = gsap.matchMedia();
+
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      if (reduceMotion) return;
+
+      // 01 — CINEMATIC INTRO
       const intro = gsap.timeline({
-        defaults: { ease: "power3.out" },
+        defaults: {
+          ease: "power4.out",
+        },
       });
 
       intro
-        .from(".detail-nav", {
-          y: -25,
+        .from(".case-nav", {
+          y: -35,
           autoAlpha: 0,
-          duration: 0.8,
+          duration: 1,
         })
         .from(
-          ".detail-hero-copy > *",
+          ".case-eyebrow",
           {
-            y: 55,
+            y: 25,
             autoAlpha: 0,
-            duration: 1,
-            stagger: 0.13,
+            duration: 0.8,
           },
-          "-=0.35"
+          "-=0.4",
         )
         .from(
-          ".detail-hero-image",
+          ".case-title",
           {
+            y: 110,
+            autoAlpha: 0,
+            duration: 1.2,
+            skewY: 5,
+          },
+          "-=0.5",
+        )
+        .from(
+          ".case-subtitle, .case-intro, .case-actions",
+          {
+            y: 35,
+            autoAlpha: 0,
+            duration: 0.9,
+            stagger: 0.15,
+          },
+          "-=0.7",
+        )
+        .from(
+          ".case-hero-visual",
+          {
+            clipPath: "inset(20% 15% 20% 15% round 20px)",
             scale: 1.12,
             autoAlpha: 0,
-            duration: 1.4,
+            duration: 1.5,
+            ease: "power3.inOut",
           },
-          "-=0.65"
+          "-=0.6",
         );
 
-      // Hero image parallax
-      gsap.to(".detail-hero-image img", {
-        yPercent: 18,
+      // 02 — HERO PARALLAX
+      gsap.to(".case-hero-visual img", {
+        yPercent: 20,
+        scale: 1.08,
         ease: "none",
         scrollTrigger: {
-          trigger: ".detail-hero-image",
+          trigger: ".case-hero-visual",
           start: "top bottom",
           end: "bottom top",
-          scrub: true,
+          scrub: 1.5,
         },
       });
 
-      // Section reveal
-      gsap.utils.toArray(".detail-reveal").forEach((section) => {
-        gsap.from(section, {
-          y: 65,
-          autoAlpha: 0,
-          duration: 1,
-          ease: "power3.out",
+      // 03 — SECTION REVEALS
+      gsap.utils.toArray(".case-reveal").forEach((element) => {
+        gsap.fromTo(
+          element,
+          {
+            y: 70,
+            autoAlpha: 0,
+          },
+          {
+            y: 0,
+            autoAlpha: 1,
+            duration: 1.1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: element,
+              start: "top 85%",
+              once: true,
+            },
+          },
+        );
+      });
+
+      // 04 — HORIZONTAL SCREENSHOT EXPERIENCE
+      mm.add("(min-width: 768px)", () => {
+        const section = document.querySelector(".case-gallery-viewport");
+        const track = document.querySelector(".case-gallery-track");
+
+        if (!section || !track) return;
+
+        const horizontalTween = gsap.to(track, {
+          x: () => -(track.scrollWidth - window.innerWidth),
+          ease: "none",
           scrollTrigger: {
             trigger: section,
-            start: "top 85%",
-            once: true,
+            start: "top top",
+            end: () => "+=" + (track.scrollWidth - window.innerWidth),
+            pin: true,
+            scrub: 1,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
           },
+        });
+
+        gsap.utils.toArray(".case-horizontal-image").forEach((image) => {
+          gsap.fromTo(
+            image,
+            {
+              scale: 1.15,
+            },
+            {
+              scale: 1,
+              ease: "none",
+              scrollTrigger: {
+                trigger: image.closest(".case-horizontal-panel"),
+                containerAnimation: horizontalTween,
+                start: "left right",
+                end: "right left",
+                scrub: true,
+              },
+            },
+          );
+        });
+
+        return () => {
+          horizontalTween.scrollTrigger?.kill();
+          horizontalTween.kill();
+        };
+      });
+
+      // 05 — MOBILE GALLERY REVEAL
+      mm.add("(max-width: 767px)", () => {
+        gsap.utils.toArray(".case-horizontal-panel").forEach((panel) => {
+          gsap.from(panel, {
+            y: 45,
+            autoAlpha: 0,
+            duration: 0.9,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: panel,
+              start: "top 88%",
+              once: true,
+            },
+          });
         });
       });
 
-      // Feature cards stagger
-      gsap.from(".detail-feature-card", {
-        y: 45,
+      // 06 — FEATURE CARDS
+      gsap.from(".case-feature", {
+        y: 65,
         autoAlpha: 0,
-        stagger: 0.1,
-        duration: 0.8,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".detail-feature-grid",
-          start: "top 82%",
-          once: true,
-        },
-      });
-
-      // Showcase image parallax
-      gsap.utils.toArray(".detail-showcase-image").forEach((image) => {
-        const img = image.querySelector("img");
-
-        gsap.fromTo(
-          img,
-          { yPercent: -8 },
-          {
-            yPercent: 8,
-            ease: "none",
-            scrollTrigger: {
-              trigger: image,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: true,
-            },
-          }
-        );
-      });
-
-      // Technology tags
-      gsap.from(".detail-tech-tag", {
-        y: 18,
-        autoAlpha: 0,
-        stagger: 0.045,
-        duration: 0.55,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: ".detail-tech-grid",
-          start: "top 82%",
-          once: true,
-        },
-      });
-
-      // Footer entrance
-      gsap.from(".detail-footer-content", {
-        y: 45,
-        autoAlpha: 0,
+        stagger: 0.12,
         duration: 0.9,
         ease: "power3.out",
         scrollTrigger: {
-          trigger: ".detail-footer",
+          trigger: ".case-feature-grid",
+          start: "top 82%",
+          once: true,
+        },
+      });
+
+      // 07 — TECH STACK
+      gsap.from(".case-stack-group", {
+        y: 60,
+        autoAlpha: 0,
+        stagger: 0.18,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".case-stack-grid",
+          start: "top 82%",
+          once: true,
+        },
+      });
+
+      // 08 — WORKFLOW
+      gsap.from(".case-workflow-step", {
+        x: -45,
+        autoAlpha: 0,
+        stagger: 0.16,
+        duration: 0.85,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".case-workflow-list",
+          start: "top 82%",
+          once: true,
+        },
+      });
+
+      // 09 — FOOTER REVEAL
+      gsap.from(".case-next-link", {
+        y: 70,
+        autoAlpha: 0,
+        duration: 1.1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".case-footer",
           start: "top 85%",
           once: true,
         },
       });
+
+      // Recalculate positions after images load.
+      window.addEventListener("load", ScrollTrigger.refresh);
     }, pageRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+    };
   }, [project]);
 
   if (!project) {
     return (
-      <main className="detail-not-found">
+      <main className="case-not-found">
         <h1>PROJECT NOT FOUND</h1>
         <Link to="/#projects">← Back to projects</Link>
       </main>
     );
   }
 
+  const nextProject = projectDetails[project.next];
+
   return (
     <main
-      className="project-detail-page"
+      className="case-page"
       ref={pageRef}
-      style={{ "--project-accent": project.accent }}
+      style={{ "--case-accent": project.accent }}
     >
-      <nav className="detail-nav">
-        <Link to="/#projects" className="detail-back-link">
-          <span>←</span> Back to projects
+      <nav className="case-nav">
+        <Link to="/#projects" className="case-back">
+          <span className="back-icon">↖</span>
+          <span>Back to projects</span>
         </Link>
-        <span className="detail-nav-label">INDEPENDENT WORK / 2026</span>
-        <span className="detail-nav-index">{project.number} — 03</span>
+
+        <div className="case-nav-center">
+          <span className="nav-label">SELECTED WORK</span>
+          <span className="nav-divider" />
+          <span className="nav-category">INDEPENDENT / {project.year}</span>
+        </div>
+
+        <div className="case-nav-number">
+          <span className="number-current">{project.number}</span>
+          <span className="number-divider">/</span>
+          <span className="number-total">03</span>
+        </div>
       </nav>
 
-      {/* HERO */}
-      <header className="detail-hero">
-        <div className="detail-hero-copy">
-          <span className="detail-eyebrow">
-            <span className="detail-status-dot" />
-            {project.category}
+      <header className="case-hero">
+        <div className="case-hero-copy">
+          <span className="case-eyebrow">
+            <i /> {project.category}
           </span>
 
-          <h1>{project.title}</h1>
+          <h1 className="case-title">{project.title}</h1>
+          <h2 className="case-subtitle">{project.subtitle}</h2>
+          <p className="case-intro">{project.overview}</p>
 
-          <h2>{project.subtitle}</h2>
-
-          <p>{project.overview}</p>
-
-          <div className="detail-actions">
+          <div className="case-actions">
             {project.liveUrl && (
               <a
+                className="case-primary-link"
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="detail-primary-link"
               >
-                Explore live project <span>↗</span>
+                Visit live website <span>↗</span>
               </a>
             )}
 
             {project.githubUrl && (
               <a
+                className="case-secondary-link"
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="detail-secondary-link"
               >
-                View source code <span>↗</span>
+                Explore source code <span>↗</span>
               </a>
             )}
           </div>
         </div>
 
-        <div className="detail-hero-image">
+        <div className="case-hero-visual">
           <img src={project.heroImage} alt={`${project.title} visual`} />
-          <div className="detail-image-caption">
-            <span>PROJECT / {project.number}</span>
-            <span>{project.title}</span>
-          </div>
+          <span className="case-image-caption">
+            {project.title} / SELECTED PROJECT
+          </span>
         </div>
 
-        <div className="detail-scroll-note">
-          <span>SCROLL TO EXPLORE</span>
-          <span className="detail-scroll-line" />
-        </div>
+        <div className="case-scroll-cue">SCROLL TO EXPLORE ↓</div>
       </header>
 
-      {/* OVERVIEW */}
-      <section className="detail-overview detail-reveal">
-        <div className="detail-section-heading">
-          <span>01 / THE IDEA</span>
-          <span>OVERVIEW</span>
+      <section className="case-introduction case-reveal">
+        <div className="case-section-label">
+          <span>01 / PROJECT OVERVIEW</span>
+          <span>THE BRIEF</span>
         </div>
 
-        <div className="detail-overview-content">
+        <div className="case-intro-grid">
           <h2>
-            Turning an idea into
-            <span> a digital experience.</span>
-          </h2>
-
-          <p>{project.overview}</p>
-        </div>
-      </section>
-
-      {/* SHOWCASE */}
-      <section className="detail-showcase">
-        <div className="detail-showcase-heading detail-reveal">
-          <span>02 / VISUAL DIRECTION</span>
-          <h2>Inside the experience.</h2>
-        </div>
-
-        <div className="detail-showcase-image detail-showcase-large">
-          <img src={project.imageOne} alt={`${project.title} showcase one`} />
-          <span className="detail-showcase-label">01 — EXPERIENCE</span>
-        </div>
-
-        <div className="detail-showcase-bottom">
-          <div className="detail-showcase-image detail-showcase-small">
-            <img src={project.imageTwo} alt={`${project.title} showcase two`} />
-            <span className="detail-showcase-label">02 — DETAILS</span>
-          </div>
-
-          <div className="detail-showcase-note detail-reveal">
-            <span>DESIGNED WITH PURPOSE</span>
-            <h3>
-              Thoughtful details.
-              <br />
-              Meaningful experiences.
-            </h3>
-            <p>
-              A closer look at the visual direction and experience behind
-              this project.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* FEATURES */}
-      <section className="detail-features detail-reveal">
-        <div className="detail-section-heading">
-          <span>03 / CAPABILITIES</span>
-          <span>FEATURES</span>
-        </div>
-
-        <div className="detail-features-title">
-          <h2>
-            Made to do
+            An idea.
             <br />
-            <span>more.</span>
+            A challenge.
+            <br />
+            <span>A digital solution.</span>
           </h2>
+
+          <div className="case-brief-copy">
+            <div>
+              <span>THE CHALLENGE</span>
+              <p>{project.challenge}</p>
+            </div>
+            <div>
+              <span>THE APPROACH</span>
+              <p>{project.solution}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="case-gallery">
+        <div className="case-gallery-heading case-reveal">
+          <div className="case-section-label">
+            <span>02 / VISUAL SHOWCASE</span>
+            <span>THE EXPERIENCE</span>
+          </div>
+
+          <h2>
+            A closer look.
+            <br />
+            <span>Beyond the interface.</span>
+          </h2>
+
           <p>
-            The key capabilities that bring this project to life.
+            Explore the experience through a series of selected screens and
+            visual details.
           </p>
         </div>
 
-        <div className="detail-feature-grid">
+        <div className="case-gallery-viewport">
+          <div className="case-gallery-track">
+            {project.images.map((image, index) => (
+              <article className="case-horizontal-panel" key={image}>
+                <div className="case-horizontal-image-wrap">
+                  <img
+                    src={image}
+                    alt={`${project.title} screenshot ${index + 1}`}
+                    className="case-horizontal-image"
+                  />
+
+                  <span className="case-image-overlay-number">
+                    0{index + 1}
+                  </span>
+                </div>
+
+                <div className="case-horizontal-caption">
+                  <span>
+                    {project.title} / 0{index + 1}
+                  </span>
+
+                  <span>SELECTED VIEW ↗</span>
+                </div>
+              </article>
+            ))}
+
+            <div className="case-gallery-end">
+              <span>THE EXPERIENCE</span>
+              <h3>
+                Designed to
+                <br />
+                make an impact.
+              </h3>
+              <span>END OF SHOWCASE ↗</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="case-gallery-progress">
+          <span>SCROLL TO EXPLORE</span>
+          <span>DRAG YOUR WAY THROUGH THE EXPERIENCE →</span>
+        </div>
+      </section>
+
+      <section className="case-features case-reveal">
+        <div className="case-section-label">
+          <span>03 / KEY CAPABILITIES</span>
+          <span>WHAT IT DOES</span>
+        </div>
+
+        <div className="case-feature-heading">
+          <h2>
+            The details
+            <br />
+            <span>that matter.</span>
+          </h2>
+          <p>
+            A closer look at the main capabilities included in this project.
+          </p>
+        </div>
+
+        <div className="case-feature-grid">
           {project.features.map((feature, index) => (
-            <article className="detail-feature-card" key={feature}>
-              <span className="detail-feature-number">
-                {String(index + 1).padStart(2, "0")}
-              </span>
+            <article className="case-feature" key={feature}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
               <h3>{feature}</h3>
-              <span className="detail-feature-arrow">↗</span>
+              <b>↗</b>
             </article>
           ))}
         </div>
       </section>
 
-      {/* TECHNOLOGY */}
-      <section className="detail-technology detail-reveal">
-        <div className="detail-section-heading">
-          <span>04 / THE TOOLKIT</span>
-          <span>TECHNOLOGY</span>
+      <section className="case-stack">
+        <div className="case-section-label">
+          <span>04 / TECHNOLOGY & TOOLS</span>
+          <span>THE TOOLKIT</span>
         </div>
 
-        <h2>
-          Built with
-          <br />
-          <span>the right tools.</span>
-        </h2>
+        <div className="case-stack-heading case-reveal">
+          <h2>
+            Built with
+            <br />
+            <span>the right stack.</span>
+          </h2>
+          <p>
+            The technologies and integrations used in the development of
+            {` ${project.title}`}.
+          </p>
+        </div>
 
-        <div className="detail-tech-grid">
-          {[
-            { title: "Frontend", items: project.frontend },
-            { title: "Backend", items: project.backend },
-            { title: "Integrations", items: project.apis },
-          ].map((group) => (
-            <div className="detail-tech-group" key={group.title}>
+        <div className="case-stack-grid">
+          {project.stack.map((group, index) => (
+            <article className="case-stack-group" key={group.title}>
+              <span className="case-stack-index">
+                0{index + 1} / TECHNOLOGY
+              </span>
               <h3>{group.title}</h3>
-              <div className="detail-tech-list">
-                {group.items.map((item) => (
-                  <span className="detail-tech-tag" key={item}>
-                    {item}
-                  </span>
+              <p>{group.description}</p>
+
+              <div className="case-stack-items">
+                {group.items.map(([name, description]) => (
+                  <div className="case-stack-item" key={name}>
+                    <div>
+                      <strong>{name}</strong>
+                      <p>{description}</p>
+                    </div>
+                    <span>↗</span>
+                  </div>
                 ))}
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="detail-footer">
-        <div className="detail-footer-content">
-          <span>HAVE A PROJECT IN MIND?</span>
-          <h2>
-            Let's create
-            <br />
-            something <span>great.</span>
-          </h2>
-
-          <Link to="/#contact" className="detail-contact-link">
-            Get in touch <span>↗</span>
-          </Link>
-
-          <div className="detail-footer-bottom">
-            <Link to="/#projects">← Back to all projects</Link>
-            <span>© 2026 / PROJECT CASE STUDY</span>
-          </div>
+      <section className="case-workflow case-reveal">
+        <div className="case-section-label">
+          <span>05 / HOW IT WORKS</span>
+          <span>APPLICATION FLOW</span>
         </div>
+
+        <h2>The flow behind the experience.</h2>
+
+        <div className="case-workflow-list">
+          {project.workflow.map(([number, title, description]) => (
+            <article className="case-workflow-step" key={number}>
+              <span>{number}</span>
+              <h3>{title}</h3>
+              <p>{description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <footer className="case-footer">
+        <span>NEXT CASE STUDY / {nextProject.number}</span>
+        <Link to={`/projects/${project.next}`} className="case-next-link">
+          <span>{nextProject.title}</span>
+          <b>↗</b>
+        </Link>
+        <Link to="/#projects" className="case-all-projects">
+          ← Explore all projects
+        </Link>
       </footer>
     </main>
   );

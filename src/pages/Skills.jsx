@@ -2,6 +2,7 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLenis } from "lenis/react";
 
 import "../stylesheets/Skills.css";
 
@@ -27,10 +28,10 @@ import {
 gsap.registerPlugin(ScrollTrigger);
 
 /* =========================================
-   SKILL DATA
+   SKILL CATEGORY DATA
 ========================================= */
 
-const data = [
+const categories = [
   {
     title: "Frontend",
     number: "01",
@@ -68,7 +69,6 @@ const data = [
       },
     ],
   },
-
   {
     title: "Backend",
     number: "02",
@@ -86,7 +86,6 @@ const data = [
       },
     ],
   },
-
   {
     title: "Database",
     number: "03",
@@ -104,7 +103,6 @@ const data = [
       },
     ],
   },
-
   {
     title: "Tools",
     number: "04",
@@ -145,28 +143,29 @@ const data = [
 ];
 
 /* =========================================
-   REUSABLE BOOK PAGE CONTENT
+   SKILL PAGE CONTENT
 ========================================= */
 
 function SkillPage({ category }) {
   return (
-    <div className="page-inner">
+    <div className="skill-page-content">
 
-      {/* Page heading */}
+      {/* Page header */}
       <div className="page-topline">
         <span>CHAPTER {category.number}</span>
         <span>SKILLS / 2026</span>
       </div>
 
+      {/* Category heading */}
       <div className="page-heading">
-        <span>{category.number}</span>
+        <span className="page-number">{category.number}</span>
 
         <h3>{category.title}</h3>
 
         <p>{category.subtitle}</p>
       </div>
 
-      {/* Technologies */}
+      {/* Skills list */}
       <div className="book-skill-list">
         {category.skills.map((skill, index) => (
           <div className="book-skill" key={skill.name}>
@@ -199,7 +198,7 @@ function SkillPage({ category }) {
 }
 
 /* =========================================
-   BACK OF A TURNED PAGE
+   BACK OF A TURNING PAGE
 ========================================= */
 
 function PageBack({ number }) {
@@ -209,9 +208,7 @@ function PageBack({ number }) {
 
       <span className="page-back-symbol">✳</span>
 
-      <span className="page-back-number">
-        {number}
-      </span>
+      <span className="page-back-number">{number}</span>
     </div>
   );
 }
@@ -221,27 +218,29 @@ function PageBack({ number }) {
 ========================================= */
 
 export default function Skills() {
+  // Main pinned section.
   const sectionRef = useRef(null);
 
-  // The front cover opens to reveal its own reverse side.
+  // Book entrance and cover animation.
+  const bookAreaRef = useRef(null);
   const coverRef = useRef(null);
 
-  // The three individual page leaves.
+  // Individual turning pages.
   const pageRefs = useRef([]);
 
-  // Keep the master timeline available for category navigation.
+  // GSAP timeline.
   const timelineRef = useRef(null);
 
-  // Smooth category navigation tween.
-  const clickTweenRef = useRef(null);
-
-  // Avoid unnecessary React state updates during scrubbing.
+  // Prevent unnecessary active category updates.
   const activeIndexRef = useRef(0);
 
   const [activeIndex, setActiveIndex] = useState(0);
 
+  // Reuse the Lenis instance from the main application.
+  const lenis = useLenis();
+
   /* =========================================
-     GSAP BOOK ANIMATION
+     BOOK ANIMATION
   ========================================= */
 
   useLayoutEffect(() => {
@@ -252,32 +251,53 @@ export default function Skills() {
     const ctx = gsap.context(() => {
 
       /*
-        Initial state:
-        - Cover is closed.
-        - All three page leaves are unturned.
-        - The cover hides the right-hand pages.
+        RESPONSIVE ENTRANCE VALUES
+
+        Desktop:
+        Book starts further left and slightly smaller.
+
+        Mobile:
+        Smaller horizontal movement to avoid
+        pushing the book outside the viewport.
       */
 
+      const isMobile = window.matchMedia(
+        "(max-width: 768px)"
+      ).matches;
+
+      const initialX = isMobile ? -35 : -150;
+      const initialScale = isMobile ? 0.94 : 0.92;
+
+      // Closed book initial position.
+      gsap.set(bookAreaRef.current, {
+        x: initialX,
+        scale: initialScale,
+        transformOrigin: "center center",
+      });
+
+      // Closed front cover.
       gsap.set(coverRef.current, {
         rotationY: 0,
         transformOrigin: "left center",
-        force3D: true,
+        zIndex: 20,
       });
 
+      // All individual pages start flat.
       gsap.set(pageRefs.current, {
         rotationY: 0,
         transformOrigin: "left center",
-        force3D: true,
       });
 
       /*
-        MASTER TIMELINE
+        TOTAL TIMELINE DURATION: 4.75
 
-        0 - 1 : Cover opens.
-        1 - 2 : Frontend page turns.
-        2 - 3 : Backend page turns.
-        3 - 4 : Database page turns.
-        4 - 5 : Final Tools chapter stays visible.
+        0.00 - 0.75  Book entrance
+        0.75 - 1.75  Cover opens
+        1.75 - 2.75  Frontend turns
+        2.75 - 3.75  Backend turns
+        3.75 - 4.75  Database turns
+
+        Tools remains as the final right page.
       */
 
       const timeline = gsap.timeline({
@@ -287,38 +307,34 @@ export default function Skills() {
 
         scrollTrigger: {
           trigger: section,
+
           start: "top top",
 
-          // Five timeline units mapped to five scroll sections.
-          end: () =>
-            `+=${window.innerWidth <= 768 ? 300 : 500}%`,
+          end: () => `+=${window.innerHeight * 4.75}`,
 
           pin: true,
           scrub: 1,
+
           anticipatePin: 1,
           invalidateOnRefresh: true,
 
           onUpdate: (self) => {
-            /*
-              The cover takes 1 unit.
-              Each page takes another unit.
+            const progress = self.progress * 4.75;
 
-              After:
-              1 = Frontend
-              2 = Backend
-              3 = Database
-              4 = Tools
+            /*
+              Keep the category index synchronized
+              with the currently visible chapter.
             */
 
-            const nextIndex = gsap.utils.clamp(
+            const index = gsap.utils.clamp(
               0,
               3,
-              Math.floor(self.progress * 5 + 0.0001) - 1
+              Math.floor(progress - 1.75 + 0.001)
             );
 
-            if (nextIndex !== activeIndexRef.current) {
-              activeIndexRef.current = nextIndex;
-              setActiveIndex(nextIndex);
+            if (index !== activeIndexRef.current) {
+              activeIndexRef.current = index;
+              setActiveIndex(index);
             }
           },
         },
@@ -326,7 +342,21 @@ export default function Skills() {
 
       timelineRef.current = timeline;
 
-      // PHASE 1: Open the front cover.
+      // -------------------------------------
+      // STAGE 1: BOOK ENTERS AND EXPANDS
+      // -------------------------------------
+
+      timeline.to(bookAreaRef.current, {
+        x: 0,
+        scale: 1,
+        duration: 0.75,
+        ease: "power2.out",
+      });
+
+      // -------------------------------------
+      // STAGE 2: OPEN THE FRONT COVER
+      // -------------------------------------
+
       timeline.to(coverRef.current, {
         rotationY: -180,
         duration: 1,
@@ -334,58 +364,45 @@ export default function Skills() {
       });
 
       /*
-        PHASE 2: Turn the category pages.
-
-        Frontend is on top.
-        Backend is underneath.
-        Database is underneath Backend.
-        Tools is the final page.
-
-        Each sheet turns from right to left around the spine.
+        The back of the cover is now visible
+        as the inside-left page.
       */
 
-      pageRefs.current.forEach((page) => {
+      timeline.set(coverRef.current, {
+        zIndex: 5,
+      });
+
+      // -------------------------------------
+      // STAGE 3: TURN CATEGORY PAGES
+      // -------------------------------------
+
+      pageRefs.current.forEach((page, index) => {
+
         timeline.to(page, {
           rotationY: -180,
           duration: 1,
           ease: "power1.inOut",
         });
-      });
 
-      // PHASE 3: Keep the final chapter visible.
-      timeline.to({}, {
-        duration: 1,
+        /*
+          Stack the turned pages in order.
+          Each newly turned page sits above
+          the previous left-side pages.
+        */
+
+        timeline.set(page, {
+          zIndex: 16 + index,
+        });
+
       });
 
     }, section);
 
-    /*
-      Kill any running click-navigation tween when the user
-      manually starts scrolling or touching the page.
-    */
-
-    const stopClickNavigation = () => {
-      clickTweenRef.current?.kill();
-      clickTweenRef.current = null;
-    };
-
-    window.addEventListener("wheel", stopClickNavigation, {
-      passive: true,
-    });
-
-    window.addEventListener("touchstart", stopClickNavigation, {
-      passive: true,
-    });
-
     return () => {
-      window.removeEventListener("wheel", stopClickNavigation);
-      window.removeEventListener("touchstart", stopClickNavigation);
-
-      clickTweenRef.current?.kill();
       timelineRef.current = null;
-
       ctx.revert();
     };
+
   }, []);
 
   /* =========================================
@@ -393,68 +410,54 @@ export default function Skills() {
   ========================================= */
 
   const handleCategoryClick = (index) => {
-    const timeline = timelineRef.current;
-    const trigger = timeline?.scrollTrigger;
+    const trigger = timelineRef.current?.scrollTrigger;
 
     if (!trigger) return;
 
-    // Stop an earlier category click animation.
-    clickTweenRef.current?.kill();
-
     /*
-      Timeline positions:
-      Frontend = 1
-      Backend  = 2
-      Database = 3
-      Tools    = 4
+      Each category has a corresponding
+      scroll position in the pinned timeline.
 
-      The timeline has a total duration of 5.
+      Frontend = 1.75
+      Backend  = 2.75
+      Database = 3.75
+      Tools    = 4.75
     */
 
-    const targetProgress = (index + 1) / 5;
+    const targetProgress = (index + 1.75) / 4.75;
 
     const targetScroll =
       trigger.start +
       (trigger.end - trigger.start) * targetProgress;
 
-    // Animate an ordinary number, then apply it to ScrollTrigger.
-    const scrollPosition = {
-      value: trigger.scroll(),
-    };
-
-    clickTweenRef.current = gsap.to(scrollPosition, {
-      value: targetScroll,
-      duration: 1.1,
-      ease: "power3.inOut",
-
-      onUpdate: () => {
-        trigger.scroll(scrollPosition.value);
-        ScrollTrigger.update();
-      },
-
-      onComplete: () => {
-        activeIndexRef.current = index;
-        setActiveIndex(index);
-        clickTweenRef.current = null;
-      },
-    });
+    if (lenis) {
+      lenis.scrollTo(targetScroll, {
+        duration: 1.1,
+        easing: (t) => 1 - Math.pow(1 - t, 4),
+      });
+    } else {
+      window.scrollTo({
+        top: targetScroll,
+        behavior: "smooth",
+      });
+    }
   };
 
   /* =========================================
-     JSX
+     COMPONENT JSX
   ========================================= */
 
   return (
     <section
-      className="skills-section"
       ref={sectionRef}
+      className="skills-section"
       aria-label="My technical skills"
     >
 
       <div className="skills-layout">
 
         {/* =================================
-            LEFT SIDEBAR
+            LEFT SIDE: INTRO + CATEGORIES
         ================================= */}
 
         <aside className="skills-sidebar">
@@ -474,12 +477,13 @@ export default function Skills() {
             into thoughtful digital experiences.
           </p>
 
-          {/* Category navigation */}
+          {/* Chapter navigation */}
           <nav
             className="skills-category-list"
             aria-label="Skill categories"
           >
-            {data.map((category, index) => (
+            {categories.map((category, index) => (
+
               <button
                 key={category.title}
                 type="button"
@@ -506,77 +510,75 @@ export default function Skills() {
                 </span>
 
               </button>
+
             ))}
           </nav>
 
         </aside>
 
         {/* =================================
-            BOOK AREA
+            RIGHT SIDE: BOOK
         ================================= */}
 
-        <div className="skills-book-area">
+        <div
+          className="skills-book-area"
+          ref={bookAreaRef}
+        >
 
           <div className="skills-book">
 
-            {/* =================================
+            {/* ---------------------------------
                 FINAL RIGHT PAGE: TOOLS
-                This is underneath all page leaves.
-            ================================= */}
+                This remains underneath the leaves.
+            --------------------------------- */}
 
             <div className="book-right-page">
-              <SkillPage category={data[3]} />
+              <SkillPage category={categories[3]} />
             </div>
 
-            {/* =================================
-                PAGE LEAVES
+            {/* ---------------------------------
+                THREE INDIVIDUAL TURNING PAGES
+            --------------------------------- */}
 
-                These are the three physical sheets
-                that turn from right to left.
+            {categories.slice(0, 3).map((category, index) => (
 
-                Their back faces are visible after
-                each sheet has turned.
-            ================================= */}
-
-            {data.slice(0, 3).map((category, index) => (
               <div
                 key={category.title}
-                className={`page-leaf page-leaf-${index + 1}`}
                 ref={(element) => {
                   pageRefs.current[index] = element;
                 }}
+                className={`page-leaf page-leaf-${index + 1}`}
                 style={{
-                  zIndex: 10 - index,
+                  zIndex: 15 - index,
                 }}
               >
 
-                {/* Front of the page */}
+                {/* Front side of the sheet */}
                 <div className="page-leaf-front">
                   <SkillPage category={category} />
                 </div>
 
-                {/* Back of the page */}
+                {/* Back side of the sheet */}
                 <div className="page-leaf-back">
                   <PageBack number={category.number} />
                 </div>
 
               </div>
+
             ))}
 
-            {/* =================================
+            {/* ---------------------------------
                 FRONT COVER
-
-                IMPORTANT:
-                The cover back is the inside-left page.
-                There is no separate left-page element.
-            ================================= */}
+                The reverse side becomes the
+                inside-left page when opened.
+            --------------------------------- */}
 
             <div
               className="book-cover"
               ref={coverRef}
             >
 
-              {/* Front of the cover */}
+              {/* Front cover */}
               <div className="cover-front">
 
                 <div className="cover-inset">
@@ -610,7 +612,7 @@ export default function Skills() {
 
               </div>
 
-              {/* Reverse side of the cover = LEFT PAGE */}
+              {/* Inside cover / left page */}
               <div className="cover-back">
 
                 <div className="inside-cover-content">
@@ -643,19 +645,20 @@ export default function Skills() {
 
           </div>
 
-          {/* Book information */}
+
+        </div>
+                  {/* Book caption */}
           <div className="book-caption">
+
             <span>AN INTERACTIVE SKILL ARCHIVE</span>
 
             <span>
-              {data[activeIndex].number} / 04
+              {categories[activeIndex].number} / 04
             </span>
+
           </div>
 
-        </div>
-
       </div>
-
     </section>
   );
 }

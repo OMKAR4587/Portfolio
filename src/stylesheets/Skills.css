@@ -1,196 +1,1077 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 
-:root{
-    --primary:#3A4A16;
-    --primary-light:#556B2F;
-    --primary-soft:#EEF2E8;
 
-    --bg:#FAFAF7;
-    --surface:#FFFFFF;
+/* =========================================
+   SKILLS SECTION
+========================================= */
 
-    --border:#E8E8E0;
+.skills-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 650px;
+  overflow: hidden;
 
-    --text:#1F2937;
-    --text-light:#6B7280;
+  display: flex;
+  align-items: center;
+
+  padding: 35px 5.5%;
+
+  background: #ffffff;
+  color: #242720;
 }
 
-.skills-section{
-    max-width:1200px;
-    margin:auto;
-    /* min-height: 100vh; */
-    padding:0px 24px 100px;
+/* =========================================
+   MAIN TWO-COLUMN LAYOUT
 
-    font-family:"Inter",sans-serif;
+   Left: category navigation.
+   Right: interactive book.
 
+   The book never overlaps the sidebar.
+========================================= */
+
+.skills-layout {
+  position: relative;
+
+  width: 100%;
+  max-width: 1440px;
+  height: 100%;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(280px, 0.8fr)
+    minmax(0, 1.2fr);
+
+  align-items: center;
+
+  column-gap: clamp(35px, 5vw, 90px);
 }
 
-.skills-header{
+/* =========================================
+   LEFT SIDEBAR
+========================================= */
 
-    max-width:650px;
-    margin-bottom:70px;
+.skills-sidebar {
+  position: relative;
+  z-index: 30;
 
+  width: 100%;
+  max-width: 430px;
 }
 
-.eyebrow{
+.skills-eyebrow {
+  margin: 0 0 25px;
 
-    color:var(--primary);
+  color: #898b7e;
 
-    letter-spacing:4px;
+  font-size: 10px;
+  font-weight: 700;
 
-    font-weight:700;
-
-    font-size:.85rem;
-
-    margin-bottom:15px;
-
+  letter-spacing: 0.17em;
 }
 
-.skills-header h2{
+.skills-heading {
+  margin: 0;
 
-    font-size:3.2rem;
+  color: #22251f;
 
-    line-height:1.1;
+  font-size: clamp(45px, 5.1vw, 74px);
+  line-height: 0.98;
 
-    color:var(--text);
-
-    margin-bottom:18px;
-
+  font-weight: 500;
+  letter-spacing: -0.075em;
 }
 
-.subtitle{
-
-    color:var(--text-light);
-
-    line-height:1.8;
-
+.skills-heading span {
+  color: #8b9272;
 }
 
-.skills-grid{
+.skills-intro {
+  max-width: 370px;
 
-    display:grid;
+  margin: 28px 0 0;
 
-    grid-template-columns:repeat(2,1fr);
+  color: #85857c;
 
-    gap:28px;
-
+  font-size: 15px;
+  line-height: 1.8;
 }
 
-.skill-box{
 
-    background:var(--surface);
+/* =========================================
+   CATEGORY NAVIGATION — EDITORIAL CHAPTER LIST
+========================================= */
 
-    border:1px solid var(--border);
+.skills-sidebar {
+  position: relative !important;
+  z-index: 30;
 
-    border-radius:24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
-    padding:28px;
-
-    transition:.35s;
-
+  width: 100%;
+  max-width: 430px;
+  min-width: 0;
 }
 
-.skill-box:hover{
+/* Keep the navigation in the sidebar flow.
+   This also neutralizes older fixed/absolute rules. */
 
-    border-color:var(--primary);
+.skills-sidebar .skills-category-list {
+  position: relative !important;
+  inset: auto !important;
+  transform: none !important;
 
-    transform:translateY(-6px);
+  display: flex !important;
+  flex-direction: column;
 
-    box-shadow:0 20px 40px rgba(58,74,22,.08);
+  width: 100%;
+  max-width: 430px;
 
+  margin: clamp(30px, 4vw, 55px) 0 0;
+  padding: 0;
+
+  border-top: 1px solid #deded7;
 }
 
-.skill-box h3{
+/* Each category is a chapter row */
 
-    color:var(--text);
+.skills-sidebar .skills-category {
+  position: relative !important;
+  inset: auto !important;
+  transform: none;
 
-    margin-bottom:24px;
+  display: grid !important;
+  grid-template-columns: 42px minmax(0, 1fr) 28px;
 
-    font-size:1.3rem;
+  align-items: center;
 
+  width: 100% !important;
+  min-height: 66px;
+
+  margin: 0;
+  padding: 0 12px;
+
+  border: 0;
+  border-bottom: 1px solid #deded7;
+  border-radius: 0;
+
+  background: transparent;
+
+  color: #96968b;
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    color 0.35s ease,
+    padding 0.4s cubic-bezier(.2,.7,.2,1),
+    background 0.35s ease;
 }
 
-.skill-list{
+/* Small chapter number */
 
-    display:grid;
+.skills-sidebar .category-number {
+  color: #a3a394;
 
-    grid-template-columns:repeat(2,1fr);
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 600;
 
-    gap:14px;
+  letter-spacing: 0.12em;
 
+  transition: color 0.3s ease;
 }
 
-.skill-item{
+/* Category title */
 
-    display:flex;
+.skills-sidebar .category-name {
+  color: inherit;
 
-    align-items:center;
+  font-size: 16px;
+  font-weight: 500;
 
-    gap:12px;
+  letter-spacing: -0.025em;
 
-    padding:12px 14px;
-
-    border-radius:14px;
-
-    transition:.3s;
-
-    cursor:pointer;
-
+  transition:
+    transform 0.4s cubic-bezier(.2,.7,.2,1),
+    color 0.3s ease;
 }
 
-.skill-item:hover{
+/* Arrow */
 
-    background:var(--primary-soft);
+.skills-sidebar .category-arrow {
+  display: flex;
+  justify-content: flex-end;
 
+  color: #858c6d;
+
+  font-size: 15px;
+
+  opacity: 0;
+  transform: translate(-7px, 5px);
+
+  transition:
+    opacity 0.3s ease,
+    transform 0.4s cubic-bezier(.2,.7,.2,1);
 }
 
-.skill-item:hover .skill-icon{
+/* Active chapter */
 
-    transform:rotate(-10deg) scale(1.1);
+.skills-sidebar .skills-category.active {
+  padding-left: 19px;
 
-    color:var(--primary-light);
+  color: #303429;
 
+  background: linear-gradient(
+    90deg,
+    rgba(139, 146, 114, 0.09),
+    transparent 85%
+  );
 }
 
-.skill-icon{
-
-    font-size:1.35rem;
-
-    color:var(--primary);
-
-    transition:.3s;
-
+.skills-sidebar .skills-category.active .category-number {
+  color: #89916f;
 }
 
-.skill-item span:last-child{
-
-    color:var(--text);
-
-    font-weight:500;
-
+.skills-sidebar .skills-category.active .category-name {
+  color: #303429;
 }
 
-@media(max-width:900px){
-
-.skills-grid{
-
-grid-template-columns:1fr;
-
+.skills-sidebar .skills-category.active .category-arrow {
+  opacity: 1;
+  transform: translate(0, 0);
 }
 
+/* Hover */
+
+.skills-sidebar .skills-category:hover {
+  padding-left: 19px;
+  color: #303429;
 }
 
-@media(max-width:600px){
-
-.skills-header h2{
-
-font-size:2.3rem;
-
+.skills-sidebar .skills-category:hover .category-name {
+  transform: translateX(3px);
 }
 
-.skill-list{
-
-grid-template-columns:1fr;
-
+.skills-sidebar .skills-category:hover .category-arrow {
+  opacity: 1;
+  transform: translate(0, 0);
 }
 
+/* Keyboard accessibility */
+
+.skills-sidebar .skills-category:focus-visible {
+  outline: 1px solid #89916f;
+  outline-offset: -3px;
+}
+
+/* =========================================
+   DESKTOP SIDEBAR SPACING
+========================================= */
+
+@media (min-width: 769px) {
+  .skills-sidebar {
+    align-self: center;
+  }
+
+  .skills-heading {
+    max-width: 450px;
+  }
+
+  .skills-intro {
+    max-width: 360px;
+    line-height: 1.85;
+  }
+}
+
+/* =========================================
+   BOOK AREA
+
+   This is inside the RIGHT GRID COLUMN.
+   It is not centered across the entire viewport.
+========================================= */
+
+.skills-book-area {
+  position: relative;
+
+  z-index: 5;
+
+  width: 100%;
+  min-width: 0;
+
+  perspective: 2200px;
+}
+
+.skills-book {
+  position: relative;
+
+  width: 100%;
+
+  /*
+    Wide book ratio based on the reference.
+    The cover occupies half the complete width.
+  */
+
+  aspect-ratio: 2.25 / 1;
+
+  transform-style: preserve-3d;
+
+  filter:
+    drop-shadow(0 22px 30px rgba(30, 33, 25, 0.12));
+}
+
+/* =========================================
+   BOOK BASE RIGHT PAGE
+
+   This is the final page revealed after
+   all three category sheets have turned.
+========================================= */
+
+.book-right-page {
+  position: absolute;
+
+  top: 0;
+  left: 50%;
+
+  width: 50%;
+  height: 100%;
+
+  overflow: hidden;
+
+  padding: 4%;
+
+  border-radius: 0 12px 12px 0;
+
+  background: #fffefa;
+
+  border: 1px solid #e9e5db;
+}
+
+/* =========================================
+   PAGE CONTENT
+========================================= */
+
+.page-inner {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.page-topline {
+  display: flex;
+  justify-content: space-between;
+
+  gap: 8px;
+
+  color: #aaa99c;
+
+  font-size: clamp(5px, 0.58vw, 8px);
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+}
+
+.page-heading {
+  margin-top: 8%;
+}
+
+.page-heading > span {
+  color: #929879;
+
+  font-size: 10px;
+  letter-spacing: 0.15em;
+}
+
+.page-heading h3 {
+  margin: 8px 0 5px;
+
+  color: #252720;
+
+  font-size: clamp(23px, 2.7vw, 39px);
+  line-height: 1;
+
+  font-weight: 500;
+  letter-spacing: -0.065em;
+}
+
+.page-heading p {
+  margin: 0;
+
+  color: #929187;
+
+  font-size: clamp(7px, 0.75vw, 11px);
+}
+
+/* =========================================
+   SKILL ITEMS
+========================================= */
+
+.book-skill-list {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 0 15px;
+
+  margin-top: 7%;
+}
+
+.book-skill {
+  position: relative;
+
+  min-width: 0;
+  min-height: clamp(43px, 4.8vw, 62px);
+
+  display: grid;
+
+  grid-template-columns: 23px minmax(0, 1fr);
+
+  align-items: center;
+
+  gap: 7px;
+
+  padding: 8px 0;
+
+  border-top: 1px solid #e9e5db;
+}
+
+.book-skill-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #89916f;
+
+  font-size: clamp(13px, 1.5vw, 19px);
+}
+
+.book-skill-info {
+  min-width: 0;
+}
+
+.book-skill-info h4 {
+  margin: 0;
+
+  color: #3d3f36;
+
+  font-size: clamp(8px, 0.9vw, 12px);
+  font-weight: 600;
+}
+
+.book-skill-info p {
+  margin: 4px 0 0;
+
+  color: #9b9a8e;
+
+  font-size: clamp(6px, 0.65vw, 8px);
+  line-height: 1.35;
+}
+
+.book-skill-index {
+  display: none;
+}
+
+/* =========================================
+   PAGE FOOTER
+========================================= */
+
+.page-footer {
+  display: flex;
+  justify-content: space-between;
+
+  gap: 6px;
+
+  margin-top: auto;
+  padding-top: 10px;
+
+  border-top: 1px solid #e9e5db;
+
+  color: #aaa99c;
+
+  font-size: clamp(5px, 0.55vw, 7px);
+  font-weight: 700;
+
+  letter-spacing: 0.1em;
+}
+
+/* =========================================
+   PHYSICAL PAGE LEAVES
+
+   All leaves are positioned on the RIGHT.
+
+   The left edge of each leaf is the hinge.
+
+   Front face: category content.
+   Back face: reverse of the sheet.
+========================================= */
+
+.page-leaf {
+  position: absolute;
+
+  top: 0;
+  left: 50%;
+
+  width: 50%;
+  height: 100%;
+
+  transform-origin: left center;
+  transform-style: preserve-3d;
+
+  will-change: transform;
+
+  /*
+    Keep the page's own 3D faces visible.
+    The individual face backfaces are hidden.
+  */
+}
+
+.page-leaf-front,
+.page-leaf-back {
+  position: absolute;
+  inset: 0;
+
+  overflow: hidden;
+
+  background: #fffefa;
+
+  border-left: 1px solid #e9e5db;
+
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.page-leaf-front {
+  padding: 4%;
+}
+
+.page-leaf-back {
+  display: flex;
+  flex-direction: column;
+
+  padding: 5%;
+
+  transform: rotateY(180deg);
+
+  background: #f7f6ef;
+}
+
+/* =========================================
+   REVERSE SIDE OF A TURNED PAGE
+========================================= */
+
+.page-back-content {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  color: #929879;
+}
+
+.page-back-label {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.page-back-symbol {
+  font-size: clamp(35px, 4vw, 60px);
+}
+
+.page-back-number {
+  font-size: 9px;
+}
+
+/* =========================================
+   FRONT COVER
+
+   Cover is on the RIGHT when closed.
+
+   It rotates around its LEFT edge.
+
+   Its reverse side becomes the LEFT PAGE.
+========================================= */
+
+.book-cover {
+  position: absolute;
+
+  top: 0;
+  left: 50%;
+
+  width: 50%;
+  height: 100%;
+
+  z-index: 20;
+
+  transform-origin: left center;
+  transform-style: preserve-3d;
+
+  will-change: transform;
+}
+
+/* =========================================
+   COVER FRONT
+========================================= */
+
+.cover-front,
+.cover-back {
+  position: absolute;
+  inset: 0;
+
+  overflow: hidden;
+
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
+  border-radius: 5px 12px 12px 5px;
+}
+
+.cover-front {
+  padding: 2%;
+
+  color: #eeeee4;
+
+  background:
+    radial-gradient(
+      ellipse at 75% 18%,
+      rgba(170, 180, 136, 0.15),
+      transparent 48%
+    ),
+    linear-gradient(
+      135deg,
+      #343c2e,
+      #20271f 80%
+    );
+
+  box-shadow:
+    inset 5px 0 10px rgba(255, 255, 255, 0.035),
+    inset -5px 0 10px rgba(0, 0, 0, 0.13);
+}
+
+.cover-inset {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  padding: 5%;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  border: 1px solid rgba(229, 231, 213, 0.2);
+}
+
+.cover-top,
+.cover-bottom {
+  display: flex;
+  justify-content: space-between;
+
+  gap: 10px;
+
+  color: #c1c6ad;
+
+  font-size: clamp(6px, 0.65vw, 9px);
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+}
+
+.cover-title {
+  padding-left: 8%;
+}
+
+.cover-title > span {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #aeb795;
+
+  font-size: clamp(8px, 1vw, 13px);
+  letter-spacing: 0.35em;
+}
+
+.cover-title h3 {
+  margin: 0;
+
+  color: #f0efe6;
+
+  font-size: clamp(50px, 6.8vw, 95px);
+  line-height: 0.78;
+
+  font-weight: 500;
+  letter-spacing: -0.09em;
+}
+
+.cover-title p {
+  margin-top: 22px;
+
+  color: #c1c6ad;
+
+  font-size: clamp(6px, 0.7vw, 9px);
+  line-height: 1.7;
+
+  font-weight: 700;
+  letter-spacing: 0.17em;
+}
+
+/* =========================================
+   COVER BACK = INSIDE LEFT PAGE
+
+   This is the only left-page element.
+   It rotates together with the cover.
+========================================= */
+
+.cover-back {
+  display: flex;
+
+  padding: 0;
+
+  transform: rotateY(180deg);
+
+  background: #fffefa;
+
+  border: 1px solid #e9e5db;
+  border-radius: 12px 0 0 12px;
+}
+
+.inside-cover-content {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  padding: 8%;
+
+  color: #383b30;
+}
+
+.inside-cover-label {
+  color: #99998c;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  letter-spacing: 0.16em;
+}
+
+.inside-cover-symbol {
+  margin-top: 12%;
+
+  color: #a1a987;
+
+  font-size: clamp(35px, 4vw, 60px);
+}
+
+.inside-cover-content h3 {
+  margin: auto 0 10%;
+
+  color: #383b30;
+
+  font-size: clamp(22px, 2.8vw, 40px);
+  line-height: 1.08;
+
+  font-weight: 500;
+  letter-spacing: -0.065em;
+}
+
+.inside-cover-number {
+  color: #99998c;
+  font-size: 9px;
+}
+
+/* =========================================
+   BOOK CAPTION
+========================================= */
+
+.book-caption {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 16px;
+
+  color: #99998d;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  letter-spacing: 0.13em;
+}
+
+/* =========================================
+   MEDIUM DESKTOP / LAPTOP
+========================================= */
+
+@media (max-width: 1100px) {
+  .skills-layout {
+    grid-template-columns:
+      minmax(250px, 0.8fr)
+      minmax(0, 1.2fr);
+
+    column-gap: 30px;
+  }
+
+  .skills-heading {
+    font-size: clamp(42px, 5vw, 58px);
+  }
+
+  .skills-intro {
+    max-width: 300px;
+    font-size: 13px;
+  }
+
+  .skills-category {
+    min-height: 55px;
+  }
+
+  .skills-book {
+    aspect-ratio: 2 / 1;
+  }
+
+  .book-skill-list {
+    gap: 0 8px;
+  }
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 768px) {
+  .skills-section {
+    min-height: 600px;
+
+    padding: 30px 5%;
+  }
+
+  .skills-layout {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-between;
+    align-items: stretch;
+
+    gap: 20px;
+  }
+
+  .skills-sidebar {
+    width: 100%;
+    max-width: none;
+  }
+
+  .skills-eyebrow {
+    margin-bottom: 14px;
+  }
+
+  .skills-heading {
+    font-size: clamp(38px, 7vw, 54px);
+  }
+
+  .skills-intro {
+    max-width: 340px;
+    margin-top: 14px;
+
+    font-size: 12px;
+  }
+
+  .skills-category-list {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    margin-top: 18px;
+  }
+
+  .skills-category {
+    min-height: 42px;
+
+    grid-template-columns: 25px 1fr 15px;
+
+    gap: 5px;
+  }
+
+  .category-name {
+    font-size: 12px;
+  }
+
+  .skills-book-area {
+    width: 100%;
+    margin-top: auto;
+  }
+
+  .skills-book {
+    aspect-ratio: 2 / 1;
+  }
+
+  .book-skill-list {
+    gap: 0 6px;
+    margin-top: 5%;
+  }
+
+  .book-skill {
+    min-height: 32px;
+
+    grid-template-columns: 16px minmax(0, 1fr);
+
+    gap: 4px;
+  }
+
+  .book-skill-info p {
+    display: none;
+  }
+
+  .page-heading h3 {
+    font-size: clamp(16px, 3vw, 24px);
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+  .skills-section {
+    min-height: 620px;
+
+    padding: 25px 5%;
+  }
+
+  .skills-heading {
+    font-size: 40px;
+  }
+
+  .skills-intro {
+    font-size: 11px;
+  }
+
+  .skills-category-list {
+    margin-top: 14px;
+  }
+
+  .skills-category {
+    min-height: 37px;
+  }
+
+  .skills-book-area {
+    width: 100%;
+  }
+
+  .skills-book {
+    aspect-ratio: 1.6 / 1;
+  }
+
+  .book-right-page {
+    padding: 3%;
+  }
+
+  .page-leaf-front {
+    padding: 3%;
+  }
+
+  .page-leaf-back {
+    padding: 4%;
+  }
+
+  .page-topline {
+    font-size: 5px;
+    letter-spacing: 0.04em;
+  }
+
+  .page-heading {
+    margin-top: 5%;
+  }
+
+  .page-heading h3 {
+    font-size: 17px;
+  }
+
+  .page-heading p {
+    font-size: 6px;
+  }
+
+  .book-skill-list {
+    grid-template-columns: 1fr;
+    margin-top: 4%;
+  }
+
+  .book-skill {
+    min-height: 24px;
+
+    grid-template-columns: 14px minmax(0, 1fr);
+
+    gap: 4px;
+    padding: 3px 0;
+  }
+
+  .book-skill-icon {
+    font-size: 11px;
+  }
+
+  .book-skill-info h4 {
+    font-size: 7px;
+  }
+
+  .book-skill-info p {
+    display: none;
+  }
+
+  .page-footer {
+    font-size: 5px;
+  }
+
+  .inside-cover-symbol {
+    font-size: 28px;
+  }
+
+  .inside-cover-content h3 {
+    font-size: 17px;
+  }
+
+  .cover-title h3 {
+    font-size: clamp(34px, 9vw, 50px);
+  }
+
+  .cover-title p {
+    margin-top: 10px;
+    font-size: 5px;
+  }
+
+  .cover-top,
+  .cover-bottom {
+    font-size: 5px;
+  }
+
+  .book-caption {
+    margin-top: 9px;
+    font-size: 6px;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .skills-category,
+  .category-arrow {
+    transition: none;
+  }
 }

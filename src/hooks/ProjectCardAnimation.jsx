@@ -14,6 +14,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
 
       tl.fromTo(
         `${panel} .project-count,
+         ${panel} .project-category,
          ${panel} .project-title,
          ${panel} .case-study-btn,
          ${panel} .project-description`,
@@ -32,7 +33,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
           clearProps: "filter",
           immediateRender: false,
         },
-        "<"
+        "<",
       );
     };
 
@@ -58,7 +59,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
         {
           autoAlpha: 0,
           display: "none",
-        }
+        },
       );
 
       const tl = gsap.timeline({
@@ -111,7 +112,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             duration: 2,
             ease: "none",
           },
-          "<"
+          "<",
         )
 
         .to(
@@ -121,7 +122,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             height: "100%",
             duration: 1.5,
           },
-          "<"
+          "<",
         )
 
         .to(
@@ -131,7 +132,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             duration: 2,
             ease: "none",
           },
-          "<"
+          "<",
         )
 
         .to(
@@ -141,7 +142,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             duration: 1.5,
             ease: "none",
           },
-          "<"
+          "<",
         )
 
         // PANEL 1 HIDE, PANEL 2 SHOW
@@ -151,7 +152,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             autoAlpha: 0,
             duration: 0.5,
           },
-          "<"
+          "<",
         )
         .set(".project-detail-container-2", {
           display: "flex",
@@ -173,7 +174,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             duration: 2,
             ease: "none",
           },
-          "<"
+          "<",
         )
 
         .to(
@@ -183,7 +184,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             duration: 1.5,
             ease: "none",
           },
-          "<"
+          "<",
         )
 
         .fromTo(
@@ -194,7 +195,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             duration: 2,
             ease: "none",
           },
-          "<"
+          "<",
         )
 
         // PANEL 2 HIDE, PANEL 3 SHOW
@@ -204,7 +205,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             autoAlpha: 0,
             duration: 0.5,
           },
-          "<"
+          "<",
         )
         .set(".project-detail-container-3", {
           display: "flex",
@@ -225,7 +226,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             autoAlpha: 0,
             duration: 2,
           },
-          "<"
+          "<",
         )
 
         .to(
@@ -236,7 +237,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             duration: 2,
             ease: "none",
           },
-          "<"
+          "<",
         )
 
         .to(".projects-detail-section", {
@@ -266,7 +267,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
         {
           autoAlpha: 0,
           display: "none",
-        }
+        },
       );
 
       const tl = gsap.timeline({
@@ -321,7 +322,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             duration: 2,
             ease: "none",
           },
-          "<"
+          "<",
         )
 
         .to(
@@ -331,7 +332,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             height: "100%",
             duration: 1.5,
           },
-          "<"
+          "<",
         )
 
         .to(
@@ -341,7 +342,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             duration: 2,
             ease: "none",
           },
-          "<"
+          "<",
         )
 
         .to(
@@ -351,7 +352,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             duration: 1.5,
             ease: "none",
           },
-          "<"
+          "<",
         )
 
         // PANEL 1 HIDE, PANEL 2 SHOW
@@ -361,7 +362,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             autoAlpha: 0,
             duration: 0.5,
           },
-          "<"
+          "<",
         )
         .set(".project-detail-container-2", {
           display: "flex",
@@ -384,7 +385,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             duration: 2,
             ease: "none",
           },
-          "<"
+          "<",
         )
 
         .to(
@@ -394,7 +395,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             duration: 1.5,
             ease: "none",
           },
-          "<"
+          "<",
         )
 
         .fromTo(
@@ -405,7 +406,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             duration: 2,
             ease: "none",
           },
-          "<"
+          "<",
         )
 
         // PANEL 2 HIDE, PANEL 3 SHOW
@@ -415,7 +416,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             autoAlpha: 0,
             duration: 0.5,
           },
-          "<"
+          "<",
         )
         .set(".project-detail-container-3", {
           display: "flex",
@@ -436,7 +437,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             autoAlpha: 0,
             duration: 2,
           },
-          "<"
+          "<",
         )
 
         .to(
@@ -446,7 +447,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             duration: 2,
             ease: "none",
           },
-          "<"
+          "<",
         );
     });
 
@@ -470,7 +471,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
         {
           autoAlpha: 0,
           display: "none",
-        }
+        },
       );
 
       const tl = gsap.timeline({
@@ -525,7 +526,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             duration: 2,
             ease: "none",
           },
-          "<"
+          "<",
         )
 
         .to(
@@ -535,7 +536,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             height: "100%",
             duration: 1.5,
           },
-          "<"
+          "<",
         )
 
         .to(
@@ -545,7 +546,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             duration: 2,
             ease: "none",
           },
-          "<"
+          "<",
         )
 
         .to(
@@ -555,7 +556,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             duration: 1.5,
             ease: "none",
           },
-          "<"
+          "<",
         )
 
         // PANEL 1 HIDE, PANEL 2 SHOW
@@ -565,7 +566,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             autoAlpha: 0,
             duration: 0.5,
           },
-          "<"
+          "<",
         )
         .set(".project-detail-container-2", {
           display: "flex",
@@ -588,7 +589,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             duration: 2,
             ease: "none",
           },
-          "<"
+          "<",
         )
 
         .to(
@@ -598,7 +599,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             duration: 1.5,
             ease: "none",
           },
-          "<"
+          "<",
         )
 
         .fromTo(
@@ -609,7 +610,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             duration: 2,
             ease: "none",
           },
-          "<"
+          "<",
         )
 
         // PANEL 2 HIDE, PANEL 3 SHOW
@@ -619,7 +620,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             autoAlpha: 0,
             duration: 0.5,
           },
-          "<"
+          "<",
         )
         .set(".project-detail-container-3", {
           display: "flex",
@@ -640,7 +641,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             autoAlpha: 0,
             duration: 2,
           },
-          "<"
+          "<",
         )
 
         .to(
@@ -651,7 +652,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
             duration: 2,
             ease: "none",
           },
-          "<"
+          "<",
         );
     });
   }, sectionRef);

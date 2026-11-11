@@ -2,7 +2,7 @@
    NAVBAR
 ========================= */
 
-nav {
+.main-page-nav {
   position: fixed;
   inset: 0;
   width: 100%;

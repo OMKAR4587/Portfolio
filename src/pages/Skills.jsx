@@ -1,4 +1,3 @@
-
 import { useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -149,7 +148,6 @@ const categories = [
 function SkillPage({ category }) {
   return (
     <div className="skill-page-content">
-
       {/* Page header */}
       <div className="page-topline">
         <span>CHAPTER {category.number}</span>
@@ -169,10 +167,7 @@ function SkillPage({ category }) {
       <div className="book-skill-list">
         {category.skills.map((skill, index) => (
           <div className="book-skill" key={skill.name}>
-
-            <span className="book-skill-icon">
-              {skill.icon}
-            </span>
+            <span className="book-skill-icon">{skill.icon}</span>
 
             <div className="book-skill-info">
               <h4>{skill.name}</h4>
@@ -182,7 +177,6 @@ function SkillPage({ category }) {
             <span className="book-skill-index">
               {String(index + 1).padStart(2, "0")}
             </span>
-
           </div>
         ))}
       </div>
@@ -192,7 +186,6 @@ function SkillPage({ category }) {
         <span>TECHNOLOGY & PRACTICE</span>
         <span>{category.number} — 04</span>
       </div>
-
     </div>
   );
 }
@@ -249,7 +242,6 @@ export default function Skills() {
     if (!section) return;
 
     const ctx = gsap.context(() => {
-
       /*
         RESPONSIVE ENTRANCE VALUES
 
@@ -261,9 +253,7 @@ export default function Skills() {
         pushing the book outside the viewport.
       */
 
-      const isMobile = window.matchMedia(
-        "(max-width: 768px)"
-      ).matches;
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
       const initialX = isMobile ? -35 : -150;
       const initialScale = isMobile ? 0.94 : 0.92;
@@ -329,7 +319,7 @@ export default function Skills() {
             const index = gsap.utils.clamp(
               0,
               3,
-              Math.floor(progress - 1.75 + 0.001)
+              Math.floor(progress - 1.75 + 0.001),
             );
 
             if (index !== activeIndexRef.current) {
@@ -377,7 +367,6 @@ export default function Skills() {
       // -------------------------------------
 
       pageRefs.current.forEach((page, index) => {
-
         timeline.to(page, {
           rotationY: -180,
           duration: 1,
@@ -393,16 +382,13 @@ export default function Skills() {
         timeline.set(page, {
           zIndex: 16 + index,
         });
-
       });
-
     }, section);
 
     return () => {
       timelineRef.current = null;
       ctx.revert();
     };
-
   }, []);
 
   /* =========================================
@@ -427,8 +413,7 @@ export default function Skills() {
     const targetProgress = (index + 1.75) / 4.75;
 
     const targetScroll =
-      trigger.start +
-      (trigger.end - trigger.start) * targetProgress;
+      trigger.start + (trigger.end - trigger.start) * targetProgress;
 
     if (lenis) {
       lenis.scrollTo(targetScroll, {
@@ -453,16 +438,27 @@ export default function Skills() {
       className="skills-section"
       aria-label="My technical skills"
     >
-
       <div className="skills-layout">
+        <div className="skills-main-heading">
+          {/* <p className="skills-eyebrow">A LITTLE ABOUT MY TOOLKIT</p> */}
 
+          <h2 className="skills-heading">
+            Skills &
+            {/* <br /> */}
+            <span>Technologies.</span>
+          </h2>
+
+          {/* <p className="skills-intro">
+            The tools and technologies I use to turn ideas into thoughtful
+            digital experiences.
+          </p> */}
+        </div>
         {/* =================================
             LEFT SIDE: INTRO + CATEGORIES
         ================================= */}
 
         <aside className="skills-sidebar">
-
-          <p className="skills-eyebrow">
+          {/* <p className="skills-eyebrow">
             A LITTLE ABOUT MY TOOLKIT
           </p>
 
@@ -475,15 +471,11 @@ export default function Skills() {
           <p className="skills-intro">
             The tools and technologies I use to turn ideas
             into thoughtful digital experiences.
-          </p>
+          </p> */}
 
           {/* Chapter navigation */}
-          <nav
-            className="skills-category-list"
-            aria-label="Skill categories"
-          >
+          <nav className="skills-category-list" aria-label="Skill categories">
             {categories.map((category, index) => (
-
               <button
                 key={category.title}
                 type="button"
@@ -493,40 +485,24 @@ export default function Skills() {
                 onClick={() => handleCategoryClick(index)}
                 aria-pressed={activeIndex === index}
               >
+                <span className="category-number">{category.number}</span>
 
-                <span className="category-number">
-                  {category.number}
-                </span>
+                <span className="category-name">{category.title}</span>
 
-                <span className="category-name">
-                  {category.title}
-                </span>
-
-                <span
-                  className="category-arrow"
-                  aria-hidden="true"
-                >
+                <span className="category-arrow" aria-hidden="true">
                   ↗
                 </span>
-
               </button>
-
             ))}
           </nav>
-
         </aside>
 
         {/* =================================
             RIGHT SIDE: BOOK
         ================================= */}
 
-        <div
-          className="skills-book-area"
-          ref={bookAreaRef}
-        >
-
+        <div className="skills-book-area" ref={bookAreaRef}>
           <div className="skills-book">
-
             {/* ---------------------------------
                 FINAL RIGHT PAGE: TOOLS
                 This remains underneath the leaves.
@@ -541,7 +517,6 @@ export default function Skills() {
             --------------------------------- */}
 
             {categories.slice(0, 3).map((category, index) => (
-
               <div
                 key={category.title}
                 ref={(element) => {
@@ -552,7 +527,6 @@ export default function Skills() {
                   zIndex: 15 - index,
                 }}
               >
-
                 {/* Front side of the sheet */}
                 <div className="page-leaf-front">
                   <SkillPage category={category} />
@@ -562,9 +536,7 @@ export default function Skills() {
                 <div className="page-leaf-back">
                   <PageBack number={category.number} />
                 </div>
-
               </div>
-
             ))}
 
             {/* ---------------------------------
@@ -573,23 +545,16 @@ export default function Skills() {
                 inside-left page when opened.
             --------------------------------- */}
 
-            <div
-              className="book-cover"
-              ref={coverRef}
-            >
-
+            <div className="book-cover" ref={coverRef}>
               {/* Front cover */}
               <div className="cover-front">
-
                 <div className="cover-inset">
-
                   <div className="cover-top">
                     <span>PERSONAL ARCHIVE</span>
                     <span>VOL. 001</span>
                   </div>
 
                   <div className="cover-title">
-
                     <span>THE</span>
 
                     <h3>DEV</h3>
@@ -597,33 +562,23 @@ export default function Skills() {
 
                     <p>
                       A COLLECTION OF SKILLS
-                      <br />
-                      & TECHNOLOGIES
+                      <br />& TECHNOLOGIES
                     </p>
-
                   </div>
 
                   <div className="cover-bottom">
                     <span>DESIGN. DEVELOP. CREATE.</span>
                     <span>2026</span>
                   </div>
-
                 </div>
-
               </div>
 
               {/* Inside cover / left page */}
               <div className="cover-back">
-
                 <div className="inside-cover-content">
+                  <span className="inside-cover-label">MY TOOLKIT</span>
 
-                  <span className="inside-cover-label">
-                    MY TOOLKIT
-                  </span>
-
-                  <span className="inside-cover-symbol">
-                    ✳
-                  </span>
+                  <span className="inside-cover-symbol">✳</span>
 
                   <h3>
                     Curiosity
@@ -633,22 +588,14 @@ export default function Skills() {
                     creation.
                   </h3>
 
-                  <span className="inside-cover-number">
-                    04
-                  </span>
-
+                  <span className="inside-cover-number">04</span>
                 </div>
-
               </div>
-
             </div>
-
           </div>
-
-
         </div>
-                  {/* Book caption */}
-          <div className="book-caption">
+        {/* Book caption */}
+        {/* <div className="book-caption">
 
             <span>AN INTERACTIVE SKILL ARCHIVE</span>
 
@@ -656,8 +603,7 @@ export default function Skills() {
               {categories[activeIndex].number} / 04
             </span>
 
-          </div>
-
+          </div> */}
       </div>
     </section>
   );

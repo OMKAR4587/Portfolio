@@ -292,7 +292,7 @@ export const Menu = () => {
 
   return (
     <>
-      <nav ref={container}>
+      <nav className="main-page-nav" ref={container}>
         <div className={`menu-bar ${scrolled ? "scrolled-menu-bar" : ""}`}>
           <div className="logo">⌘</div>
 

@@ -241,153 +241,202 @@ export default function Skills() {
 
     if (!section) return;
 
+    let timeline = null;
+
     const ctx = gsap.context(() => {
-      /*
-        RESPONSIVE ENTRANCE VALUES
+      // Responsive animation setup
+      const mm = gsap.matchMedia();
 
-        Desktop:
-        Book starts further left and slightly smaller.
-
-        Mobile:
-        Smaller horizontal movement to avoid
-        pushing the book outside the viewport.
-      */
-
-      const isMobile = window.matchMedia("(max-width: 768px)").matches;
-
-      const initialX = isMobile ? -35 : -150;
-      const initialScale = isMobile ? 0.94 : 0.92;
-
-      // Closed book initial position.
-      gsap.set(bookAreaRef.current, {
-        x: initialX,
-        scale: initialScale,
-        transformOrigin: "center center",
-      });
-
-      // Closed front cover.
-      gsap.set(coverRef.current, {
-        rotationY: 0,
-        transformOrigin: "left center",
-        zIndex: 20,
-      });
-
-      // All individual pages start flat.
-      gsap.set(pageRefs.current, {
-        rotationY: 0,
-        transformOrigin: "left center",
-      });
-
-      /*
-        TOTAL TIMELINE DURATION: 4.75
-
-        0.00 - 0.75  Book entrance
-        0.75 - 1.75  Cover opens
-        1.75 - 2.75  Frontend turns
-        2.75 - 3.75  Backend turns
-        3.75 - 4.75  Database turns
-
-        Tools remains as the final right page.
-      */
-
-      const timeline = gsap.timeline({
-        defaults: {
-          ease: "none",
+      mm.add(
+        {
+          isMobile: "(max-width: 768px)",
+          isDesktop: "(min-width: 769px)",
         },
+        (context) => {
+          const { isMobile } = context.conditions;
 
-        scrollTrigger: {
-          trigger: section,
+          const book = bookAreaRef.current;
+          const cover = coverRef.current;
 
-          start: "top top",
+          const pages = pageRefs.current.filter(Boolean);
 
-          end: () => `+=${window.innerHeight * 4.75}`,
+          if (!book || !cover || !pages.length) return;
 
-          pin: true,
-          scrub: 1,
+          // -------------------------------------
+          // RESPONSIVE VALUES
+          // -------------------------------------
 
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
+          const initialX = isMobile ? -24 : -320;
+          const finalX = isMobile ? 0 : -70;
 
-          onUpdate: (self) => {
-            const progress = self.progress * 4.75;
+          const initialScale = isMobile ? 0.94 : 0.9;
+          const finalScale = isMobile ? 1 : 1.04;
 
-            /*
-              Keep the category index synchronized
-              with the currently visible chapter.
-            */
+          // -------------------------------------
+          // INITIAL BOOK STATE
+          // -------------------------------------
 
-            const index = gsap.utils.clamp(
-              0,
-              3,
-              Math.floor(progress - 1.75 + 0.001),
-            );
+          gsap.set(book, {
+            x: initialX,
+            scale: initialScale,
 
-            if (index !== activeIndexRef.current) {
-              activeIndexRef.current = index;
-              setActiveIndex(index);
+            transformOrigin: "center center",
+            transformPerspective: 1800,
+
+            force3D: true,
+            willChange: "transform",
+          });
+
+          // -------------------------------------
+          // COVER INITIAL STATE
+          // -------------------------------------
+
+          gsap.set(cover, {
+            rotationY: 0,
+
+            transformOrigin: "left center",
+            transformPerspective: 1800,
+
+            transformStyle: "preserve-3d",
+            backfaceVisibility: "hidden",
+
+            zIndex: 30,
+
+            force3D: true,
+          });
+
+          // -------------------------------------
+          // PAGE INITIAL STATES
+          // -------------------------------------
+
+          pages.forEach((page, index) => {
+            gsap.set(page, {
+              rotationY: 0,
+
+              transformOrigin: "left center",
+              transformPerspective: 1800,
+
+              transformStyle: "preserve-3d",
+              backfaceVisibility: "hidden",
+
+              zIndex: 20 - index,
+
+              force3D: true,
+            });
+          });
+
+          // -------------------------------------
+          // MASTER TIMELINE
+          // -------------------------------------
+
+          const tl = gsap.timeline({
+            defaults: {
+              ease: "none",
+            },
+
+            scrollTrigger: {
+              trigger: section,
+
+              start: "top top",
+              end: () => `+=${window.innerHeight * 4.75}`,
+
+              pin: true,
+              scrub: 0.8,
+
+              anticipatePin: 1,
+              invalidateOnRefresh: true,
+
+              onUpdate: (self) => {
+                const progress = self.progress * 4.75;
+
+                // Category synchronization
+                const index = gsap.utils.clamp(
+                  0,
+                  3,
+                  Math.floor(progress - 1.75 + 0.001),
+                );
+
+                if (index !== activeIndexRef.current) {
+                  activeIndexRef.current = index;
+                  setActiveIndex(index);
+                }
+              },
+            },
+          });
+
+          timeline = tl;
+          timelineRef.current = tl;
+
+          // -------------------------------------
+          // STAGE 1: BOOK ENTRANCE
+          // -------------------------------------
+
+          tl.to(book, {
+            x: finalX,
+            scale: finalScale,
+
+            duration: 0.75,
+
+            ease: "power2.out",
+          });
+
+          // -------------------------------------
+          // STAGE 2: COVER OPENING
+          // -------------------------------------
+
+          tl.to(cover, {
+            rotationY: -180,
+
+            duration: 1,
+
+            ease: "power2.inOut",
+          });
+
+          // Put the opened cover behind the pages
+          tl.set(cover, {
+            zIndex: 5,
+          });
+
+          // -------------------------------------
+          // STAGE 3: PAGE TURNING
+          // -------------------------------------
+
+          pages.forEach((page, index) => {
+            // Bring the current page to the front
+            tl.set(page, {
+              zIndex: 25,
+            });
+
+            // Turn the page
+            tl.to(page, {
+              rotationY: -180,
+
+              duration: 1,
+
+              ease: "power2.inOut",
+            });
+
+            // Stack the turned page behind the next page
+            tl.set(page, {
+              zIndex: 10 + index,
+            });
+          });
+
+          // Keep final page visible
+          return () => {
+            if (timelineRef.current === tl) {
+              timelineRef.current = null;
             }
-          },
+          };
         },
-      });
+      );
 
-      timelineRef.current = timeline;
-
-      // -------------------------------------
-      // STAGE 1: BOOK ENTERS AND EXPANDS
-      // -------------------------------------
-
-      timeline.to(bookAreaRef.current, {
-        x: 0,
-        scale: 1,
-        duration: 0.75,
-        ease: "power2.out",
-      });
-
-      // -------------------------------------
-      // STAGE 2: OPEN THE FRONT COVER
-      // -------------------------------------
-
-      timeline.to(coverRef.current, {
-        rotationY: -180,
-        duration: 1,
-        ease: "power2.inOut",
-      });
-
-      /*
-        The back of the cover is now visible
-        as the inside-left page.
-      */
-
-      timeline.set(coverRef.current, {
-        zIndex: 5,
-      });
-
-      // -------------------------------------
-      // STAGE 3: TURN CATEGORY PAGES
-      // -------------------------------------
-
-      pageRefs.current.forEach((page, index) => {
-        timeline.to(page, {
-          rotationY: -180,
-          duration: 1,
-          ease: "power1.inOut",
-        });
-
-        /*
-          Stack the turned pages in order.
-          Each newly turned page sits above
-          the previous left-side pages.
-        */
-
-        timeline.set(page, {
-          zIndex: 16 + index,
-        });
-      });
+      return () => mm.revert();
     }, section);
 
     return () => {
-      timelineRef.current = null;
       ctx.revert();
+      timeline = null;
     };
   }, []);
 
@@ -443,8 +492,7 @@ export default function Skills() {
           {/* <p className="skills-eyebrow">A LITTLE ABOUT MY TOOLKIT</p> */}
 
           <h2 className="skills-heading">
-            Skills &
-            {/* <br /> */}
+            Skills &{/* <br /> */}
             <span>Technologies.</span>
           </h2>
 

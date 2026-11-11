@@ -37,7 +37,7 @@
   width: 100%;
   max-width: 1440px;
   height: 100%;
-  margin: 6vh 0 0 0;
+  /* margin: 1vh 0 0 0; */
 
   display: grid;
   /* grid-template-rows: 1fr 6fr; */
@@ -267,11 +267,13 @@
 
   align-self: center;
 
-  padding-right: 27px;
+  padding-right: 0px;
 
-  perspective: 2200px;
+   perspective: 1800px;
+  perspective-origin: 50% 50%;
 
-  transform-origin: center center;
+  transform-style: preserve-3d;
+
   will-change: transform;
 }
 
@@ -282,7 +284,7 @@
 
   aspect-ratio: 1.68 / 1;
 
-  max-height: 510px;
+  /* max-height: 510px; */
 
   transform-style: preserve-3d;
 
@@ -491,20 +493,21 @@
 
   background: #fffefa;
 
-  border-left: 1px solid #e9e5db;
+  border-left: 2px solid #71866a;
 
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
 
 .page-leaf-front {
+  background: #fffefa;
   padding: 4.5%;
 }
 
 .page-leaf-back {
   display: flex;
   flex-direction: column;
-
+  background: #eae9dc;
   padding: 5%;
 
   transform: rotateY(180deg);

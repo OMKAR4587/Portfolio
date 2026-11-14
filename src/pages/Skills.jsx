@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef, useState } from "react";
+
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLenis } from "lenis/react";
@@ -61,11 +62,11 @@ const categories = [
         name: "Tailwind CSS",
         description: "Utility-first styling",
       },
-      {
-        icon: <SiRedux />,
-        name: "Redux Toolkit",
-        description: "Predictable state management",
-      },
+      // {
+      //   icon: <SiRedux />,
+      //   name: "Redux Toolkit",
+      //   description: "Predictable state management",
+      // },
     ],
   },
   {
@@ -117,16 +118,16 @@ const categories = [
         name: "GitHub",
         description: "Code collaboration",
       },
-      {
-        icon: <SiPostman />,
-        name: "Postman",
-        description: "API testing",
-      },
-      {
-        icon: <SiFigma />,
-        name: "Figma",
-        description: "Interface design",
-      },
+      // {
+      //   icon: <SiPostman />,
+      //   name: "Postman",
+      //   description: "API testing",
+      // },
+      // {
+      //   icon: <SiFigma />,
+      //   name: "Figma",
+      //   description: "Interface design",
+      // },
       {
         icon: <SiGreensock />,
         name: "GSAP",
@@ -148,13 +149,11 @@ const categories = [
 function SkillPage({ category }) {
   return (
     <div className="skill-page-content">
-      {/* Page header */}
       <div className="page-topline">
         <span>CHAPTER {category.number}</span>
         <span>SKILLS / 2026</span>
       </div>
 
-      {/* Category heading */}
       <div className="page-heading">
         <span className="page-number">{category.number}</span>
 
@@ -163,7 +162,6 @@ function SkillPage({ category }) {
         <p>{category.subtitle}</p>
       </div>
 
-      {/* Skills list */}
       <div className="book-skill-list">
         {category.skills.map((skill, index) => (
           <div className="book-skill" key={skill.name}>
@@ -181,7 +179,6 @@ function SkillPage({ category }) {
         ))}
       </div>
 
-      {/* Page footer */}
       <div className="page-footer">
         <span>TECHNOLOGY & PRACTICE</span>
         <span>{category.number} — 04</span>
@@ -211,29 +208,33 @@ function PageBack({ number }) {
 ========================================= */
 
 export default function Skills() {
-  // Main pinned section.
+  // Main pinned section
   const sectionRef = useRef(null);
 
-  // Book entrance and cover animation.
+  // Book references
   const bookAreaRef = useRef(null);
   const coverRef = useRef(null);
 
-  // Individual turning pages.
+  // Turning pages
   const pageRefs = useRef([]);
 
-  // GSAP timeline.
+  // Timeline
   const timelineRef = useRef(null);
 
-  // Prevent unnecessary active category updates.
+  // Active category
   const activeIndexRef = useRef(0);
-
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // Reuse the Lenis instance from the main application.
+  // Other animated elements
+  const headingRef = useRef(null);
+  const sidebarRef = useRef(null);
+  const captionRef = useRef(null);
+
+  // Existing Lenis instance
   const lenis = useLenis();
 
   /* =========================================
-     BOOK ANIMATION
+     BOOK + SECTION ANIMATION
   ========================================= */
 
   useLayoutEffect(() => {
@@ -241,10 +242,7 @@ export default function Skills() {
 
     if (!section) return;
 
-    let timeline = null;
-
     const ctx = gsap.context(() => {
-      // Responsive animation setup
       const mm = gsap.matchMedia();
 
       mm.add(
@@ -260,74 +258,108 @@ export default function Skills() {
 
           const pages = pageRefs.current.filter(Boolean);
 
+          const heading = headingRef.current;
+          const sidebar = sidebarRef.current;
+          const caption = captionRef.current;
+
           if (!book || !cover || !pages.length) return;
 
-          // -------------------------------------
-          // RESPONSIVE VALUES
-          // -------------------------------------
+          /* -------------------------------------
+             RESPONSIVE BOOK POSITION
+          ------------------------------------- */
 
-          const initialX = isMobile ? -24 : -320;
-          const finalX = isMobile ? 0 : -70;
+          gsap.set(book, {
+            x: 0,
+            y: 0,
+            scale: 1,
+          });
+
+          // const bookRect = book.getBoundingClientRect();
+          // const sectionRect = section.getBoundingClientRect();
+
+          const centerX = 500
+          const initialX = isMobile ? 0 : centerX;
+          const finalX = isMobile ? 0 : -50;
 
           const initialScale = isMobile ? 0.94 : 0.9;
           const finalScale = isMobile ? 1 : 1.04;
 
-          // -------------------------------------
-          // INITIAL BOOK STATE
-          // -------------------------------------
+          /* -------------------------------------
+             INITIAL BOOK STATE
+          ------------------------------------- */
 
           gsap.set(book, {
             x: initialX,
             scale: initialScale,
-
             transformOrigin: "center center",
             transformPerspective: 1800,
-
             force3D: true,
             willChange: "transform",
           });
 
-          // -------------------------------------
-          // COVER INITIAL STATE
-          // -------------------------------------
+          /* -------------------------------------
+             COVER INITIAL STATE
+          ------------------------------------- */
 
           gsap.set(cover, {
             rotationY: 0,
-
             transformOrigin: "left center",
             transformPerspective: 1800,
-
             transformStyle: "preserve-3d",
             backfaceVisibility: "hidden",
-
             zIndex: 30,
-
             force3D: true,
           });
 
-          // -------------------------------------
-          // PAGE INITIAL STATES
-          // -------------------------------------
+          /* -------------------------------------
+             PAGE INITIAL STATES
+          ------------------------------------- */
 
           pages.forEach((page, index) => {
             gsap.set(page, {
               rotationY: 0,
-
               transformOrigin: "left center",
               transformPerspective: 1800,
-
               transformStyle: "preserve-3d",
               backfaceVisibility: "hidden",
-
               zIndex: 20 - index,
-
               force3D: true,
             });
           });
 
-          // -------------------------------------
-          // MASTER TIMELINE
-          // -------------------------------------
+          /* -------------------------------------
+             CONTENT REFERENCES
+          ------------------------------------- */
+
+          const rightPageContent = book.querySelector(
+            ".book-right-page .skill-page-content",
+          );
+
+          const pageContents = pages.map((page) =>
+            page.querySelector(".page-leaf-front .skill-page-content"),
+          );
+
+          const chapterContents = [...pageContents, rightPageContent].filter(
+            Boolean,
+          );
+
+          /* -------------------------------------
+             INITIAL CONTENT VISIBILITY
+          ------------------------------------- */
+
+          gsap.set(chapterContents, {
+            autoAlpha: 0,
+            y: 10,
+          });
+
+          gsap.set([heading, sidebar, caption].filter(Boolean), {
+            autoAlpha: 0,
+            y: 18,
+          });
+
+          /* -------------------------------------
+             MASTER TIMELINE
+          ------------------------------------- */
 
           const tl = gsap.timeline({
             defaults: {
@@ -336,20 +368,16 @@ export default function Skills() {
 
             scrollTrigger: {
               trigger: section,
-
               start: "top top",
               end: () => `+=${window.innerHeight * 4.75}`,
-
               pin: true,
               scrub: 0.8,
-
               anticipatePin: 1,
               invalidateOnRefresh: true,
 
               onUpdate: (self) => {
                 const progress = self.progress * 4.75;
 
-                // Category synchronization
                 const index = gsap.utils.clamp(
                   0,
                   3,
@@ -364,65 +392,136 @@ export default function Skills() {
             },
           });
 
-          timeline = tl;
           timelineRef.current = tl;
 
-          // -------------------------------------
-          // STAGE 1: BOOK ENTRANCE
-          // -------------------------------------
+          /* =====================================
+             STAGE 1: BOOK ENTRANCE
+          ===================================== */
 
+          // Book moves from center to its layout position.
           tl.to(book, {
             x: finalX,
             scale: finalScale,
-
             duration: 0.75,
-
             ease: "power2.out",
           });
 
-          // -------------------------------------
-          // STAGE 2: COVER OPENING
-          // -------------------------------------
+          // Heading reveals smoothly.
+          if (heading) {
+            tl.to(
+              heading,
+              {
+                autoAlpha: 1,
+                y: 0,
+                duration: 0.45,
+                ease: "power2.out",
+              },
+              0.30,
+            );
+          }
 
+          /* =====================================
+             STAGE 2: COVER OPENING
+          ===================================== */
+
+          // Original cover animation preserved.
           tl.to(cover, {
             rotationY: -180,
-
             duration: 1,
-
             ease: "power2.inOut",
           });
 
-          // Put the opened cover behind the pages
+          // Sidebar appears as the cover opens.
+          if (sidebar) {
+            tl.to(
+              sidebar,
+              {
+                autoAlpha: 1,
+                y: 0,
+                duration: 0.55,
+                ease: "power2.out",
+              },
+              1.1,
+            );
+          }
+
+          // Caption appears with the sidebar.
+          if (caption) {
+            tl.to(
+              caption,
+              {
+                autoAlpha: 1,
+                y: 0,
+                duration: 0.45,
+                ease: "power2.out",
+              },
+              1.2,
+            );
+          }
+
+          // First chapter and right page become visible.
+          const firstContents = [pageContents[0], rightPageContent].filter(
+            Boolean,
+          );
+
+          if (firstContents.length) {
+            tl.to(
+              firstContents,
+              {
+                autoAlpha: 1,
+                y: 0,
+                duration: 0.35,
+                ease: "power2.out",
+                stagger: 0.08,
+              },
+              1.35,
+            );
+          }
+
+          // Original cover stacking behavior.
           tl.set(cover, {
             zIndex: 5,
           });
 
-          // -------------------------------------
-          // STAGE 3: PAGE TURNING
-          // -------------------------------------
+          /* =====================================
+             STAGE 3: PAGE TURNING
+          ===================================== */
 
           pages.forEach((page, index) => {
-            // Bring the current page to the front
+            // Bring the current page to the front.
             tl.set(page, {
               zIndex: 25,
             });
 
-            // Turn the page
+            // Original page-turn animation preserved.
             tl.to(page, {
               rotationY: -180,
-
               duration: 1,
-
               ease: "power2.inOut",
             });
 
-            // Stack the turned page behind the next page
+            // Reveal the next chapter during the turn.
+            const nextContent = pageContents[index + 1];
+
+            if (nextContent) {
+              tl.to(
+                nextContent,
+                {
+                  autoAlpha: 1,
+                  y: 0,
+                  duration: 0.35,
+                  ease: "power2.out",
+                },
+                `-=${0.42}`,
+              );
+            }
+
+            // Original page stacking behavior.
             tl.set(page, {
               zIndex: 10 + index,
             });
           });
 
-          // Keep final page visible
           return () => {
             if (timelineRef.current === tl) {
               timelineRef.current = null;
@@ -436,7 +535,6 @@ export default function Skills() {
 
     return () => {
       ctx.revert();
-      timeline = null;
     };
   }, []);
 
@@ -450,9 +548,6 @@ export default function Skills() {
     if (!trigger) return;
 
     /*
-      Each category has a corresponding
-      scroll position in the pinned timeline.
-
       Frontend = 1.75
       Backend  = 2.75
       Database = 3.75
@@ -488,170 +583,156 @@ export default function Skills() {
       aria-label="My technical skills"
     >
       <div className="skills-layout">
-        <div className="skills-main-heading">
-          {/* <p className="skills-eyebrow">A LITTLE ABOUT MY TOOLKIT</p> */}
+        {/* SECTION HEADING */}
+
+        <header ref={headingRef} className="skills-main-heading">
+          <p className="skills-eyebrow">A LITTLE ABOUT MY TOOLKIT</p>
 
           <h2 className="skills-heading">
-            Skills &{/* <br /> */}
-            <span>Technologies.</span>
-          </h2>
-
-          {/* <p className="skills-intro">
-            The tools and technologies I use to turn ideas into thoughtful
-            digital experiences.
-          </p> */}
-        </div>
-        {/* =================================
-            LEFT SIDE: INTRO + CATEGORIES
-        ================================= */}
-
-        <aside className="skills-sidebar">
-          {/* <p className="skills-eyebrow">
-            A LITTLE ABOUT MY TOOLKIT
-          </p>
-
-          <h2 className="skills-heading">
-            Skills &
-            <br />
-            <span>Technologies.</span>
+            Skills & <span>Technologies.</span>
           </h2>
 
           <p className="skills-intro">
-            The tools and technologies I use to turn ideas
-            into thoughtful digital experiences.
-          </p> */}
+            The tools and technologies I use to turn ideas into thoughtful
+            digital experiences.
+          </p>
+        </header>
 
-          {/* Chapter navigation */}
-          <nav className="skills-category-list" aria-label="Skill categories">
-            {categories.map((category, index) => (
-              <button
-                key={category.title}
-                type="button"
-                className={`skills-category ${
-                  activeIndex === index ? "active" : ""
-                }`}
-                onClick={() => handleCategoryClick(index)}
-                aria-pressed={activeIndex === index}
-              >
-                <span className="category-number">{category.number}</span>
+        {/* MAIN CONTENT */}
 
-                <span className="category-name">{category.title}</span>
+        <div className="skills-content">
+          {/* LEFT: CATEGORY NAVIGATION */}
 
-                <span className="category-arrow" aria-hidden="true">
-                  ↗
-                </span>
-              </button>
-            ))}
-          </nav>
-        </aside>
+          <aside ref={sidebarRef} className="skills-sidebar">
+            <div className="skills-sidebar-heading">
+              <span className="sidebar-label">EXPLORE THE ARCHIVE</span>
 
-        {/* =================================
-            RIGHT SIDE: BOOK
-        ================================= */}
-
-        <div className="skills-book-area" ref={bookAreaRef}>
-          <div className="skills-book">
-            {/* ---------------------------------
-                FINAL RIGHT PAGE: TOOLS
-                This remains underneath the leaves.
-            --------------------------------- */}
-
-            <div className="book-right-page">
-              <SkillPage category={categories[3]} />
+              <p>Select a chapter to explore my technical toolkit.</p>
             </div>
 
-            {/* ---------------------------------
-                THREE INDIVIDUAL TURNING PAGES
-            --------------------------------- */}
+            <nav className="skills-category-list" aria-label="Skill categories">
+              {categories.map((category, index) => (
+                <button
+                  key={category.title}
+                  type="button"
+                  className={`skills-category ${
+                    activeIndex === index ? "active" : ""
+                  }`}
+                  onClick={() => handleCategoryClick(index)}
+                  aria-pressed={activeIndex === index}
+                >
+                  <span className="category-number">{category.number}</span>
 
-            {categories.slice(0, 3).map((category, index) => (
-              <div
-                key={category.title}
-                ref={(element) => {
-                  pageRefs.current[index] = element;
-                }}
-                className={`page-leaf page-leaf-${index + 1}`}
-                style={{
-                  zIndex: 15 - index,
-                }}
-              >
-                {/* Front side of the sheet */}
-                <div className="page-leaf-front">
-                  <SkillPage category={category} />
+                  <span className="category-name">{category.title}</span>
+
+                  <span className="category-arrow" aria-hidden="true">
+                    ↗
+                  </span>
+                </button>
+              ))}
+            </nav>
+
+            <div className="skills-sidebar-footer">
+              <span>04 CHAPTERS</span>
+              <span>2026 EDITION</span>
+            </div>
+          </aside>
+
+          {/* RIGHT: INTERACTIVE BOOK */}
+
+          <div className="skills-book-column">
+            <div className="skills-book-area" ref={bookAreaRef}>
+              <div className="skills-book">
+                {/* FINAL RIGHT PAGE: TOOLS */}
+
+                <div className="book-right-page">
+                  <SkillPage category={categories[3]} />
                 </div>
 
-                {/* Back side of the sheet */}
-                <div className="page-leaf-back">
-                  <PageBack number={category.number} />
-                </div>
-              </div>
-            ))}
+                {/* TURNING PAGES */}
 
-            {/* ---------------------------------
-                FRONT COVER
-                The reverse side becomes the
-                inside-left page when opened.
-            --------------------------------- */}
+                {categories.slice(0, 3).map((category, index) => (
+                  <div
+                    key={category.title}
+                    ref={(element) => {
+                      pageRefs.current[index] = element;
+                    }}
+                    className={`page-leaf page-leaf-${index + 1}`}
+                    style={{
+                      zIndex: 15 - index,
+                    }}
+                  >
+                    <div className="page-leaf-front">
+                      <SkillPage category={category} />
+                    </div>
 
-            <div className="book-cover" ref={coverRef}>
-              {/* Front cover */}
-              <div className="cover-front">
-                <div className="cover-inset">
-                  <div className="cover-top">
-                    <span>PERSONAL ARCHIVE</span>
-                    <span>VOL. 001</span>
+                    <div className="page-leaf-back">
+                      <PageBack number={category.number} />
+                    </div>
+                  </div>
+                ))}
+
+                {/* FRONT COVER */}
+
+                <div className="book-cover" ref={coverRef}>
+                  <div className="cover-front">
+                    <div className="cover-inset">
+                      <div className="cover-top">
+                        <span>PERSONAL ARCHIVE</span>
+                        <span>VOL. 001</span>
+                      </div>
+
+                      <div className="cover-title">
+                        <span>THE</span>
+
+                        <h3>DEV</h3>
+                        <h3>BOOK.</h3>
+
+                        <p>
+                          A COLLECTION OF SKILLS
+                          <br />& TECHNOLOGIES
+                        </p>
+                      </div>
+
+                      <div className="cover-bottom">
+                        <span>DESIGN. DEVELOP. CREATE.</span>
+                        <span>2026</span>
+                      </div>
+                    </div>
                   </div>
 
-                  <div className="cover-title">
-                    <span>THE</span>
+                  {/* INSIDE COVER */}
 
-                    <h3>DEV</h3>
-                    <h3>BOOK.</h3>
+                  <div className="cover-back">
+                    <div className="inside-cover-content">
+                      <span className="inside-cover-label">MY TOOLKIT</span>
 
-                    <p>
-                      A COLLECTION OF SKILLS
-                      <br />& TECHNOLOGIES
-                    </p>
+                      <span className="inside-cover-symbol">✳</span>
+
+                      <h3>
+                        Curiosity
+                        <br />
+                        meets
+                        <br />
+                        creation.
+                      </h3>
+
+                      <span className="inside-cover-number">04</span>
+                    </div>
                   </div>
-
-                  <div className="cover-bottom">
-                    <span>DESIGN. DEVELOP. CREATE.</span>
-                    <span>2026</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Inside cover / left page */}
-              <div className="cover-back">
-                <div className="inside-cover-content">
-                  <span className="inside-cover-label">MY TOOLKIT</span>
-
-                  <span className="inside-cover-symbol">✳</span>
-
-                  <h3>
-                    Curiosity
-                    <br />
-                    meets
-                    <br />
-                    creation.
-                  </h3>
-
-                  <span className="inside-cover-number">04</span>
                 </div>
               </div>
             </div>
+
+            {/* BOOK CAPTION */}
+
+            {/* <div ref={captionRef} className="book-caption">
+              <span>AN INTERACTIVE SKILL ARCHIVE</span>
+
+              <span>{categories[activeIndex].number} / 04</span>
+            </div> */}
           </div>
         </div>
-        {/* Book caption */}
-        {/* <div className="book-caption">
-
-            <span>AN INTERACTIVE SKILL ARCHIVE</span>
-
-            <span>
-              {categories[activeIndex].number} / 04
-            </span>
-
-          </div> */}
       </div>
     </section>
   );

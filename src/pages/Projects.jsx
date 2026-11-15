@@ -103,7 +103,7 @@ export default function Projects() {
           />
 
           {/* SECOND PROJECT */}
-          <article className="my-project-2">
+          {/* <article className="my-project-2">
             <div className="one-color">
               <figure className="project-holder-2">
                 <video
@@ -120,7 +120,7 @@ export default function Projects() {
                 </video>
               </figure>
             </div>
-          </article>
+          </article> */}
 
           {/* THIRD PROJECT */}
           <article className="my-project-3">

@@ -28,7 +28,7 @@
     pointer-events: none;
     object-fit: cover;
     /* border-radius: 10px; */
-    clip-path: inset(28% 15% 28% 15% round 30px);
+    clip-path: inset(10% 15% 28% 15% round 30px);
   }
 
   .zero-color {
@@ -211,7 +211,7 @@
     .project-detail-container-1,
     .project-detail-container-2,
     .project-detail-container-3 {
-      width: 28%;
+      width: 30%;
       /* height: min(500px, 60vh); */
       right: 7%;
       padding: 24px;

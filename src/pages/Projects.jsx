@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "../stylesheets/Project.css";
 import ProjectCardAnimation from "../hooks/ProjectCardAnimation";
@@ -95,12 +95,17 @@ export default function Projects() {
       <section className="Project-section" aria-label="Project previews">
         <div className="Project-container" ref={projectRef}>
           {/* FIRST PROJECT OVERLAY */}
-          <img
+          <video
             className="project-container-overlay"
-            src={overlayImg}
-            alt=""
-            aria-hidden="true"
-          />
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            aria-label="Dashforge project preview"
+          >
+            <source src={dashforgeProject} type="video/mp4" />
+          </video>
 
           {/* SECOND PROJECT */}
           <article className="my-project-2">
@@ -129,7 +134,20 @@ export default function Projects() {
                 className="project-holder-3"
                 role="img"
                 aria-label="Third project preview"
-              />
+              >
+                <video
+                  className="project-video"
+                  autoPlay
+                  muted
+                  playsInline
+                  loop
+                  preload="metadata"
+                  aria-label="Dashforge project preview"
+                >
+                  <source src={dashforgeProject} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </figure>
             </div>
           </article>
         </div>

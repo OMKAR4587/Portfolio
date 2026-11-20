@@ -80,7 +80,7 @@ const ProjectCardAnimation = (sectionRef, projectRef) => {
       })
 
         .to(".project-container-overlay", {
-          clipPath: "inset(0% 0% round 30px)",
+          clipPath: "inset(0% 0% 0% round 30px)",
           duration: 2,
           ease: "none",
         })

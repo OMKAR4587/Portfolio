@@ -5,6 +5,7 @@ import ProjectCardAnimation from "../hooks/ProjectCardAnimation";
 
 import overlayImg from "../assets/images/project-one-bg.png";
 import dashforgeProject from "../assets/videos/dashforge-project-overview.mp4";
+import kickshubProject from "../assets/videos/kickshub-project-overview.mp4";
 
 const projects = [
   {
@@ -144,7 +145,7 @@ export default function Projects() {
                   preload="metadata"
                   aria-label="Dashforge project preview"
                 >
-                  <source src={dashforgeProject} type="video/mp4" />
+                  <source src={kickshubProject} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
               </figure>

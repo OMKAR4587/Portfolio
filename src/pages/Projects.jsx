@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../stylesheets/Project.css";
 import ProjectCardAnimation from "../hooks/ProjectCardAnimation";
 
-import overlayImg from "../assets/images/project-one-bg.png";
+// import overlayImg from "../assets/images/project-one-bg.png";
 import dashforgeProject from "../assets/videos/dashforge-project-overview.mp4";
 import kickshubProject from "../assets/videos/kickshub-project-overview.mp4";
 

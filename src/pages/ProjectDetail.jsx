@@ -84,7 +84,7 @@ const projectDetails = {
         "Financial information is sourced through the configured providers.",
       ],
     ],
-    liveUrl: "https://dashforge-frontend-hrht.onrender.com/",
+    liveUrl: "https://dashforge-xe5z.onrender.com/",
     githubUrl: "https://github.com/OMKAR4587/DASHFORGE",
     heroImage:
       "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=2200&q=85",
@@ -168,8 +168,8 @@ const projectDetails = {
         "The interface displays formatted AI responses and interaction states.",
       ],
     ],
-    liveUrl: "",
-    githubUrl: "",
+    liveUrl: "https://novachat-ai-4wnw.onrender.com/",
+    githubUrl: "https://github.com/OMKAR4587/NovaChat",
     heroImage:
       "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=2200&q=85",
     images: [
@@ -243,8 +243,8 @@ const projectDetails = {
       ],
       ["04", "Checkout", "Stripe provides the payment integration."],
     ],
-    liveUrl: "",
-    githubUrl: "",
+    liveUrl: "https://kickshub-otsa.onrender.com/",
+    githubUrl: "https://github.com/OMKAR4587/kickshub",
     heroImage:
       "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=2200&q=85",
     images: [

@@ -506,22 +506,31 @@ function ProjectDetail() {
       ref={pageRef}
       style={{ "--case-accent": project.accent }}
     >
-      <nav className="case-nav">
-        <Link to="/#projects" className="case-back">
-          <span className="back-icon">↖</span>
-          <span>Back to projects</span>
-        </Link>
+      <nav className="project-breadcrumb">
+        <div className="breadcrumb-trail">
+          <Link to="/" className="breadcrumb-home">
+            <span className="home-icon">⌂</span>
+            <span>Home</span>
+          </Link>
 
-        <div className="case-nav-center">
-          <span className="nav-label">SELECTED WORK</span>
-          <span className="nav-divider" />
-          <span className="nav-category">INDEPENDENT / {project.year}</span>
+          <span className="breadcrumb-arrow">/</span>
+
+          <Link to="/#projects" className="breadcrumb-link">
+            Projects
+          </Link>
+
+          <span className="breadcrumb-arrow">/</span>
+
+          <span className="breadcrumb-active">
+            {project.title || "Dashforge"}
+            <span className="active-arrow">↗</span>
+          </span>
         </div>
 
-        <div className="case-nav-number">
-          <span className="number-current">{project.number}</span>
-          <span className="number-divider">/</span>
-          <span className="number-total">03</span>
+        <div className="breadcrumb-count">
+          <span>{project.number}</span>
+          <span className="count-line"></span>
+          <span>03</span>
         </div>
       </nav>
 

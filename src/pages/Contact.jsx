@@ -218,17 +218,17 @@ const Contact = () => {
         {/* TOP BAR */}
         <div className="contact-topbar contact-reveal">
           <span className="contact-brand">
-            Portfolio<span>®</span>
+            Connect<span>®</span>
           </span>
 
           <span className="contact-status">
             <i />
-            Open to conversations
+            Open to conversations``
           </span>
 
-          <span className="contact-year">
+          {/* <span className="contact-year">
             Contact — {new Date().getFullYear()}
-          </span>
+          </span> */}
         </div>
 
         {/* MAIN PANEL */}
@@ -506,10 +506,10 @@ const Contact = () => {
 
         </div>
 
-        <div className="contact-bottom-line contact-reveal">
+        {/* <div className="contact-bottom-line contact-reveal">
           <span>Designed with intention.</span>
           <span>© {new Date().getFullYear()}</span>
-        </div>
+        </div> */}
 
       </div>
 

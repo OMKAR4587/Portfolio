@@ -25,6 +25,32 @@ const App = () => {
   const boxRef = useRef(null);
   const lenis = useLenis();
 
+    useEffect(() => {
+    // Disable right click
+    const handleContextMenu = (e) => {
+      e.preventDefault();
+    };
+
+    // Block common inspect shortcuts
+    const handleKeyDown = (e) => {
+      if (
+        e.key === "F12" ||
+        (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key.toUpperCase())) ||
+        (e.ctrlKey && e.key.toUpperCase() === "U")
+      ) {
+        e.preventDefault();
+      }
+    };
+
+    document.addEventListener("contextmenu", handleContextMenu);
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("contextmenu", handleContextMenu);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
   // GSAP scroll animation
   useEffect(() => {
     const ctx = gsap.context(() => {
